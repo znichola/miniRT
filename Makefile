@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 16:04:08 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/13 17:29:19 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,10 @@ CFLAGS += -g3
 endif
 endif
 
-UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release
-RENDER_FILES	:= render_frame
+UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release keyboard_press
+RENDER_FILES	:= render_frame put_pixel
 
-HEADER_FILES	:= structs defines render control_enums
+HEADER_FILES	:= structs defines render control_enums colour
 
 FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES))

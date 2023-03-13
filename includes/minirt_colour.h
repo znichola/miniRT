@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_movement_track.c                             :+:      :+:    :+:   */
+/*   minirt_colour.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 15:18:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 16:17:07 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 17:02:16 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 17:27:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MINIRT_COLOUR_H
+# define MINIRT_COLOUR_H
 
-int	mouse_movement_track(int x, int y, t_app *a)
-{
-	a->mouse_pos.x = x;
-	a->mouse_pos.y = y;
-	// printf("new mouse_pos recorded (%d, %d)\n", x, y);
-	return (0);
-}
+# define MRT_BLACK		0x00000000
+# define MRT_WHITE		0x00ffffff
+# define MRT_LIGHT_BLUE	0x004a7a96
+
+#endif /* MINIRT_COLOUR_H */

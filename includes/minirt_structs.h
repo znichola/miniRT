@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 15:49:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:40:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef	struct s_app
 	void		*window;
 
 	t_v2int		mouse_pos;
+	int			mouse_key_click[MOUSE_KEY_COUNT];
+	int			mouse_key_held[MOUSE_KEY_COUNT];
+	int			mouse_key_release[MOUSE_KEY_COUNT];
+
+	int			keyboard_press[KEYBOARD_KEY_COUNT];
+	int			keyboard_held[KEYBOARD_KEY_COUNT];
+	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
 	t_v2int		circle;
 }	t_app;
