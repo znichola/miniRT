@@ -3,3 +3,4 @@ objs
 *.o
 miniRT
 mlx/libmlx.a
+tests/*test

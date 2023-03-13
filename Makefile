@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 13:51:48 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/13 14:15:52 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CFLAGS += -g3
 endif
 endif
 
-FILES	= main
+PARSING_FILES = parse
+FILES	= main $(addprefix parsing/, $(PARSING_FILES))
 HEADERS = includes/minirt.h
 
 OBJS_PATH = objs/
@@ -61,3 +62,8 @@ $(LIBFT):
 	@$(MAKE) -C libft
 
 re: clean all
+
+# tests below
+
+tests/parsing_test: $(filter-out objs/main.o, $(OBJS)) tests/parsing_test.c
+	$(CC) $(CFLAGS) -o $@ -Iincludes $^
