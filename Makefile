@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 14:28:17 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/13 14:33:12 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,20 @@ endif
 endif
 
 PARSING_FILES = parse
-FILES	= main $(addprefix parsing/, $(PARSING_FILES))
-HEADERS = includes/minirt.h
+SRC_FILES     = main $(addprefix parsing/, $(PARSING_FILES))
+HEADER_FILES  = minirt
 
 OBJS_PATH = objs/
 SRCS_PATH = srcs/
-INCS_PATH = -Iincludes/. -Imlx -Ilibft/includes -Ignl
 LIBS_PATH = -Lmlx -Llibft -Lgnl
 LIBS      = -lmlx -lft -lgnl
+HEADR_PATH	= includes/
+INCS_PATH = -I$(HEADR_PATH). -Imlx -Ilibft/includes -Ignl
 FRAMEWORK = -framework OpenGL -framework AppKit
 
-SRCS	= $(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
-OBJS	= $(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
+SRCS	= $(addprefix $(SRCS_PATH), $(addsuffix .c, $(SRC_FILES)))
+OBJS	= $(addprefix $(OBJS_PATH), $(addsuffix .o, $(SRC_FILES)))
+HEADERS	= $(addprefix $(HEADR_PATH), $(addsuffix .h, $(HEADER_FILES)))
 
 MLX = mlx/libmlx.a
 LIBFT = libft/libft.a
