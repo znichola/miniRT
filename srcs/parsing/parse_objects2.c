@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parse_objects2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 16:51:34 by skoulen          ###   ########.fr       */
+/*   Created: 2023/03/13 17:58:01 by skoulen           #+#    #+#             */
+/*   Updated: 2023/03/13 17:58:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "parsing.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <string.h>
-# include <stdio.h>
+int	parse_sphere(const char **line)
+{
+	(void)line;
+	printf("sphere\n");
+	return (0);
+}
 
-# include "get_next_line.h"
-# include "libft.h"
+int	parse_plane(const char **line)
+{
+	(void)line;
+	printf("plane\n");
+	return (0);
+}
 
-int		parse(const char *filename);
-
-/* parse utils */
-char	*get_word(const char **str);
-int		is_only_whitespace(const char *str);
-
-#endif
+int	parse_cylinder(const char **line)
+{
+	(void)line;
+	printf("cylinder\n");
+	return (0);
+}

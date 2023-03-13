@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 15:47:16 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/16 15:15:53 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light lerp_colour
 MATHS_FILES		:= vector
 UTILS_FILES		:= debug_prints
-PARSING_FILES := parse
+PARSING_FILES := parse parse_utils
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
@@ -40,7 +40,6 @@ FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILE
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
           $(addprefix parsing/, $(PARSING_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
-
 
 OBJS_PATH = objs/
 SRCS_PATH = srcs/
@@ -89,7 +88,7 @@ re: clean all
 OBJS_TO_TEST = $(filter-out objs/main.o, $(OBJS))
 
 # parsing
-PARSING_TEST_FILES = $(addprefix tests/parsing/files/, valid1.rt)
+PARSING_TEST_FILES = $(addprefix tests/parsing/files/, valid1.rt valid2.rt)
 PARSING_TEST_EXEC = tests/parsing/parsing_test
 PARSING_TEST_SRC = tests/parsing/parsing_test.c
 
