@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 18:30:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:26:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void debug_print_held(t_app *a);
 int	render_frame(t_app *a)
 {
 	static t_v2int old_pos;
+	int change_flag = 0;
 
 	debug_print_held(a);
 
@@ -24,19 +25,27 @@ int	render_frame(t_app *a)
 		old_pos = a->mouse_pos;
 	else if (a->mouse_key_held[e_mouse_left])
 	{
-		printf("inhere\n");
-		a->radius += (old_pos.y - a->mouse_pos.y);
+		// printf("inhere\n");
+		float	*scale_a = &a->light.y;
+		float	*scale_b = &a->light.x;
+		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.01;
+		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.01;
+		printf("modified to (%f, %f)\n", *scale_a, *scale_b);
 		old_pos = a->mouse_pos;
-		if (a->radius < 0)
-			a->radius = 0;
-		if (a->radius > a->img.height / 2)
-			a->radius = a->img.height - 1;
-		if (a->radius > a->img.width / 2)
-			a->radius = a->img.width - 1;
+		// if (*scale < 0)
+		// 	*scale = 0;
+		// if (*scale > a->img.height / 2)
+		// 	*scale = a->img.height - 1;
+		// if (*scale > a->img.width / 2)
+		// 	*scale = a->img.width - 1;
+		change_flag = 1;
 	}
 
-	fill_screen(&a->img, MRT_BLACK);
-
+	if (change_flag)
+	{
+		fill_screen(&a->img, MRT_BLACK);
+		render_sphere(a);
+	}
 	// put_circle_fast(&a->img, a->radius, a->circle, MRT_WHITE);
 
 	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));

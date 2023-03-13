@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:05:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 18:30:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:14:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	wrapper_pixel_put(t_img_data *img, int x, int y, int colour)
 {
 	x += img->width / 2;
-	y -= img->height / 2;
+	y += img->height / 2;
 	my_mlx_pixel_put(img, x, y, colour);
 }
 
@@ -25,10 +25,13 @@ void	my_mlx_pixel_put(t_img_data *img, int x, int y, int colour)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x > img->width || y > img->height)
+	if (x < 0 || y < 0 || x > img->width - 1 || y > img->height - 1)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = colour;
+	if (colour >= MRT_BLACK && colour <= MRT_WHITE)
+		*(unsigned int *)dst = colour;
+	else
+		*(unsigned int *)dst = MRT_PINK;
 }
 
 // fast aproximative algo from stackoverflow

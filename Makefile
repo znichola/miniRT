@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 18:53:39 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/13 23:35:13 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ endif
 endif
 
 UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release keyboard_press
-RENDER_FILES	:= render_frame put_pixel render_sphere
+RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour
 MATHS_FILES		:= vector
 
 HEADER_FILES	:= structs defines render control_enums colour maths

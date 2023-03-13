@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 18:55:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:08:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct	s_v2int
 */
 typedef struct s_v3
 {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 }	t_v3;
 
 
@@ -72,7 +72,8 @@ typedef	struct s_app
 	// t_v2int		circle;
 	t_v3		circle;
 	t_v3		light;
-	int			radius;
+	// int			radius;
+	float		radius;
 
 }	t_app;
 

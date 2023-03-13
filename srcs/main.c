@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 18:42:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:06:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main()
 {
 	t_app	a;
 
+	// a = (t_app){}
 	ft_putstr_fd("hello raytraced world\n", 1);
 
 	// initialising everything to 0 so we are sure it's all copacetic
@@ -32,7 +33,7 @@ int	main()
 						&a.img.endian);
 
 	// a.circle = (t_v2int){WIDTH / 2, HEIGHT / 2};
-	a.circle = (t_v3){0, 0, 200};
+	a.circle = (t_v3){0, 0, 80}; // lefthanded rule?
 	a.light = (t_v3){50, 300, 0};
 	a.radius = 50;
 

@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_maths.h                                     :+:      :+:    :+:   */
+/*   trpg_colour.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 23:09:20 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 23:34:36 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 23:35:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_MATHS_H
-# define MINIRT_MATHS_H
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
-# include "minirt_structs.h"
+int	get_t(int trgb)
+{
+	return ((trgb >> 24) & 0xFF);
+}
 
-float	v3_mag(t_v3 v);
-t_v3	v3_unitvec(t_v3 v);
-t_v3	v3_perp(t_v3 v);
-float	v3_dot(t_v3 a, t_v3 b);
-float	v3_cross(t_v3 a, t_v3 b);
-t_v3	v3_vadd(t_v3 a, t_v3 b);
-t_v3	v3_subtract(t_v3 a, t_v3 b);
-t_v3	v3_multiply(t_v3 v, float s);
-t_v3	v3_divide(t_v3 v, float s);
+int	get_r(int trgb)
+{
+	return ((trgb >> 16) & 0xFF);
+}
 
+int	get_g(int trgb)
+{
+	return ((trgb >> 8) & 0xFF);
+}
 
-#endif /* MINIRT_VECTOR_H */
+int	get_b(int trgb)
+{
+	return (trgb & 0xFF);
+}
