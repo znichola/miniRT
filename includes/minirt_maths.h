@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   minirt_maths.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 18:57:07 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 18:53:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_MATHS_H
+# define MINIRT_MATHS_H
 
-# include <stdio.h>
-
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
 # include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour.h"
-# include "minirt_maths.h"
 
-/* destroy window */
+float	v3_mag(t_v3 v);
+t_v3	v3_norm(t_v3 v);
+t_v3	v3_perp(t_v3 v);
+float	v3_dot(t_v3 a, t_v3 b);
+float	v3_cross(t_v3 a, t_v3 b);
+t_v3	v3_vadd(t_v3 a, t_v3 b);
+t_v3	v3_subtract(t_v3 a, t_v3 b);
+t_v3	v3_multiply(t_v3 v, float s);
+t_v3	v3_divide(t_v3 v, float s);
 
 
-#endif
+#endif /* MINIRT_VECTOR_H */

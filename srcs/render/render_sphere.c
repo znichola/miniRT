@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   render_sphere.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 18:57:07 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 21:19:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
+void	render_sphere(t_app *a)
+{
+	int camera_offset = 50;
 
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour.h"
-# include "minirt_maths.h"
-
-/* destroy window */
-
-
-#endif
+	for (int x = - a->img.width / 2; x < a->img.width; x++)
+	{
+		for (int y = - a->img.height / 2; y < a->img.height; x++)
+		{
+			t_v3 vec = (t_v3){x, y, camera_offset};
+			vec = v3_norm(vec);
+		}
+	}
+}

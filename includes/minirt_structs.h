@@ -6,12 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 16:40:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:55:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_STRUCTS_H
 # define MINIRT_STRUCTS_H
+
+# include "minirt_control_enums.h"
 
 /*
 	used to reprisent a pixel on the screen
@@ -24,6 +26,17 @@ typedef struct	s_v2int
 }				t_v2int;
 
 /*
+	3 point vector
+*/
+typedef struct s_v3
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_v3;
+
+
+/*
 	data structure for holding image data
 */
 typedef struct	s_img_data
@@ -34,7 +47,7 @@ typedef struct	s_img_data
 	int		line_length;
 	int		endian;
 	int		width;
-	int		hight;
+	int		height;
 }				t_img_data;
 
 /*
@@ -56,7 +69,11 @@ typedef	struct s_app
 	int			keyboard_held[KEYBOARD_KEY_COUNT];
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
-	t_v2int		circle;
+	// t_v2int		circle;
+	t_v3		circle;
+	t_v3		light;
+	int			radius;
+
 }	t_app;
 
 

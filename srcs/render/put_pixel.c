@@ -6,21 +6,29 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:05:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 17:25:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:30:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	wrapper_pixel_put(t_img_data *img, int x, int y, int colour)
+{
+	x += img->width / 2;
+	y -= img->height / 2;
+	my_mlx_pixel_put(img, x, y, colour);
+}
+
+
 // int offset = (y * line_length + x * (bits_per_pixel / 8));
-void	my_mlx_pixel_put(t_img_data *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_img_data *img, int x, int y, int colour)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x > img->width || y > img->hight)
+	if (x < 0 || y < 0 || x > img->width || y > img->height)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)dst = colour;
 }
 
 // fast aproximative algo from stackoverflow
@@ -48,6 +56,6 @@ void	fill_screen(t_img_data *img, int colour)
 	int		i;
 
 	i = 0;
-	while (i < img->width * img->hight * 4)
+	while (i < img->width * img->height * 4)
 		img->addr[i++] = (unsigned int)colour;
 }

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 17:01:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:42:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main()
 	ft_memset(&a, 0, sizeof(t_app));
 	a.mlx_instance = mlx_init();
 	a.img.width = WIDTH;
-	a.img.hight = HEIGHT;
+	a.img.height = HEIGHT;
 
 	a.window = mlx_new_window(a.mlx_instance, WIDTH, HEIGHT, "vecTHOR");
 	a.img.img = mlx_new_image(a.mlx_instance, WIDTH, HEIGHT);
@@ -31,7 +31,10 @@ int	main()
 						&a.img.line_length,
 						&a.img.endian);
 
-	a.circle = (t_v2int){WIDTH / 2, HEIGHT / 2};
+	// a.circle = (t_v2int){WIDTH / 2, HEIGHT / 2};
+	a.circle = (t_v3){0, 0, 200};
+	a.light = (t_v3){50, 300, 0};
+	a.radius = 50;
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 
