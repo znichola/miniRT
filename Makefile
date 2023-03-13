@@ -6,12 +6,9 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 13:27:28 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/13 13:51:48 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-SRC		= $(addsuffix .c, $(SNAME))
-OBJ		= $(SRC:%.c=%.o)
 
 NAME	= miniRT
 
@@ -31,15 +28,16 @@ HEADERS = includes/minirt.h
 
 OBJS_PATH = objs/
 SRCS_PATH = srcs/
-INCS_PATH = -Iincludes/. -Imlx
-LIBS_PATH = -Lmlx
-LIBS      = -lmlx
+INCS_PATH = -Iincludes/. -Imlx -Ilibft/includes
+LIBS_PATH = -Lmlx -Llibft
+LIBS      = -lmlx -lft
 FRAMEWORK = -framework OpenGL -framework AppKit
 
 SRCS	= $(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS	= $(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
 
 MLX = mlx/libmlx.a
+LIBFT = libft/libft.a
 
 all : $(NAME)
 
@@ -47,7 +45,7 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INCS_PATH) -c $< -o $@
 
-$(NAME): $(HEADERS) $(MLX) $(OBJS)
+$(NAME): $(HEADERS) $(MLX) $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS_PATH) $(LIBS) $(FRAMEWORK) -o $(NAME)
 
 clean:
@@ -58,5 +56,8 @@ fclean:
 
 $(MLX):
 	@$(MAKE) -C mlx
+
+$(LIBFT):
+	@$(MAKE) -C libft
 
 re: clean all
