@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 14:33:12 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/13 15:47:16 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,5 +71,17 @@ re: clean all
 
 # tests below
 
-tests/parsing_test: $(filter-out objs/main.o, $(OBJS)) tests/parsing_test.c
-	$(CC) $(CFLAGS) -o $@ -Iincludes $^
+OBJS_TO_TEST = $(filter-out objs/main.o, $(OBJS))
+
+# parsing
+PARSING_TEST_FILES = $(addprefix tests/parsing/files/, valid1.rt)
+PARSING_TEST_EXEC = tests/parsing/parsing_test
+PARSING_TEST_SRC = tests/parsing/parsing_test.c
+
+$(PARSING_TEST_EXEC): $(GNL) $(MLX) $(LIBFT) $(OBJS_TO_TEST) $(PARSING_TEST_SRC)
+	$(CC) $(CFLAGS) -o $@ $(INCS_PATH) $(LIBS_PATH) $(LIBS) $^
+
+run_parsing_tests: $(PARSING_TEST_EXEC)
+	@for filename in $(PARSING_TEST_FILES); do\
+		$(PARSING_TEST_EXEC) $$filename;\
+	done;
