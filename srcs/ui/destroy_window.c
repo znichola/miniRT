@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   destroy_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:40 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 14:45:59 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 14:47:51 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
-
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-
-/* destroy window */
-
-
-#endif
+int	destroy_window(t_app *a)
+{
+	mlx_destroy_window(a->mlx_instance, a->window);
+	exit(0);
+	return (0);
+}

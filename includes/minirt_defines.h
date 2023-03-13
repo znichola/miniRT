@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   minirt_defines.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:40 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 15:54:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_DEFINES_H
+# define MINIRT_DEFINES_H
 
-# include <stdio.h>
+// window settings
+# define WIDTH 800
+# define HEIGHT 800
 
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-
-/* destroy window */
-
+// math constants
+# define PI 3.1415926535
 
 #endif

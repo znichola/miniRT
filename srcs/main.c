@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 13:40:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:03:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,31 @@
 
 int	main()
 {
-	ft_putstr_fd("hello world\n", 1);
+	t_app	a;
+
+	ft_putstr_fd("hello raytraced world\n", 1);
+
+	a.mlx_instance = mlx_init();
+	a.img.width = WIDTH;
+	a.img.hight = HEIGHT;
+
+	a.window = mlx_new_window(a.mlx_instance, WIDTH, HEIGHT, "vecTHOR");
+	a.img.img = mlx_new_image(a.mlx_instance, WIDTH, HEIGHT);
+	a.img.addr = mlx_get_data_addr(a.img.img,
+						&a.img.bits_per_pixel,
+						&a.img.line_length,
+						&a.img.endian);
+
+	a.circle = (t_v2int){WIDTH / 2, HEIGHT / 2};
+
+	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
+	mlx_hook(a.window, e_on_mousemove, 0, mouse_movement_track, &a);
+	mlx_hook(a.window, e_on_mouseup , 0, mouse_on_release, &a);
+	mlx_mouse_hook(a.window, mouse_on_click, &a);
+
+	mlx_loop_hook(a.mlx_instance, render_frame, &a);
+
+	mlx_loop(a.mlx_instance);
+
 	return (0);
 }

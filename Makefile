@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 14:15:18 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/13 16:04:08 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,13 @@ CFLAGS += -g3
 endif
 endif
 
-SRC_FILES		= main
-HEADER_FILES	= minirt
+UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release
+RENDER_FILES	:= render_frame
+
+HEADER_FILES	:= structs defines render control_enums
+
+FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES))
+HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES))
 
 OBJS_PATH	= objs/
 SRCS_PATH	= srcs/
@@ -35,8 +40,8 @@ LIBS_PATH = -Lmlx -Llibft
 LIBS      = -lmlx -lft
 FRAMEWORK = -framework OpenGL -framework AppKit
 
-SRCS	= $(addprefix $(SRCS_PATH), $(addsuffix .c, $(SRC_FILES)))
-OBJS	= $(addprefix $(OBJS_PATH), $(addsuffix .o, $(SRC_FILES)))
+SRCS	= $(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
+OBJS	= $(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
 HEADERS	= $(addprefix $(HEADR_PATH), $(addsuffix .h, $(HEADER_FILES)))
 
 MLX = mlx/libmlx.a

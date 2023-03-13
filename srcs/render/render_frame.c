@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:40 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 16:02:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
-
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-
-/* destroy window */
-
-
-#endif
+int	render_frame(t_app *a)
+{
+	(void)a;
+	return (0);
+}
