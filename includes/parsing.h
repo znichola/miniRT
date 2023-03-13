@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 14:10:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/13 14:27:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
+
+# include "get_next_line.h"
 
 int	parse(const char *filename);
 
