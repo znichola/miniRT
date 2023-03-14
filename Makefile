@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/14 10:08:05 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/14 12:29:25 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,15 @@ NAME	= miniRT
 CC	= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
+ifdef OPTI
+CFLAGS	+= -O3
+else
+ifdef SYMB
+CFLAGS += -g3
+else
 ifdef DEBUG
 CFLAGS	+= -g3 -fsanitize=address
-else
-ifdef DEBUGL
-CFLAGS += -g3
+endif
 endif
 endif
 

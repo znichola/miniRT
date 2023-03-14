@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 11:33:21 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:20:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	render_sphere(t_app *a)
 {
-	int viewport_offset = 300;
+	int viewport_offset = 400;
 
 	/*
 		The world and screen have a one to one relationship,
