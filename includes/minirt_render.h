@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 23:36:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:48:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	calculate_shadow(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
 int		colour_lerp(float min, float max, float point);
 
 // trgp_colour.c
-int			create_trgb(int t, int r, int g, int b);
-int			get_t(int trgb);
-int			get_r(int trgb);
-int			get_g(int trgb);
-int			get_b(int trgb);
+int		create_trgb(int t, int r, int g, int b);
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
 
 
 #endif /* MINIRT_RENDER_H */

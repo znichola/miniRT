@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_window.c                                   :+:      :+:    :+:   */
+/*   debug_prints.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 14:45:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 00:41:49 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/14 00:43:17 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/14 00:47:40 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	destroy_window(t_app *a)
+void	print_v3(char *name, t_v3 *v)
 {
-	mlx_destroy_window(a->mlx_instance, a->window);
-	exit(0);
-	return (0);
+	printf("%s (%f, %f, %f)\n", name, v->x, v->y, v->z);
 }

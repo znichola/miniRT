@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 00:06:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:51:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main()
 	a.circle = (t_v3){0, 0, 80}; // lefthanded rule?
 	a.light = (t_v3){50, 300, 0};
 	a.radius = 50;
+
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 

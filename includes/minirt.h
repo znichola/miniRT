@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 18:57:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:48:55 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "minirt_ui.h"
 # include "minirt_colour.h"
 # include "minirt_maths.h"
+# include "minirt_utils.h"
 
 /* destroy window */
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 00:26:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 09:53:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void debug_print_held(t_app *a);
 int	render_frame(t_app *a)
 {
 	static t_v2int old_pos;
-	int change_flag = 0;
+	static int change_flag = 1;
 
 	debug_print_held(a);
 
@@ -28,9 +28,10 @@ int	render_frame(t_app *a)
 		// printf("inhere\n");
 		float	*scale_a = &a->light.y;
 		float	*scale_b = &a->light.x;
-		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.01;
-		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.01;
-		printf("modified to (%f, %f)\n", *scale_a, *scale_b);
+		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.1;
+		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.1;
+		// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
+		print_v3("light", &a->light);
 		old_pos = a->mouse_pos;
 		// if (*scale < 0)
 		// 	*scale = 0;
@@ -45,13 +46,16 @@ int	render_frame(t_app *a)
 	{
 		fill_screen(&a->img, MRT_BLACK);
 		render_sphere(a);
+		change_flag = 0;
 	}
+	else
+		usleep(100);
+
 	// put_circle_fast(&a->img, a->radius, a->circle, MRT_WHITE);
 
 	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));
 	ft_memset(&a->mouse_key_release, 0, sizeof(a->mouse_key_release));
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
-	usleep(100);
 	return (0);
 }
 
