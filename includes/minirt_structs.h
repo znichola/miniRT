@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 00:08:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:58:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,43 @@ typedef	struct s_app
 	int			keyboard_held[KEYBOARD_KEY_COUNT];
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
-	// t_v2int		circle;
-	t_v3		circle;
-	t_v3		light;
-	// int			radius;
-	float		radius;
+	// world
+
+	// ambient light
+	float		a_ratio;
+	int			a_colour;
+		// calculated from input
+	int			global_ambient;
+
+	// camera
+	t_v3		c_origin;
+	t_v3		c_normal;
+	float		c_fov;
+
+
+	// objects in scene
+
+	// light
+	t_v3		l_origin;
+	float		l_brightness;
+	int			l_colour;
+
+	// sphere
+	t_v3		sp_origin;
+	float		sp_radius;
+	int			sp_colour;
+
+	// plane
+	t_v3		pl_origin;
+	t_v3		pl_normal;
+	int			pl_colour;
+
+	// cylinder
+	t_v3		cy_origin;
+	t_v3		cy_normal;
+	float		cy_diameter;
+	float		cy_height;
+	int			cy_colour;
 
 }	t_app;
 

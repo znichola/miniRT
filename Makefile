@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/14 12:29:25 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/14 17:23:25 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,11 @@ endif
 endif
 
 UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release keyboard_press
-RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour
+RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light lerp_colour
 MATHS_FILES		:= vector
 UTILS_FILES		:= debug_prints
 
-HEADER_FILES	:= colour control_enums defines maths render structs ui utils
+HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
 FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))
@@ -66,7 +66,7 @@ $(NAME): $(HEADERS) $(MLX) $(LIBFT) $(OBJS)
 clean:
 	$(RM) $(OBJS)
 
-fclean:
+fclean: clean
 	$(RM) $(NAME)
 
 $(MLX):

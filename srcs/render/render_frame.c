@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 09:53:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:53:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	render_frame(t_app *a)
 	else if (a->mouse_key_held[e_mouse_left])
 	{
 		// printf("inhere\n");
-		float	*scale_a = &a->light.y;
-		float	*scale_b = &a->light.x;
+		float	*scale_a = &a->l_origin.y;
+		float	*scale_b = &a->l_origin.x;
 		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.1;
 		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.1;
 		// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
-		print_v3("light", &a->light);
+		print_v3("light", &a->l_origin);
 		old_pos = a->mouse_pos;
 		// if (*scale < 0)
 		// 	*scale = 0;
@@ -51,7 +51,7 @@ int	render_frame(t_app *a)
 	else
 		usleep(100);
 
-	// put_circle_fast(&a->img, a->radius, a->circle, MRT_WHITE);
+	// put_circle_fast(&a->img, a->sphere_radius, a->circle, MRT_WHITE);
 
 	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));
 	ft_memset(&a->mouse_key_release, 0, sizeof(a->mouse_key_release));

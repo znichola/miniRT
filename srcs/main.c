@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 00:51:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/14 22:54:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,25 @@ int	main()
 						&a.img.line_length,
 						&a.img.endian);
 
-	// a.circle = (t_v2int){WIDTH / 2, HEIGHT / 2};
-	a.circle = (t_v3){0, 0, 80}; // lefthanded rule?
-	a.light = (t_v3){50, 300, 0};
-	a.radius = 50;
+	/* ------- scene settings ------------- */
+
+	a.a_colour = MRT_CYAN;
+	a.a_ratio = 0.1;
+	a.global_ambient = colour_brightness_multi(a.a_colour, a.a_ratio);
+
+	a.c_origin = (t_v3){0, 0, 0};
+	a.c_normal = (t_v3){0, 0, 1};
+	a.c_fov = 90.0;
+
+	a.l_origin = (t_v3){50, 300, 200};
+	a.l_colour = MRT_LIGHT_BLUE;
+	a.l_brightness = 0.5;
+
+	a.sp_origin = (t_v3){0, 0, 80}; // lefthanded rule?
+	a.sp_radius = 50;
+	a.sp_colour = MRT_YELLOW;
+
+	/* ---------- end scene ----------------*/
 
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
