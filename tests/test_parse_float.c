@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:41:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 13:51:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/16 15:44:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ START_TEST(invalid_1)
 }
 END_TEST
 
-Suite	*float_suite(void)
+Suite	*parse_float_suite(void)
 {
 	Suite	*s;
 	TCase	*tc_basic;

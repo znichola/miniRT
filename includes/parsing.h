@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 12:17:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/16 16:09:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+# include "minirt_structs.h"
 
 int		parse(const char *filename);
 
@@ -31,6 +32,10 @@ int		is_only_whitespace(const char *str);
 /* parse scalar*/
 int		parse_int(const char **str, int *res);
 int		parse_float(const char **str, float *res);
+
+/* parse properties */
+int		parse_position(const char **line, t_v3 *pos);
+int		parse_color(const char **line, t_v3 *clr);
 
 /* parse objects */
 int		parse_ambiant(const char **line);
