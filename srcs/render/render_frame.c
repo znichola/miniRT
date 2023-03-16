@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 15:53:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:47:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	render_frame(t_app *a)
 		// printf("inhere\n");
 		float	*scale_a = &a->l_origin.y;
 		float	*scale_b = &a->l_origin.x;
-		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.1;
-		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.1;
+		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.3;
+		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.3;
 		// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
 		print_v3("light", &a->l_origin);
 		old_pos = a->mouse_pos;

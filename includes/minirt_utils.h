@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 00:47:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:12:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 #include "minirt_structs.h"
 
 void	print_v3(char *name, t_v3 *v);
+int		imin(int a, int b);
+int		imax(int a, int b);
 
 #endif /* MINIRT_UTILS_H */

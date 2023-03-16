@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:23:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 22:16:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:13:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	colour_pallet_lerp(float min, float max, float point, t_v2int pallet)
 int	colour_pallet_add(int x, int y)
 {
 	return (create_trgb(0,
-			(get_r(x) + get_r(y)) * 0.5,
-			(get_g(x) + get_g(y)) * 0.5,
-			(get_b(x) + get_b(y)) * 0.5
+			imin(get_r(x) + get_r(y), 255),
+			imin(get_g(x) + get_g(y), 255),
+			imin(get_b(x) + get_b(y), 255)
 		));
 }
 
