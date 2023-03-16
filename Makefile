@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/16 15:15:53 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/16 15:16:24 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,21 +81,14 @@ $(LIBFT):
 $(GNL):
 	@$(MAKE) -C gnl
 
+#create an archive containing all functions
+#useful for testing purposes
+archive: $(OBJS) $(MLX) $(GNL) $(LIBFT)
+	mkdir -p tmp1 tmp2 tmp3
+	cd tmp1; ar -x ../$(MLX)
+	cd tmp2; ar -x ../$(GNL)
+	cd tmp3; ar -x ../$(LIBFT)
+	ar -rcs libminirt.a tmp1/* tmp2/* tmp3/* $(OBJS)
+	rm -rf tmp1 tmp2 tmp3
+
 re: clean all
-
-# tests below
-
-OBJS_TO_TEST = $(filter-out objs/main.o, $(OBJS))
-
-# parsing
-PARSING_TEST_FILES = $(addprefix tests/parsing/files/, valid1.rt valid2.rt)
-PARSING_TEST_EXEC = tests/parsing/parsing_test
-PARSING_TEST_SRC = tests/parsing/parsing_test.c
-
-$(PARSING_TEST_EXEC): $(GNL) $(MLX) $(LIBFT) $(OBJS_TO_TEST) $(PARSING_TEST_SRC)
-	$(CC) $(CFLAGS) -o $@ $(INCS_PATH) $(LIBS_PATH) $(LIBS) $^
-
-run_parsing_tests: $(PARSING_TEST_EXEC)
-	@for filename in $(PARSING_TEST_FILES); do\
-		$(PARSING_TEST_EXEC) $$filename;\
-	done;
