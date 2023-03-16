@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 13:30:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:09:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main()
 
 	a.sp_origin = (t_v3){0, 0, 80}; // lefthanded rule?
 	a.sp_radius = 50;
-	a.sp_colour = MRT_BLUE;
+	a.sp_colour = MRT_BRICK;
 
 	/* ---------- end scene ----------------*/
 

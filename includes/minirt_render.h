@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 12:28:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:49:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
 
 
 int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness , int obj_colour);
+
+t_v3	reflection(t_v3 incident, t_v3 surface_normal);
 
 
 // trgp_colour.c
