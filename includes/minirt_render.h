@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 21:39:27 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:28:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	put_circle_fast(t_img_data *img, int r, t_v2int center, int colour);
 void	fill_screen(t_img_data *img, int colour);
 
 void	render_sphere(t_app *a);
-void	calculate_shadow(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
+void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
 
 
 int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness , int obj_colour);

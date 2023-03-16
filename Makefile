@@ -6,14 +6,15 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/14 17:23:25 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/16 12:35:01 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
 
 CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra
+# CFLAGS 	+= -Werror
 
 ifdef OPTI
 CFLAGS	+= -O3

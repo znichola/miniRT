@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 11:46:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:28:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	render_sphere(t_app *a)
 				float t2 = (-_b + dsquared) / (2 * _a);
 
 				if (t1 < t2)
-					calculate_shadow(a, (t_v2int){x, y}, v3_multiply(vec, t1), a->sp_origin);
+					resulting_colour(a, (t_v2int){x, y}, v3_multiply(vec, t1), a->sp_origin);
 				else
 					wrapper_pixel_put(&a->img, x, y, MRT_PINK); //never happens
 			}
@@ -54,27 +54,27 @@ void	render_sphere(t_app *a)
 	}
 }
 
-/*
-	To calculate the shadow we draw a vector from the surface of the sphere to
-	the light source and compare the angle to normal at the intersection.
-*/
-void	calculate_shadow(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
-{
-	t_v3	normal_of_intersection = v3_subtract(center, intersection);
-	t_v3	vector_of_light = v3_subtract(a->l_origin, intersection);
+// /*
+// 	To calculate the shadow we draw a vector from the surface of the sphere to
+// 	the light source and compare the angle to normal at the intersection.
+// */
+// void	calculate_shadow(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
+// {
+// 	t_v3	normal_of_intersection = v3_subtract(center, intersection);
+// 	t_v3	vector_of_light = v3_subtract(a->l_origin, intersection);
 
-	float	theta = acosf(v3_dot(normal_of_intersection, vector_of_light)
-				/ (v3_mag(normal_of_intersection) * v3_mag(vector_of_light)));
+// 	float	theta = acosf(v3_dot(normal_of_intersection, vector_of_light)
+// 				/ (v3_mag(normal_of_intersection) * v3_mag(vector_of_light)));
 
-	wrapper_pixel_put(&a->img, pix.x, pix.y,
-	calculate_px_colour(a, theta, a->l_colour, a->l_brightness, a->sp_colour));
-/*
-	if (theta < PI / 2)
-		wrapper_pixel_put(&a->img, pix.x, pix.y, colour_lerp(0, PI / 2, theta));
-	else
-		wrapper_pixel_put(&a->img, pix.x, pix.y, MRT_BLACK);
-*/
-}
+// 	wrapper_pixel_put(&a->img, pix.x, pix.y,
+// 	calculate_px_colour(a, theta, a->l_colour, a->l_brightness, a->sp_colour));
+// /*
+// 	if (theta < PI / 2)
+// 		wrapper_pixel_put(&a->img, pix.x, pix.y, colour_lerp(0, PI / 2, theta));
+// 	else
+// 		wrapper_pixel_put(&a->img, pix.x, pix.y, MRT_BLACK);
+// */
+// }
 
 /*
 	To calculate the shadow we draw a vector from the surface of the sphere to

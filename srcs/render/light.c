@@ -6,11 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 12:17:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:27:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 /*
 	https://www.paulsprojects.net/tutorials/simplebump/simplebump.html
@@ -70,6 +71,7 @@ int	calculate_px_colour(t_app *a, float diff, int l_colour, float l_brightness ,
 	(void)diff;
 
 	ambient = colour_pallet_multiply(a->global_ambient, obj_colour);
+
 	light_ambient = colour_brightness_multi(l_colour, l_brightness);
 	diffuse = colour_pallet_multiply(l_colour, obj_colour);
 
@@ -88,4 +90,31 @@ int	calculate_px_colour(t_app *a, float diff, int l_colour, float l_brightness ,
 
 	// return colour_pallet_lerp(0, PI_HALF, angle, (t_v2int){obj_colour, colour_in_shadow});
 
+}
+
+/*
+	To calculate the resulting colour is hard, so bare with me.
+
+	This is the link that explains it all!
+	https://learnopengl.com/Lighting/Basic-Lighting
+*/
+void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
+{
+	t_v3	normal_of_intersection = v3_subtract(center, intersection);
+	t_v3	vector_of_light = v3_subtract(a->l_origin, intersection);
+
+	// float	theta = acosf(v3_dot(normal_of_intersection, vector_of_light)
+	// 			/ (v3_mag(normal_of_intersection) * v3_mag(vector_of_light)));
+
+
+	int		ambient = colour_pallet_multiply(a->global_ambient, a->sp_colour);
+
+	t_v3	norm = v3_unitvec(normal_of_intersection);
+	t_v3	light_dir = v3_unitvec(vector_of_light);
+
+	float	diff = fmax(v3_dot(norm, light_dir), 0.0);
+	int		diffuse = colour_brightness_multi(a->l_colour, diff);
+	int		result = colour_pallet_multiply(colour_pallet_add(ambient, diffuse), a->sp_colour);
+
+	wrapper_pixel_put(&a->img, pix.x, pix.y, result);
 }

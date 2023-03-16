@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:02:16 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 21:33:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:22:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # define MRT_BLACK		0x00000000
 # define MRT_WHITE		0x00ffffff
+
+# define MRT_PALE_BLUE	0x00eeffee
 
 # define MRT_RED		0x00ff0000
 # define MRT_GREEN		0x0000ff00
