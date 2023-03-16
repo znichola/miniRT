@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   minirt_ui.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:04 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 16:56:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_UI_H
+# define MINIRT_UI_H
 
-# include <stdio.h>
+#include "minirt_structs.h"
 
-# include "mlx.h"
-# include "libft.h"
+int	destroy_window(t_app *a);
+int	mouse_movement_track(int x, int y, t_app *a);
+int	mouse_on_click(int action, int x, int y, t_app *a);
+int	mouse_on_release(int action, int x, int y, t_app *a);
+int	keyboard_press(int key, t_app *a);
 
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour_defs.h"
-# include "minirt_maths.h"
-# include "minirt_utils.h"
-
-/* destroy window */
-
-
-#endif
+#endif /* MINIRT_UI_H */

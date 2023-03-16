@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   mouse_on_release.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:04 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 15:19:00 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 16:42:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
-
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour_defs.h"
-# include "minirt_maths.h"
-# include "minirt_utils.h"
-
-/* destroy window */
-
-
-#endif
+int	mouse_on_release(int action, int x, int y, t_app *a)
+{
+	(void)x;
+	(void)y;
+	if (action >= 0 && action < MOUSE_KEY_COUNT)
+	{
+		// printf("release action : %d\n", action);
+		a->mouse_key_release[action] = 1;
+		a->mouse_key_held[action] = 0;
+	}
+	return (0);
+}

@@ -3,4 +3,5 @@ objs
 *.o
 miniRT
 mlx/libmlx.a
+.vscode
 tests/*test

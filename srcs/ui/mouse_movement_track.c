@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   mouse_movement_track.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:04 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/13 15:18:22 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/13 16:17:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
-
-# include "mlx.h"
-# include "libft.h"
-
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour_defs.h"
-# include "minirt_maths.h"
-# include "minirt_utils.h"
-
-/* destroy window */
-
-
-#endif
+int	mouse_movement_track(int x, int y, t_app *a)
+{
+	a->mouse_pos.x = x;
+	a->mouse_pos.y = y;
+	// printf("new mouse_pos recorded (%d, %d)\n", x, y);
+	return (0);
+}

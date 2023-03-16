@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   debug_prints.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:04 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/14 00:43:17 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/16 12:12:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# include <stdio.h>
+void	print_v3(char *name, t_v3 *v)
+{
+	printf("%s (%f, %f, %f)\n", name, v->x, v->y, v->z);
+}
 
-# include "mlx.h"
-# include "libft.h"
+int	imin(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
-# include "minirt_control_enums.h"
-# include "minirt_defines.h"
-# include "minirt_render.h"
-# include "minirt_structs.h"
-# include "minirt_render.h"
-# include "minirt_ui.h"
-# include "minirt_colour_defs.h"
-# include "minirt_maths.h"
-# include "minirt_utils.h"
-
-/* destroy window */
-
-
-#endif
+int	imax(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
