@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/17 10:53:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:10:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	render_frame(t_app *a)
 		// printf("inhere\n");
 		float	*scale_a = &a->l_origin.y;
 		float	*scale_b = &a->l_origin.x;
-		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.3;
-		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.3;
+		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.5;
+		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.5;
 		// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
 		// print_v3("light", &a->l_origin);
 
@@ -72,10 +72,15 @@ int	render_frame(t_app *a)
 static void debug_print_held(t_app *a)
 {
 	printf("[");
-	for (int i = 0; i < MOUSE_KEY_COUNT; i++)
+	for (int i = 1; i < MOUSE_KEY_COUNT; i++)
+	{
 		if (a->mouse_key_held[i])
-			printf("%d, ", i);
+			printf("%d", i);
 		else
-			printf("-, ");
+			printf("-");
+		if (i < MOUSE_KEY_COUNT - 1)
+			printf(", ");
+
+	}
 	printf("]\n");
 }

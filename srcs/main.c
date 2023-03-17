@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/17 12:45:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:54:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main()
 	/* ------- scene settings ------------- */
 
 	a.a_colour = MRT_BRICK;
-	a.a_ratio = 0.1;
+	a.a_ratio = 0.05;
 	a.global_ambient = colour_brightness_multi(a.a_colour, a.a_ratio);
 
 	a.c_origin = (t_v3){0, 0, 0};
