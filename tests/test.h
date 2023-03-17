@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:35:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 16:08:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:21:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 Suite	*parse_float_suite(void);
 Suite	*parse_position_suite(void);
 Suite	*parse_color_suite(void);
+Suite	*parse_objects_suite(void);
 
 #endif

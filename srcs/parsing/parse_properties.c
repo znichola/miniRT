@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:00:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 16:28:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/17 16:44:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_position(const char **line, t_v3 *pos)
 	return (0);
 }
 
-int	parse_color(const char **line, t_v3 *clr)
+int	parse_colour(const char **line, t_v3 *clr)
 {
 	int	rgb[3];
 
@@ -41,16 +41,13 @@ int	parse_color(const char **line, t_v3 *clr)
 	if (**line != ',')
 		return (-1);
 	(*line)++;
-
 	if (parse_int(line, rgb + 1) != 0 || rgb[1] < 0 || rgb[1] > 255)
 		return (-1);
 	if (**line != ',')
 		return (-1);
 	(*line)++;
-
 	if (parse_int(line, rgb + 2) != 0 || rgb[2] < 0 || rgb[2] > 255)
 		return (-1);
-
 	*clr = rgb_to_v3(rgb);
 	return (0);
 }
@@ -59,8 +56,28 @@ static t_v3	rgb_to_v3(int rgb[3])
 {
 	t_v3	clr;
 
-	clr.x = (float)rgb[0]/255;
-	clr.y = (float)rgb[1]/255;
-	clr.z = (float)rgb[2]/255;
+	clr.x = (float)rgb[0] / 255;
+	clr.y = (float)rgb[1] / 255;
+	clr.z = (float)rgb[2] / 255;
 	return (clr);
+}
+
+int	parse_orientation(const char **line, t_v3 *orientation)
+{
+	if (parse_position(line, orientation) != 0)
+		return (-1);
+	if (orientation->x < -1 || orientation->x > 1
+		|| orientation->y < -1 || orientation->y > 1
+		|| orientation->z < -1 || orientation->z > 1)
+		return (-1);
+	return (0);
+}
+
+int	parse_ratio(const char **line, float *ratio)
+{
+	if (parse_float(line, ratio) != 0)
+		return (-1);
+	if (*ratio < 0 || *ratio > 1)
+		return (-1);
+	return (0);
 }

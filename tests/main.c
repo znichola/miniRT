@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:34:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 16:09:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:22:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,18 @@ int	main()
 	Suite	*s0;
 	Suite	*s1;
 	Suite	*s2;
+	Suite	*s3;
 	SRunner	*sr;
 
 	s0 = parse_float_suite();
 	s1 = parse_position_suite();
 	s2 = parse_color_suite();
+	s3 = parse_objects_suite();
 
 	sr = srunner_create(s0);
 	srunner_add_suite(sr, s1);
 	srunner_add_suite(sr, s2);
+	srunner_add_suite(sr, s3);
 
 	srunner_run_all(sr, CK_NORMAL);
 	number_failed = srunner_ntests_failed(sr);

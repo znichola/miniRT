@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 16:58:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:56:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,49 @@ typedef	struct s_app
 
 }	t_app;
 
+/* objects */
+
+typedef struct	s_ambiant
+{
+	float	ratio;
+	t_v3	colour;
+}	t_ambiant;
+
+typedef struct	s_camera
+{
+	t_v3	position;
+	t_v3	orientation;
+	int		fov;
+}	t_camera;
+
+typedef struct	s_light
+{
+	t_v3	position;
+	float	ratio;
+	t_v3	colour;
+}	t_light;
+
+typedef struct	s_sphere
+{
+	t_v3	position;
+	float	diameter;
+	t_v3	colour;
+}	t_sphere;
+
+typedef struct	s_plane
+{
+	t_v3	position;
+	t_v3	orientation;
+	t_v3	colour;
+}	t_plane;
+
+typedef struct	s_cylinder
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	diameter;
+	float	height;
+	t_v3	colour;
+}	t_cylinder;
 
 #endif
