@@ -6,12 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 14:18:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:38:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+
+float	get_angle(t_v3 norm, t_v3 obj);
 
 /*
 	https://www.paulsprojects.net/tutorials/simplebump/simplebump.html
@@ -106,20 +108,58 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// float	theta = acosf(v3_dot(normal_of_intersection, vector_of_light)
 	// 			/ (v3_mag(normal_of_intersection) * v3_mag(vector_of_light)));
 
-	// ambient light
-	int		ambient = colour_pallet_multiply(a->global_ambient, a->sp_colour);
+	// so we can modify the colour with the texture
+	int		point_colour = a->sp_colour;
+
 
 	// emmision colour
 	t_v3	norm = v3_unitvec(normal_of_intersection);
 	t_v3	light_dir = v3_unitvec(vector_of_light);
 
+	// getting uv texture colour
+	// https://www.mvps.org/directx/articles/spheremap.htm
+	// http://raytracerchallenge.com/bonus/texture-mapping.html
+
+	float	theta = atan2f(norm.x, norm.z);
+	float	phi = acosf(norm.y / 1);
+
+	float	raw_u = theta / (2 * M_PI);
+
+	float	tu = 1 - (raw_u + 0.5);
+	float	tv = (phi / M_PI);
+
+
+	// float	tu = get_angle(norm, (t_v3){1, 0, 0});
+	// float	tv = get_angle(norm, (t_v3){0, 1, 0});
+
+
+	// float	tu = (asin(norm.x) / M_PI + 0.5);
+	// float	tv = (asin(norm.y) / M_PI + 0.5);
+
+	// printf("tu:%f > %d\n", tu, (int)((tu + 1) / 2 * 512));
+	// printf("%f %f\n", 0.0, tv);
+	// printf("%f %f\n", tu, 0.0);
+	// printf("(%f, %f, %f)		tv:%f > %d tu:%f > %d\n", norm.x, norm.y, norm.z, tu, (int)(tu * 512), tv, (int)(tv * 256));
+	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+	int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+
+	point_colour = colour_pallet_multiply(point_colour, texture_colour);
+
+	// ambient light
+	// int		ambient = earth_bmp_texture(a, tu * (3072), tv * (1536));
+
+	int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
+	ambient = colour_pallet_add(ambient, earth_nightlight_texture(a, tu * (3072), tv * (1536)));
+
 	float	diff = fmax(v3_dot(norm, light_dir), 0.0);
 	int		diffuse = colour_brightness_multi(a->l_colour, diff);
-	// int		result = colour_pallet_multiply(colour_pallet_add(ambient, diffuse), a->sp_colour);
+
+	// old ambient
+	// int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
 
 	// specular lighting
 	t_v3	view_pos = {0, 0, 0};
-	float	specular_strength = 1.0;
+	float	specular_strength = 0.2;
 
 	t_v3	view_dir = v3_unitvec(v3_subtract(view_pos, intersection));
 	// t_v3	reflect_dir = reflection(v3_multiply(light_dir, -1), norm);
@@ -128,7 +168,7 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	float	spec = pow(fmax(v3_dot(view_dir, reflect_dir), 0.0), 64);
 	int		specular_colour = colour_brightness_multi(a->l_colour, specular_strength * spec);
 
-	int		result = colour_pallet_multiply(colour_pallet_add(colour_pallet_add(ambient, diffuse), specular_colour), a->sp_colour);
+	int		result = colour_pallet_multiply(colour_pallet_add(colour_pallet_add(ambient, diffuse), specular_colour), point_colour);
 
 
 	// display pixel
@@ -147,4 +187,15 @@ t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 {
 	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
 	return (v3_subtract(incident, foo));
+}
+
+
+float	get_angle(t_v3 norm, t_v3 obj)
+{
+	float	dot;
+	float	angle;
+
+	dot = v3_dot(norm, obj);
+	angle = acos(dot);
+	return (angle / (M_PI));
 }

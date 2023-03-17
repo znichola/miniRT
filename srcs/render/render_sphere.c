@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 12:28:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:47:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	render_sphere(t_app *a)
 {
-	int viewport_offset = 400;
+	int viewport_offset = 1800;
 
 	for (int x = - a->img.width / 2; x < a->img.width; x++)
 	{

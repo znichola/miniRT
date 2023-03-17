@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/13 15:47:16 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/17 12:51:01 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ endif
 endif
 
 UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release keyboard_press
-RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light lerp_colour
+RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light lerp_colour the_moon
 MATHS_FILES		:= vector
 UTILS_FILES		:= debug_prints
 PARSING_FILES := parse
