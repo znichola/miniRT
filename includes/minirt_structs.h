@@ -6,14 +6,16 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 16:58:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/18 10:55:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_STRUCTS_H
 # define MINIRT_STRUCTS_H
 
+# include <pthread.h>
 # include "minirt_control_enums.h"
+# include "minirt_defines.h"
 
 /*
 	used to reprisent a pixel on the screen
@@ -50,6 +52,17 @@ typedef struct	s_img_data
 	int		height;
 }				t_img_data;
 
+
+/*
+	used to pass process number to
+	launch threads for rendering
+*/
+typedef struct	s_ptinfo
+{
+	int		id;
+	void	*app;
+}	t_ptinfo;
+
 /*
 	structure to hold all application information
 	all in one big ugly struct.
@@ -59,6 +72,11 @@ typedef	struct s_app
 	t_img_data	img;
 	void		*mlx_instance;
 	void		*window;
+
+	t_img_data		thread_img[MRT_THREAD_COUNT];
+	pthread_mutex_t	thread_lock[MRT_THREAD_COUNT];
+	pthread_t		thread_instance[MRT_THREAD_COUNT];
+	t_ptinfo		thread_info[MRT_THREAD_COUNT];
 
 	t_v2int		mouse_pos;
 	int			mouse_key_click[MOUSE_KEY_COUNT];

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/17 12:54:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/18 10:57:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	main()
 {
 	t_app	a;
 
-	// a = (t_app){}
-	ft_putstr_fd("hello raytraced world\n", 1);
+	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
 	// initialising everything to 0 so we are sure it's all copacetic
 	ft_memset(&a, 0, sizeof(t_app));
+	// a = (t_app){} // but apparently this also works, who knew?
+
+	ft_putstr_fd("hello raytraced world\n", 1);
+
 	a.mlx_instance = mlx_init();
 	a.img.width = WIDTH;
 	a.img.height = HEIGHT;
@@ -35,7 +38,7 @@ int	main()
 	/* ------- scene settings ------------- */
 
 	a.a_colour = MRT_BRICK;
-	a.a_ratio = 0.05;
+	a.a_ratio = 0.1;
 	a.global_ambient = colour_brightness_multi(a.a_colour, a.a_ratio);
 
 	a.c_origin = (t_v3){0, 0, 0};
@@ -44,7 +47,7 @@ int	main()
 
 	a.l_origin = (t_v3){50, 300, 600};
 	a.l_colour = MRT_WHITE;
-	a.l_brightness = 0.5;
+	a.l_brightness = 0.1;
 
 	a.sp_origin = (t_v3){0, 0, 400}; // lefthanded rule?
 	a.sp_radius = 50;
