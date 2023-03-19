@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/18 10:57:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:07:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,20 @@ int	main()
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 
+	// keyboard
+	mlx_do_key_autorepeatoff(a.mlx_instance);
+	mlx_hook(a.window, e_on_keydown, 0, keyboard_on_press, &a);
+	mlx_hook(a.window, e_on_keyup, 0, keyboard_on_release, &a);
+
 	// mouse
 	mlx_hook(a.window, e_on_mousemove, 0, mouse_movement_track, &a);
 	mlx_hook(a.window, e_on_mouseup , 0, mouse_on_release, &a);
 	mlx_mouse_hook(a.window, mouse_on_click, &a);
-
-	// keyboard
-	mlx_key_hook(a.window, keyboard_press, &a);
 
 	// render hookup
 	mlx_loop_hook(a.mlx_instance, render_frame, &a);
 
 	mlx_loop(a.mlx_instance);
 	return (0);
+
 }

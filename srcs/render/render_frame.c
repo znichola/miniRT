@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 11:57:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:45:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,10 @@ int	render_frame(t_app *a)
 
 	// print_image(a);
 
-	// if (a->mouse_key_click[e_mouse_left])
-	// 	old_pos = a->mouse_pos;
-	// else if (a->mouse_key_held[e_mouse_left])
-	// {
-	// 	float	*scale_a = &a->l_origin.y;
-	// 	float	*scale_b = &a->l_origin.x;
-	// 	*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 1;
-	// 	*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 1;
-	// 	// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
-	// 	// print_v3("light", &a->l_origin);
-
-	// 	old_pos = a->mouse_pos;
-	// 	// if (*scale < 0)
-	// 	// 	*scale = 0;
-	// 	// if (*scale > a->img.height / 2)
-	// 	// 	*scale = a->img.height - 1;
-	// 	// if (*scale > a->img.width / 2)
-	// 	// 	*scale = a->img.width - 1;
-	// 	change_flag = 1;
-	// }
-
-
-	if (scale_property(a, &a->l_origin.x, 'x', e_mouse_left, 1))
-		change_flag = 1;
-	if (scale_property(a, &a->l_origin.y, 'y', e_mouse_left, 1))
-		change_flag = 1;
-	if (scale_property(a, &a->l_origin.z, 'y', e_mouse_right, 1))
+	if (scale_property(a, &a->l_origin.x, "mx", e_mouse_left, 1)
+		& scale_property(a, &a->l_origin.y, "my", e_mouse_left, 1)
+		& scale_property(a, &a->l_origin.z, "my", e_mouse_right, 1)
+		& scale_property(a, &a->sp_radius, "ky", e_key_s, 0.2))
 		change_flag = 1;
 
 	if (change_flag)
@@ -58,13 +35,21 @@ int	render_frame(t_app *a)
 		fill_screen(&a->img, MRT_BLACK);
 		render_sphere(a);
 		change_flag = 0;
-		print_v3("light", &a->l_origin);
+		get_mouse_diff(a, -1);
+		// print_v3("light", &a->l_origin);
 	}
 	else
 		usleep(100);
 
 	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));
 	ft_memset(&a->mouse_key_release, 0, sizeof(a->mouse_key_release));
+	ft_memset(&a->keyboard_press, 0, sizeof(a->keyboard_press));
+	ft_memset(&a->keyboard_release, 0, sizeof(a->keyboard_release));
+
+	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
+
+	a->mouse_pos_old = a->mouse_pos;
+
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 	// exit(0);
 	return (0);

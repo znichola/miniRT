@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:41:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 08:41:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:01:26 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 /* ~~ these are for mac! ~~ */
 
+/*
+	used to control the mlx hook system
+*/
 enum e_events
 {
 	e_on_keydown = 2,

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:03:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 08:58:43 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:11:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	earth_nightlight_texture(t_app *app, int x, int y)
 	return *(unsigned int *)(moon.addr + (y * moon.line_length + x * (moon.bits_per_pixel / 8)));
 }
 
-t_v3	bmp_deform_vector(t_app *a, int x, int y, t_v3 norm)
-{
-	earth_bmp_texture(a, x, y);
-}
+// t_v3	bmp_deform_vector(t_app *a, int x, int y, t_v3 norm)
+// {
+// 	earth_bmp_texture(a, x, y);
+// }

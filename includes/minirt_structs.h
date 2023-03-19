@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 10:55:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:02:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef	struct s_app
 	t_ptinfo		thread_info[MRT_THREAD_COUNT];
 
 	t_v2int		mouse_pos;
+	t_v2int		mouse_pos_old;
 	int			mouse_key_click[MOUSE_KEY_COUNT];
 	int			mouse_key_held[MOUSE_KEY_COUNT];
 	int			mouse_key_release[MOUSE_KEY_COUNT];

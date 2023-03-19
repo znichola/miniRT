@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 11:52:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:45:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,56 @@ int	getset_settings(int settings_mask)
 
 t_v2int	get_mouse_diff(t_app *a, int key)
 {
-	static t_v2int	old_pos[MOUSE_KEY_COUNT];
 	t_v2int			diff;
 
 	if (key < 0 || key > MOUSE_KEY_COUNT)
 		;
-	else if (a->mouse_key_click[key])
-	{
-		old_pos[key] = a->mouse_pos;
-	}
 	else if (a->mouse_key_held[key])
 	{
-		float	*scale_a = &a->l_origin.y;
-		float	*scale_b = &a->l_origin.x;
-		diff.x = old_pos[key].y - a->mouse_pos.y;
-		diff.y = old_pos[key].x - a->mouse_pos.x;
-		old_pos[key] = a->mouse_pos;
+		diff.x = a->mouse_pos_old.x - a->mouse_pos.x;
+		diff.y = a->mouse_pos_old.y - a->mouse_pos.y;
+		// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
 		return (diff);
 	}
 	return ((t_v2int){0, 0});
 }
 
-int	scale_property(t_app *app, float *property, char mouse_axis, int key, int factor)
+t_v2int	get_keyboard_diff(t_app *a, int key)
+{
+	t_v2int			diff;
+
+	if (key < 0 || key > KEYBOARD_KEY_COUNT)
+		;
+	else if (a->keyboard_held[key])
+	{
+		printf("there %d\n", key);
+		diff.x = a->mouse_pos_old.x - a->mouse_pos.x;
+		diff.y = a->mouse_pos_old.y - a->mouse_pos.y;
+		return (diff);
+	}
+	return ((t_v2int){0, 0});
+}
+
+/*
+	ctrl [k/m][x/y]
+	use ctrl to control the key you wish to bind, keyboard or mouse
+	and the change in which mouse axis you want to map to.
+*/
+int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
 {
 	t_v2int	diff;
 
-	diff = get_mouse_diff(app, key);
-
-	if (mouse_axis == 'x')
+	if (ctrl[0] == 'm')
+		diff = get_mouse_diff(a, key);
+	else if (ctrl[0] == 'k')
+		diff = get_keyboard_diff(a, key);
+	if (ctrl[1] == 'x')
 		*property += diff.x * factor;
-	else if (mouse_axis == 'y')
+	else if (ctrl[1] == 'y')
 		*property += diff.y * factor;
+	else
+		return (0);
+	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
+	// printf("getting diff %s %d, %d\n", ctrl, diff.x, diff.y);
+	return (1);
 }

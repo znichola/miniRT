@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 11:53:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:12:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		imax(int a, int b);
 /* sigletons.c */
 int		getset_settings(int settings_mask);
 t_v2int	get_mouse_diff(t_app *a, int key);
-int		scale_property(t_app *app, float *property, char mouse_axis, int key, int factor);
+int		scale_property(t_app *app, float *property, char *ctrl, int key, float factor);
 
 
 /* debug prints */

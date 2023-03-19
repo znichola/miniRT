@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:02:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 10:12:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:11:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	start_threads(t_app *a)
 		if (pthread_mutex_init(&a->thread_lock[i], NULL))
 			exit(1);
 		pthread_mutex_lock(&a->thread_lock[i]);
-		if (pthread_create(&a->thread_instance[i], NULL, &thread_routine, (t_ptinfo *){i, a}))
+		a->thread_info[i].id = 0;
+		a->thread_info[i].app = a;
+		if (pthread_create(&a->thread_instance[i], NULL, &thread_routine, &a->thread_info[i]))
 			exit(1);
 	}
 }
