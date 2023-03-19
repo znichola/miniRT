@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 11:45:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:23:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 		;
 	else if (a->keyboard_held[key])
 	{
-		printf("there %d\n", key);
+		// printf("there %d\n", key);
 		diff.x = a->mouse_pos_old.x - a->mouse_pos.x;
 		diff.y = a->mouse_pos_old.y - a->mouse_pos.y;
 		return (diff);
@@ -61,6 +61,7 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 }
 
 /*
+
 	ctrl [k/m][x/y]
 	use ctrl to control the key you wish to bind, keyboard or mouse
 	and the change in which mouse axis you want to map to.

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 23:58:03 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:22:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// printf("%f %f\n", tu, 0.0);
 	// printf("(%f, %f, %f)		tv:%f > %d tu:%f > %d\n", norm.x, norm.y, norm.z, tu, (int)(tu * 512), tv, (int)(tv * 256));
 	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
-	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
 
-	// point_colour = colour_pallet_multiply(point_colour, texture_colour);
+	int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+	point_colour = colour_pallet_multiply(point_colour, texture_colour);
 
 	// ambient light
 	// int		ambient = earth_bmp_texture(a, tu * (3072), tv * (1536));

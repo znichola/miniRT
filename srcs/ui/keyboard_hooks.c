@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:53:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 12:03:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:23:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	keyboard_on_press(int key, t_app *a)
 {
-	printf("pressed!\n");
+	// printf("pressed! %d\n", key);
 	if (key == e_key_esc)
 		destroy_window(a);
 	if (key >= 0 && key < KEYBOARD_KEY_COUNT)
@@ -27,7 +27,7 @@ int	keyboard_on_press(int key, t_app *a)
 
 int	keyboard_on_release(int key, t_app *a)
 {
-	printf("released!\n");
+	// printf("released! %d\n", key);
 	if (key >= 0 && key < KEYBOARD_KEY_COUNT)
 	{
 		a->keyboard_release[key] = 1;
