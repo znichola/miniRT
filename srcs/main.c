@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/19 12:07:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:44:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	main()
 
 	a.l_origin = (t_v3){50, 300, 600};
 	a.l_colour = MRT_WHITE;
-	a.l_brightness = 0.1;
+	a.l_brightness = 0.5;
 
 	a.sp_origin = (t_v3){0, 0, 400}; // lefthanded rule?
 	a.sp_radius = 50;
-	a.sp_colour = MRT_WHITE;
+	a.sp_colour = MRT_PALE_BLUE;
 
 	/* ---------- end scene ----------------*/
 

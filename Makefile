@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/19 11:50:31 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/19 18:20:36 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ endif
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
 					lerp_colour the_moon multithread
-MATHS_FILES		:= vector
+MATHS_FILES		:= vector matrix
 UTILS_FILES		:= debug_prints singletons
 PARSING_FILES := parse
 

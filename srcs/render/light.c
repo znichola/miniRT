@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 12:22:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 00:28:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <math.h>
 
 float	get_angle(t_v3 norm, t_v3 obj);
+static t_v3	finite_diff(t_app *a, float tu, float tv);
 
 /*
 	https://www.paulsprojects.net/tutorials/simplebump/simplebump.html
@@ -116,6 +117,7 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	t_v3	norm = v3_unitvec(normal_of_intersection);
 	t_v3	light_dir = v3_unitvec(vector_of_light);
 
+
 	// getting uv texture colour
 	// https://www.mvps.org/directx/articles/spheremap.htm
 	// http://raytracerchallenge.com/bonus/texture-mapping.html
@@ -142,14 +144,18 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// printf("(%f, %f, %f)		tv:%f > %d tu:%f > %d\n", norm.x, norm.y, norm.z, tu, (int)(tu * 512), tv, (int)(tv * 256));
 	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
 
-	int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
-	point_colour = colour_pallet_multiply(point_colour, texture_colour);
+	// // texture map
+	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+	// point_colour = colour_pallet_multiply(point_colour, texture_colour);
+
+	// bmp map
+	norm =  v3_unitvec(v3_vadd(norm, finite_diff(a, tu, tv)));
 
 	// ambient light
 	// int		ambient = earth_bmp_texture(a, tu * (3072), tv * (1536));
-
 	int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
-	ambient = colour_pallet_add(ambient, earth_nightlight_texture(a, tu * (3072), tv * (1536)));
+	// with night sky
+	// ambient = colour_pallet_add(ambient, earth_nightlight_texture(a, tu * (3072), tv * (1536))); // I think addtion is not quite totally right, also the ambient shader isn't the best choice as it' still visible in the daytime.
 
 	float	diff = fmax(v3_dot(norm, light_dir), 0.0);
 	int		diffuse = colour_brightness_multi(a->l_colour, diff);
@@ -198,4 +204,19 @@ float	get_angle(t_v3 norm, t_v3 obj)
 	dot = v3_dot(norm, obj);
 	angle = acos(dot);
 	return (angle / (M_PI));
+}
+
+static t_v3	finite_diff(t_app *a, float tu, float tv)
+{
+	int	u = tu * (3072);
+	int	v = tv * (1536);
+	// u *= 3072;
+	// v *= 1536;
+	// int	x0 = get_r(earth_bmp_texture(a, u - 1, v));
+	int	x1 = get_r(earth_bmp_texture(a, u, v));
+	int	x2 = get_r(earth_bmp_texture(a, u - 1, v));
+
+	int	dx = (x1 - x2);
+	int	dy = (get_r(earth_bmp_texture(a, u, v)) - get_r(earth_bmp_texture(a, u, v - 1)));
+	return (v3_unitvec((t_v3){dx, dy, 255}));
 }

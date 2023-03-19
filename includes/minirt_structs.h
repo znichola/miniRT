@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 11:02:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 14:45:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef struct s_v3
 	float	z;
 }	t_v3;
 
+/*
+	matrix used for vector transformations
+*/
+typedef struct s_mat4x4
+{
+	float	m[4][4];
+}	t_mat4x4;
 
 /*
 	data structure for holding image data

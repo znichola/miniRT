@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:49:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 23:09:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:16:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ float v3_dot(t_v3 a, t_v3 b)
 }
 
 // a vector quantity
-float v3_cross(t_v3 a, t_v3 b)
+/*
+	this shit is hard look at this linky
+	https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/cross-products-mvc
+*/
+t_v3 v3_cross(t_v3 a, t_v3 b)
 {
-	return (a.x * b.x - a.y * b.y - a.z * b.z);
+	return ((t_v3){a.y * b.z - a.z * b.y,
+				 a.z * b.x - a.x * b.z,
+				 a.x * b.y - a.y * b.x});
 }
 
 t_v3 v3_vadd(t_v3 a, t_v3 b)
