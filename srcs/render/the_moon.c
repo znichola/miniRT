@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:03:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 16:11:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 01:50:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	earth_texture(t_app *app, int x, int y)
 int	earth_bmp_texture(t_app *app, int x, int y)
 {
 	static t_img_data	moon = {0};
-	static char			file_name[] = "doc/earth/elev_bump.xpm";
+	static char			file_name[] = "doc/earth/hight_and_bathymetry.xpm";
 
 	if (moon.img == NULL)
 	{

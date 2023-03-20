@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 11:45:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 01:41:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	render_frame(t_app *a)
 		render_sphere(a);
 		change_flag = 0;
 		get_mouse_diff(a, -1);
-		// print_v3("light", &a->l_origin);
+		print_v3("light", &a->l_origin);
 	}
 	else
 		usleep(100);

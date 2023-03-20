@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/19 20:44:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 01:55:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main()
 
 	/* ------- scene settings ------------- */
 
-	a.a_colour = MRT_BRICK;
+	a.a_colour = MRT_RED;
 	a.a_ratio = 0.1;
 	a.global_ambient = colour_brightness_multi(a.a_colour, a.a_ratio);
 
@@ -47,7 +47,7 @@ int	main()
 
 	a.l_origin = (t_v3){50, 300, 600};
 	a.l_colour = MRT_WHITE;
-	a.l_brightness = 0.5;
+	a.l_brightness = 0.9;
 
 	a.sp_origin = (t_v3){0, 0, 400}; // lefthanded rule?
 	a.sp_radius = 50;
