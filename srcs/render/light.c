@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 16:40:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:46:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,14 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 
 	float	raw_u = theta / (2 * M_PI);
 
-	float	tu = 1 - (raw_u + 0.5);
+	float	tu = (raw_u + 0.5);
 	float	tv = (phi / M_PI);
 
 
 	// // texture map
-	// int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+	int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
 	// point_colour = colour_pallet_multiply(point_colour, texture_colour);
-	// point_colour = texture_colour;
+	point_colour = texture_colour;
 
 	// bmp map
 	norm =  v3_unitvec(v3_add(norm, v3_multiply(finite_diff(a, tu, tv), 3)));
@@ -145,7 +145,8 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
 
 	// specular lighting
-	t_v3	view_pos = {0, 0, 0};
+	// t_v3	view_pos = {0, 0, 0};
+	t_v3	view_pos = a->c_origin;
 	float	specular_strength = 0.8;
 
 	t_v3	view_dir = v3_unitvec(v3_subtract(view_pos, intersection));

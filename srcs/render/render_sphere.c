@@ -6,12 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 16:53:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 23:12:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+#include <float.h>
 
 // http://www.illusioncatalyst.com/notes_files/mathematics/line_sphere_intersection.php
 /*
@@ -30,8 +31,8 @@ void	render_sphere(t_app *a)
 			float	hr = tanf((a->c_fov / 2) * a->c_aspect_ratio) * y;
 
 			t_v3	e = v3_add(a->c_origin, a->c_normal);
-			t_v3	xdir = v3_unitvec(v3_cross(a->c_normal, (t_v3){-1.0, 0.0, 0.0}));
-			t_v3	ydir = v3_unitvec(v3_cross(a->c_normal, (t_v3){0.0, 1.0, 0.0}));
+			t_v3	xdir = v3_unitvec(v3_cross(a->c_normal, (t_v3){0.0, 1.0, 0.0}));
+			t_v3	ydir = v3_unitvec(v3_cross(a->c_normal, (t_v3){-1.0, 0.0, 0.0}));
 			// t_v3	n = v3_cross(v3_unitvec(e), a->c_normal);
 
 			xdir = v3_multiply(xdir, wr);
@@ -41,17 +42,18 @@ void	render_sphere(t_app *a)
 
 			t_v3	vec = v3_add(e, p);
 
-			// t_v3 vec = (t_v3){x, y, 1600};
+			// vec = (t_v3){x, y, 1600};
 			// vec = v3_unitvec(vec);
 
 			// render the sphere
 			t_v3 w = v3_subtract((t_v3){0, 0, 0}, a->sp_origin);
+			// t_v3 w = v3_subtract(a->c_origin, a->sp_origin);
 			float _a = v3_dot(vec, vec);
 			float _b = v3_dot(vec, w) *  2;
 			float _c = v3_dot(w, w) - powf(a->sp_radius, 2);
 			float discriminant = pow(_b, 2) - 4 * _a * _c;
 
-			if (discriminant > 0)
+			if (discriminant > FLT_EPSILON)
 			{
 				float dsquared = sqrt(pow(_b, 2) - 4 * _a * _c);
 				float t1 = (-_b - dsquared) / (2 * _a);

@@ -6,15 +6,21 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 16:55:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:18:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main()
+int	main(int ac, char **av)
 {
 	t_app	a;
+	t_scene	scene;
+
+	if (ac != 2)
+	{
+		return 0;
+	}
 
 	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
@@ -55,7 +61,7 @@ int	main()
 	a.sp_colour = MRT_PALE_BLUE;
 
 	a.c_origin = (t_v3){0, 0, 0};
-	a.c_normal = v3_unitvec((t_v3){0, 0, 1});
+	a.c_normal = v3_unitvec((t_v3){0, 1, 0});
 	a.c_viewport_offset = 1;
 	a.c_fov = M_PI_2;
 

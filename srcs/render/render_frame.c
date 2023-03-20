@@ -6,11 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 16:57:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:13:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "float.h"
 
 static void debug_print_held(t_app *a);
 
@@ -28,13 +29,19 @@ int	render_frame(t_app *a)
 		& scale_property(a, &a->l_origin.y, "my", e_mouse_left, 1)
 		& scale_property(a, &a->l_origin.z, "my", e_mouse_right, 1)
 		& scale_property(a, &a->sp_radius, "ky", e_key_s, 0.2)
-		& scale_property(a, &a->c_origin.z, "ky", e_key_c, 1)
-		& scale_property(a, &a->c_origin.x, "kx", e_key_x, .2)
-		& scale_property(a, &a->c_origin.y, "ky", e_key_y, .2)
-		& scale_property(a, &a->c_fov, "ky", e_key_f, .2))
+		& scale_property(a, &a->c_origin.z, "ky", e_key_z, 1)
+		& scale_property(a, &a->c_origin.x, "kx", e_key_c, 1)
+		& scale_property(a, &a->c_origin.y, "ky", e_key_c, 1)
+		& scale_property(a, &a->c_normal.z, "ky", e_key_w, 0.1)
+		& scale_property(a, &a->c_normal.x, "kx", e_key_v, 0.1)
+		& scale_property(a, &a->c_normal.y, "ky", e_key_v, 0.1)
+		& scale_property(a, &a->c_fov, "ky", e_key_f, 0.2))
+	{
 		change_flag = 1;
+		a->c_normal = v3_unitvec(a->c_normal);
+	}
 
-	if (change_flag)
+	if (change_flag && FLT_EPSILON)
 	{
 		fill_screen(&a->img, MRT_BLACK);
 		render_sphere(a);
@@ -42,6 +49,7 @@ int	render_frame(t_app *a)
 		get_mouse_diff(a, -1);
 		// print_v3("light", &a->l_origin);
 		print_v3("camera", &a->c_origin);
+		print_v3("normal", &a->c_normal);
 	}
 	else
 		usleep(100);
