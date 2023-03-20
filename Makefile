@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/19 18:20:36 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/20 17:06:53 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
 					lerp_colour the_moon multithread
 MATHS_FILES		:= vector matrix
 UTILS_FILES		:= debug_prints singletons
-PARSING_FILES := parse
+PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
@@ -41,7 +41,6 @@ FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILE
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
           $(addprefix parsing/, $(PARSING_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
-
 
 OBJS_PATH = objs/
 SRCS_PATH = srcs/
@@ -73,6 +72,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) libminirt.a
 
 $(MLX):
 	@$(MAKE) -C mlx
@@ -83,21 +83,14 @@ $(LIBFT):
 $(GNL):
 	@$(MAKE) -C gnl
 
+#create an archive containing all functions
+#useful for testing purposes
+archive: $(OBJS) $(MLX) $(GNL) $(LIBFT)
+	mkdir -p tmp1 tmp2 tmp3
+	cd tmp1; ar -x ../$(MLX)
+	cd tmp2; ar -x ../$(GNL)
+	cd tmp3; ar -x ../$(LIBFT)
+	ar -rcs libminirt.a tmp1/* tmp2/* tmp3/* $(OBJS)
+	rm -rf tmp1 tmp2 tmp3
+
 re: clean all
-
-# tests below
-
-OBJS_TO_TEST = $(filter-out objs/main.o, $(OBJS))
-
-# parsing
-PARSING_TEST_FILES = $(addprefix tests/parsing/files/, valid1.rt)
-PARSING_TEST_EXEC = tests/parsing/parsing_test
-PARSING_TEST_SRC = tests/parsing/parsing_test.c
-
-$(PARSING_TEST_EXEC): $(GNL) $(MLX) $(LIBFT) $(OBJS_TO_TEST) $(PARSING_TEST_SRC)
-	$(CC) $(CFLAGS) -o $@ $(INCS_PATH) $(LIBS_PATH) $(LIBS) $^
-
-run_parsing_tests: $(PARSING_TEST_EXEC)
-	@for filename in $(PARSING_TEST_FILES); do\
-		$(PARSING_TEST_EXEC) $$filename;\
-	done;

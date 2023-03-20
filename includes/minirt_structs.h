@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 14:28:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:05:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <pthread.h>
 # include "minirt_control_enums.h"
 # include "minirt_defines.h"
+# include "libft.h"
 
 /*
 	used to reprisent a pixel on the screen
@@ -137,5 +138,73 @@ typedef	struct s_app
 
 }	t_app;
 
+/* objects */
+
+typedef struct	s_ambiant
+{
+	float	ratio;
+	t_v3	colour;
+}	t_ambiant;
+
+typedef struct	s_camera
+{
+	t_v3	position;
+	t_v3	orientation;
+	int		fov;
+}	t_camera;
+
+typedef struct	s_light
+{
+	t_v3	position;
+	float	ratio;
+	t_v3	colour;
+}	t_light;
+
+typedef struct	s_sphere
+{
+	t_v3	position;
+	float	diameter;
+	t_v3	colour;
+}	t_sphere;
+
+typedef struct	s_plane
+{
+	t_v3	position;
+	t_v3	orientation;
+	t_v3	colour;
+}	t_plane;
+
+typedef struct	s_cylinder
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	diameter;
+	float	height;
+	t_v3	colour;
+}	t_cylinder;
+
+union	u_object
+{
+	t_ambiant	a;
+	t_camera	c;
+	t_light		l;
+	t_sphere	sp;
+	t_plane		pl;
+	t_cylinder	cy;
+};
+
+typedef struct s_object
+{
+	int				type;
+	union u_object	object;
+}	t_object;
+
+typedef struct	s_scene
+{
+	t_ambiant	ambiant;
+	t_camera	camera;
+	t_list		*lights_list;
+	t_list		*objects_list;
+}	t_scene;
 
 #endif

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_test.c                                     :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 14:04:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 15:40:13 by skoulen          ###   ########.fr       */
+/*   Created: 2023/03/16 12:35:01 by skoulen           #+#    #+#             */
+/*   Updated: 2023/03/20 09:31:32 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parsing.h"
+#ifndef TEST_H
+# define TEST_H
 
-int main(int argc, char **argv)
-{
-	if (argc != 2)
-		return (42);
-	printf("parsing test: file %s\n", argv[1]);
-	if (parse(argv[1]))
-		printf("parse error\n");
-	else
-		printf("parse success\n");
-}
+# include <stdio.h>
+# include <ctype.h>
+# include "minirt.h"
+# include "check.h"
+
+Suite	*parse_float_suite(void);
+Suite	*parse_position_suite(void);
+Suite	*parse_color_suite(void);
+Suite	*parse_objects_suite(void);
+Suite	*parse_suite(void);
+
+#endif
