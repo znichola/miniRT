@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_defines.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 19:01:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:26:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

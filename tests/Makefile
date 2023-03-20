@@ -8,7 +8,7 @@ LIBS = -lminirt -lcheck
 
 ARCHIVE = ../libminirt.a
 
-FILES = main test_parse_float test_parse_position test_parse_color test_parse_objects
+FILES = main test_parse_float test_parse_position test_parse_color test_parse_objects test_parse
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
 

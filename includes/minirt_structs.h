@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/17 11:56:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/20 13:45:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_STRUCTS_H
 
 # include "minirt_control_enums.h"
+# include "libft.h"
 
 /*
 	used to reprisent a pixel on the screen
@@ -153,5 +154,29 @@ typedef struct	s_cylinder
 	float	height;
 	t_v3	colour;
 }	t_cylinder;
+
+union	u_object
+{
+	t_ambiant	a;
+	t_camera	c;
+	t_light		l;
+	t_sphere	sp;
+	t_plane		pl;
+	t_cylinder	cy;
+};
+
+typedef struct s_object
+{
+	int				type;
+	union u_object	object;
+}	t_object;
+
+typedef struct	s_scene
+{
+	t_ambiant	ambiant;
+	t_camera	camera;
+	t_list		*lights_list;
+	t_list		*objects_list;
+}	t_scene;
 
 #endif
