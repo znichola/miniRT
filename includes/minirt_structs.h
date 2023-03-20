@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 14:45:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:28:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ typedef	struct s_app
 	// camera
 	t_v3		c_origin;
 	t_v3		c_normal;
+	float		c_viewport_offset;
 	float		c_fov;
+	float		c_aspect_ratio;
 
 
 	// objects in scene

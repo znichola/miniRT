@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 18:19:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:40:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_v3		v3_unitvec(t_v3 v);
 t_v3		v3_perp(t_v3 v);
 float		v3_dot(t_v3 a, t_v3 b);
 t_v3		v3_cross(t_v3 a, t_v3 b);
-t_v3		v3_vadd(t_v3 a, t_v3 b);
+t_v3		v3_add(t_v3 a, t_v3 b);
 t_v3		v3_subtract(t_v3 a, t_v3 b);
 t_v3		v3_multiply(t_v3 v, float s);
 t_v3		v3_divide(t_v3 v, float s);

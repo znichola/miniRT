@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 01:41:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:57:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int	render_frame(t_app *a)
 	if (scale_property(a, &a->l_origin.x, "mx", e_mouse_left, 1)
 		& scale_property(a, &a->l_origin.y, "my", e_mouse_left, 1)
 		& scale_property(a, &a->l_origin.z, "my", e_mouse_right, 1)
-		& scale_property(a, &a->sp_radius, "ky", e_key_s, 0.2))
+		& scale_property(a, &a->sp_radius, "ky", e_key_s, 0.2)
+		& scale_property(a, &a->c_origin.z, "ky", e_key_c, 1)
+		& scale_property(a, &a->c_origin.x, "kx", e_key_x, .2)
+		& scale_property(a, &a->c_origin.y, "ky", e_key_y, .2)
+		& scale_property(a, &a->c_fov, "ky", e_key_f, .2))
 		change_flag = 1;
 
 	if (change_flag)
@@ -36,7 +40,8 @@ int	render_frame(t_app *a)
 		render_sphere(a);
 		change_flag = 0;
 		get_mouse_diff(a, -1);
-		print_v3("light", &a->l_origin);
+		// print_v3("light", &a->l_origin);
+		print_v3("camera", &a->c_origin);
 	}
 	else
 		usleep(100);

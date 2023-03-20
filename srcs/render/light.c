@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 08:59:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:40:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// point_colour = texture_colour;
 
 	// bmp map
-	norm =  v3_unitvec(v3_vadd(norm, v3_multiply(finite_diff(a, tu, tv), 3)));
+	norm =  v3_unitvec(v3_add(norm, v3_multiply(finite_diff(a, tu, tv), 3)));
 
 	// ambient light
 	int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
