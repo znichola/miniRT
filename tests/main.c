@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:34:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 10:00:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/20 17:02:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int	main()
 	Suite	*s4;
 	SRunner	*sr;
 
-	//s0 = parse_float_suite();
-	//s1 = parse_position_suite();
-	//s2 = parse_color_suite();
-	//s3 = parse_objects_suite();
+	s0 = parse_float_suite();
+	s1 = parse_position_suite();
+	s2 = parse_color_suite();
+	s3 = parse_objects_suite();
 	s4 = parse_suite();
 
-	sr = srunner_create(s4);
-	//srunner_add_suite(sr, s1);
-	//srunner_add_suite(sr, s2);
-	//srunner_add_suite(sr, s3);
-	//srunner_add_suite(sr, s4);
+	sr = srunner_create(s0);
+	srunner_add_suite(sr, s1);
+	srunner_add_suite(sr, s2);
+	srunner_add_suite(sr, s3);
+	srunner_add_suite(sr, s4);
 
 	srunner_run_all(sr, CK_NORMAL);
 	number_failed = srunner_ntests_failed(sr);

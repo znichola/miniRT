@@ -6,3 +6,4 @@ libminirt.a
 mlx/libmlx.a
 .vscode
 tests/*test
+tests/unit-tests

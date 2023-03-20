@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 14:52:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/20 15:42:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 int		parse(const char *filename, t_scene *scene);
 
 /* parse utils */
+t_list	*tokenize(const char *str);
 char	*get_word(const char **str);
 int		is_only_whitespace(const char *str);
 

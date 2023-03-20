@@ -6,13 +6,37 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:22:08 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/13 16:51:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/20 15:41:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
 static	int	len_word(const char *str);
+
+t_list	*tokenize(const char *str)
+{
+	t_list	*lst;
+	t_list	*new_item;
+	char	*word;
+
+	lst = NULL;
+	while (1)
+	{
+		while (ft_isspace(*str))
+			str++;
+		if (*str == '\0')
+			break ;
+		word = get_word(&str);
+		if (!word)
+			exit(1);
+		new_item = ft_lstnew(word);
+		if (!new_item)
+			exit(1);
+		ft_lstadd_back(&lst, new_item);
+	}
+	return (lst);
+}
 
 char	*get_word(const char **str)
 {
