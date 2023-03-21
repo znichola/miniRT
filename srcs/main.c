@@ -6,21 +6,30 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 14:09:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 01:09:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main()
+int	main(int ac, char **av)
 {
 	t_app	a;
+	t_scene	scene;
 
-	// a = (t_app){}
-	ft_putstr_fd("hello raytraced world\n", 1);
+	if (ac != 2)
+	{
+		return 0;
+	}
+
+	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
 	// initialising everything to 0 so we are sure it's all copacetic
 	ft_memset(&a, 0, sizeof(t_app));
+	// a = (t_app){} // but apparently this also works, who knew?
+
+	ft_putstr_fd("hello raytraced world\n", 1);
+
 	a.mlx_instance = mlx_init();
 	a.img.width = WIDTH;
 	a.img.height = HEIGHT;
@@ -34,38 +43,47 @@ int	main()
 
 	/* ------- scene settings ------------- */
 
-	a.a_colour = MRT_PALE_BLUE;
+	a.a_colour = MRT_RED;
 	a.a_ratio = 0.1;
 	a.global_ambient = colour_brightness_multi(a.a_colour, a.a_ratio);
 
 	a.c_origin = (t_v3){0, 0, 0};
 	a.c_normal = (t_v3){0, 0, 1};
 	a.c_fov = 90.0;
+	a.c_aspect_ratio = a.img.width / a.img.height;
 
-	a.l_origin = (t_v3){50, 300, 200};
+	a.l_origin = (t_v3){50, 300, 600};
 	a.l_colour = MRT_WHITE;
-	a.l_brightness = 0.5;
+	a.l_brightness = 0.9;
 
-	a.sp_origin = (t_v3){0, 0, 80}; // lefthanded rule?
+	a.sp_origin = (t_v3){0, 0, 60}; // lefthanded rule?
 	a.sp_radius = 50;
-	a.sp_colour = MRT_BRICK;
+	a.sp_colour = MRT_PALE_BLUE;
 
+	a.c_origin = (t_v3){0, 0, 0};
+	a.c_normal = v3_unitvec((t_v3){0, 0, 1});
+	a.c_viewport_offset = 1;
+	a.c_fov = M_PI_2;
+	// a.c_mat = ;
 	/* ---------- end scene ----------------*/
 
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
+
+	// keyboard
+	mlx_do_key_autorepeatoff(a.mlx_instance);
+	mlx_hook(a.window, e_on_keydown, 0, keyboard_on_press, &a);
+	mlx_hook(a.window, e_on_keyup, 0, keyboard_on_release, &a);
 
 	// mouse
 	mlx_hook(a.window, e_on_mousemove, 0, mouse_movement_track, &a);
 	mlx_hook(a.window, e_on_mouseup , 0, mouse_on_release, &a);
 	mlx_mouse_hook(a.window, mouse_on_click, &a);
 
-	// keyboard
-	mlx_key_hook(a.window, keyboard_press, &a);
-
 	// render hookup
 	mlx_loop_hook(a.mlx_instance, render_frame, &a);
 
 	mlx_loop(a.mlx_instance);
 	return (0);
+
 }

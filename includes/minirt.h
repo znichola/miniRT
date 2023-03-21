@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:07:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include "math.h"
 
 # include "mlx.h"
 # include "libft.h"
@@ -27,6 +28,8 @@
 # include "minirt_colour_defs.h"
 # include "minirt_maths.h"
 # include "minirt_utils.h"
+
+# include "parsing.h"
 
 /* destroy window */
 

@@ -6,14 +6,17 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 16:58:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:03:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_STRUCTS_H
 # define MINIRT_STRUCTS_H
 
+# include <pthread.h>
 # include "minirt_control_enums.h"
+# include "minirt_defines.h"
+# include "libft.h"
 
 /*
 	used to reprisent a pixel on the screen
@@ -35,6 +38,13 @@ typedef struct s_v3
 	float	z;
 }	t_v3;
 
+/*
+	matrix used for vector transformations
+*/
+typedef struct s_mat4x4
+{
+	float	m[4][4];
+}	t_mat4x4;
 
 /*
 	data structure for holding image data
@@ -50,6 +60,17 @@ typedef struct	s_img_data
 	int		height;
 }				t_img_data;
 
+
+/*
+	used to pass process number to
+	launch threads for rendering
+*/
+typedef struct	s_ptinfo
+{
+	int		id;
+	void	*app;
+}	t_ptinfo;
+
 /*
 	structure to hold all application information
 	all in one big ugly struct.
@@ -60,7 +81,13 @@ typedef	struct s_app
 	void		*mlx_instance;
 	void		*window;
 
+	t_img_data		thread_img[MRT_THREAD_COUNT];
+	pthread_mutex_t	thread_lock[MRT_THREAD_COUNT];
+	pthread_t		thread_instance[MRT_THREAD_COUNT];
+	t_ptinfo		thread_info[MRT_THREAD_COUNT];
+
 	t_v2int		mouse_pos;
+	t_v2int		mouse_pos_old;
 	int			mouse_key_click[MOUSE_KEY_COUNT];
 	int			mouse_key_held[MOUSE_KEY_COUNT];
 	int			mouse_key_release[MOUSE_KEY_COUNT];
@@ -80,8 +107,10 @@ typedef	struct s_app
 	// camera
 	t_v3		c_origin;
 	t_v3		c_normal;
+	float		c_viewport_offset;
 	float		c_fov;
-
+	float		c_aspect_ratio;
+	t_mat4x4	c_mat;
 
 	// objects in scene
 
@@ -109,5 +138,73 @@ typedef	struct s_app
 
 }	t_app;
 
+/* objects */
+
+typedef struct	s_ambiant
+{
+	float	ratio;
+	t_v3	colour;
+}	t_ambiant;
+
+typedef struct	s_camera
+{
+	t_v3	position;
+	t_v3	orientation;
+	int		fov;
+}	t_camera;
+
+typedef struct	s_light
+{
+	t_v3	position;
+	float	ratio;
+	t_v3	colour;
+}	t_light;
+
+typedef struct	s_sphere
+{
+	t_v3	position;
+	float	diameter;
+	t_v3	colour;
+}	t_sphere;
+
+typedef struct	s_plane
+{
+	t_v3	position;
+	t_v3	orientation;
+	t_v3	colour;
+}	t_plane;
+
+typedef struct	s_cylinder
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	diameter;
+	float	height;
+	t_v3	colour;
+}	t_cylinder;
+
+union	u_object
+{
+	t_ambiant	a;
+	t_camera	c;
+	t_light		l;
+	t_sphere	sp;
+	t_plane		pl;
+	t_cylinder	cy;
+};
+
+typedef struct s_object
+{
+	t_obj_type		type;
+	union u_object	object;
+}	t_object;
+
+typedef struct	s_scene
+{
+	t_ambiant	ambiant;
+	t_camera	camera;
+	t_list		*lights_list;
+	t_list		*objects_list;
+}	t_scene;
 
 #endif

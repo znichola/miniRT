@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/13 23:09:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:40:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 
 # include "minirt_structs.h"
 
-float	v3_mag(t_v3 v);
-t_v3	v3_unitvec(t_v3 v);
-t_v3	v3_perp(t_v3 v);
-float	v3_dot(t_v3 a, t_v3 b);
-float	v3_cross(t_v3 a, t_v3 b);
-t_v3	v3_vadd(t_v3 a, t_v3 b);
-t_v3	v3_subtract(t_v3 a, t_v3 b);
-t_v3	v3_multiply(t_v3 v, float s);
-t_v3	v3_divide(t_v3 v, float s);
+float		v3_mag(t_v3 v);
+t_v3		v3_unitvec(t_v3 v);
+t_v3		v3_perp(t_v3 v);
+float		v3_dot(t_v3 a, t_v3 b);
+t_v3		v3_cross(t_v3 a, t_v3 b);
+t_v3		v3_add(t_v3 a, t_v3 b);
+t_v3		v3_subtract(t_v3 a, t_v3 b);
+t_v3		v3_multiply(t_v3 v, float s);
+t_v3		v3_divide(t_v3 v, float s);
+
+t_v3 		v3_multiply_matrix(t_v3 i, t_mat4x4 t);
+t_mat4x4	direction_mat(t_v3 dir);
 
 
 #endif /* MINIRT_VECTOR_H */

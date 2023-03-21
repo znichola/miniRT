@@ -6,12 +6,15 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 14:18:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:46:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+
+float	get_angle(t_v3 norm, t_v3 obj);
+static t_v3	finite_diff(t_app *a, float tu, float tv);
 
 /*
 	https://www.paulsprojects.net/tutorials/simplebump/simplebump.html
@@ -50,14 +53,8 @@ Specular lighting: simulates the bright spot of a light that appears on shiny ob
 
 
 /*
-	a.a_colour = MRT_CYAN;
-	a.l_colour = MRT_LIGHT_BLUE;
-	a.sp_colour = MRT_YELLOW;
-
-*/
-
-/*
 	Calculate the resulting colour from ambient and surface colour
+	~ depriciated ~
 */
 int	calculate_px_colour(t_app *a, float diff, int l_colour, float l_brightness , int obj_colour)
 {
@@ -106,29 +103,60 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 	// float	theta = acosf(v3_dot(normal_of_intersection, vector_of_light)
 	// 			/ (v3_mag(normal_of_intersection) * v3_mag(vector_of_light)));
 
-	// ambient light
-	int		ambient = colour_pallet_multiply(a->global_ambient, a->sp_colour);
+	// so we can modify the colour with the texture
+	int		point_colour = a->sp_colour;
+
 
 	// emmision colour
 	t_v3	norm = v3_unitvec(normal_of_intersection);
 	t_v3	light_dir = v3_unitvec(vector_of_light);
 
+
+	// getting uv texture coordinates
+	// https://www.mvps.org/directx/articles/spheremap.htm
+	// http://raytracerchallenge.com/bonus/texture-mapping.html
+
+	float	theta = atan2f(norm.x, norm.z);
+	float	phi = acosf(norm.y / 1);
+
+	float	raw_u = theta / (2 * M_PI);
+
+	float	tu = (raw_u + 0.5);
+	float	tv = (phi / M_PI);
+
+
+	// // texture map
+	int		texture_colour = earth_texture(a, tu * (3072), tv * (1536));
+	// point_colour = colour_pallet_multiply(point_colour, texture_colour);
+	point_colour = texture_colour;
+
+	// bmp map
+	norm =  v3_unitvec(v3_add(norm, v3_multiply(finite_diff(a, tu, tv), 3)));
+
+	// ambient light
+	int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
+	// with night sky
+	// ambient = colour_pallet_add(ambient, earth_nightlight_texture(a, tu * (3072), tv * (1536))); // I think addtion is not quite totally right, also the ambient shader isn't the best choice as it' still visible in the daytime.
+
 	float	diff = fmax(v3_dot(norm, light_dir), 0.0);
 	int		diffuse = colour_brightness_multi(a->l_colour, diff);
-	// int		result = colour_pallet_multiply(colour_pallet_add(ambient, diffuse), a->sp_colour);
+
+	// old ambient
+	// int		ambient = colour_pallet_multiply(a->global_ambient, point_colour);
 
 	// specular lighting
-	t_v3	view_pos = {0, 0, 0};
-	float	specular_strength = 1.0;
+	// t_v3	view_pos = {0, 0, 0};
+	t_v3	view_pos = a->c_origin;
+	float	specular_strength = 0.8;
 
 	t_v3	view_dir = v3_unitvec(v3_subtract(view_pos, intersection));
 	// t_v3	reflect_dir = reflection(v3_multiply(light_dir, -1), norm);
 	t_v3	reflect_dir = reflection(light_dir, norm);
 
-	float	spec = pow(fmax(v3_dot(view_dir, reflect_dir), 0.0), 64);
+	float	spec = powf(fmax(v3_dot(view_dir, reflect_dir), 0.0), 256);
 	int		specular_colour = colour_brightness_multi(a->l_colour, specular_strength * spec);
 
-	int		result = colour_pallet_multiply(colour_pallet_add(colour_pallet_add(ambient, diffuse), specular_colour), a->sp_colour);
+	int		result = colour_pallet_multiply(colour_pallet_add(colour_pallet_add(ambient, diffuse), specular_colour), point_colour);
 
 
 	// display pixel
@@ -146,5 +174,31 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 {
 	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
-	return (v3_subtract(incident, foo));
+	return (v3_unitvec(v3_subtract(incident, foo)));
+}
+
+
+float	get_angle(t_v3 norm, t_v3 obj)
+{
+	float	dot;
+	float	angle;
+
+	dot = v3_dot(norm, obj);
+	angle = acos(dot);
+	return (angle / (M_PI));
+}
+
+static t_v3	finite_diff(t_app *a, float tu, float tv)
+{
+	int	u = tu * (3072);
+	int	v = tv * (1536);
+	// u *= 3072;
+	// v *= 1536;
+	// int	x0 = get_r(earth_bmp_texture(a, u - 1, v));
+	int	x1 = get_r(earth_bmp_texture(a, u, v));
+	int	x2 = get_r(earth_bmp_texture(a, u - 1, v));
+
+	int	dx = (x1 - x2);
+	int	dy = (get_r(earth_bmp_texture(a, u, v)) - get_r(earth_bmp_texture(a, u, v - 1)));
+	return (v3_unitvec((t_v3){dx, dy, 255}));
 }

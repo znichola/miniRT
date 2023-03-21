@@ -6,40 +6,39 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 11:47:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:01:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "float.h"
 
 static void debug_print_held(t_app *a);
 
 int	render_frame(t_app *a)
 {
-	static t_v2int old_pos;
+	// static t_v2int old_pos;
 	static int change_flag = 1;
 
-	debug_print_held(a);
+	if (getset_settings(MRT_DEBUG_PRINT))
+		debug_print_held(a);
 
-	if (a->mouse_key_click[e_mouse_left])
-		old_pos = a->mouse_pos;
-	else if (a->mouse_key_held[e_mouse_left])
+	// print_image(a);
+
+	if (scale_property(a, &a->l_origin.x, "mx", e_mouse_left, 1)
+		& scale_property(a, &a->l_origin.y, "my", e_mouse_left, 1)
+		& scale_property(a, &a->l_origin.z, "my", e_mouse_right, 1)
+		& scale_property(a, &a->sp_radius, "ky", e_key_s, 0.2)
+		& scale_property(a, &a->c_origin.z, "ky", e_key_z, 1)
+		& scale_property(a, &a->c_origin.x, "kx", e_key_c, 1)
+		& scale_property(a, &a->c_origin.y, "ky", e_key_c, 1)
+		& scale_property(a, &a->c_normal.z, "ky", e_key_w, 0.1)
+		& scale_property(a, &a->c_normal.x, "kx", e_key_v, 0.1)
+		& scale_property(a, &a->c_normal.y, "ky", e_key_v, 0.1)
+		& scale_property(a, &a->c_fov, "ky", e_key_f, 0.2))
 	{
-		// printf("inhere\n");
-		float	*scale_a = &a->l_origin.y;
-		float	*scale_b = &a->l_origin.x;
-		*scale_a += ((double)old_pos.y - a->mouse_pos.y) * 0.3;
-		*scale_b += ((double)old_pos.x - a->mouse_pos.x) * 0.3;
-		// printf("modified to (%f, %f)\n", *scale_a, *scale_b);
-		print_v3("light", &a->l_origin);
-		old_pos = a->mouse_pos;
-		// if (*scale < 0)
-		// 	*scale = 0;
-		// if (*scale > a->img.height / 2)
-		// 	*scale = a->img.height - 1;
-		// if (*scale > a->img.width / 2)
-		// 	*scale = a->img.width - 1;
 		change_flag = 1;
+		a->c_normal = v3_unitvec(a->c_normal);
 	}
 
 	if (change_flag)
@@ -47,15 +46,25 @@ int	render_frame(t_app *a)
 		fill_screen(&a->img, MRT_BLACK);
 		render_sphere(a);
 		change_flag = 0;
+		get_mouse_diff(a, -1);
+		// print_v3("light", &a->l_origin);
+		print_v3("camera", &a->c_origin);
+		print_v3("normal", &a->c_normal);
 	}
 	else
 		usleep(100);
 
-	// put_circle_fast(&a->img, a->sphere_radius, a->circle, MRT_WHITE);
-
 	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));
 	ft_memset(&a->mouse_key_release, 0, sizeof(a->mouse_key_release));
+	ft_memset(&a->keyboard_press, 0, sizeof(a->keyboard_press));
+	ft_memset(&a->keyboard_release, 0, sizeof(a->keyboard_release));
+
+	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
+
+	a->mouse_pos_old = a->mouse_pos;
+
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+	// exit(0);
 	return (0);
 }
 
@@ -64,10 +73,15 @@ int	render_frame(t_app *a)
 static void debug_print_held(t_app *a)
 {
 	printf("[");
-	for (int i = 0; i < MOUSE_KEY_COUNT; i++)
+	for (int i = 1; i < MOUSE_KEY_COUNT; i++)
+	{
 		if (a->mouse_key_held[i])
-			printf("%d, ", i);
+			printf("%d", i);
 		else
-			printf("-, ");
+			printf("-");
+		if (i < MOUSE_KEY_COUNT - 1)
+			printf(", ");
+
+	}
 	printf("]\n");
 }
