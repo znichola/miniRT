@@ -6,12 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:13:12 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/17 18:01:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:52:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 #include "minirt_structs.h"
+#include <math.h>
 
 static void	test_ambiant(const char *str, float ratio, t_v3 clr, int res)
 {
@@ -45,7 +46,7 @@ static void	test_camera(const char *str, t_v3 pos, t_v3 ori, int fov, int res)
 		ck_assert_float_eq(c.orientation.y, ori.y);
 		ck_assert_float_eq(c.orientation.z, ori.z);
 
-		ck_assert_int_eq(c.fov, fov);
+		ck_assert_float_eq(c.fov, (float)fov * M_PI / 180);
 		ck_assert(*str == '\0');
 	}
 }
@@ -84,7 +85,7 @@ static void	test_sphere(const char *str, t_v3 pos, float diam, t_v3 clr, int res
 		ck_assert_float_eq(sp.position.y, pos.y);
 		ck_assert_float_eq(sp.position.z, pos.z);
 
-		ck_assert_float_eq(sp.diameter, diam);
+		ck_assert_float_eq(sp.radius * 2, diam);
 
 		ck_assert_float_eq(sp.colour.x, clr.x);
 		ck_assert_float_eq(sp.colour.y, clr.y);
@@ -134,7 +135,7 @@ static void	test_cylinder(const char *str, t_v3 pos, t_v3 ori, float diam, float
 		ck_assert_float_eq(cy.orientation.y, ori.y);
 		ck_assert_float_eq(cy.orientation.z, ori.z);
 
-		ck_assert_float_eq(cy.diameter, diam);
+		ck_assert_float_eq(cy.radius * 2, diam);
 		ck_assert_float_eq(cy.height, height);
 
 		ck_assert_float_eq(cy.colour.x, clr.x);

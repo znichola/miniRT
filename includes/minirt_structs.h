@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 11:03:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:46:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,76 @@ typedef struct	s_ptinfo
 	void	*app;
 }	t_ptinfo;
 
+
+/* objects */
+
+typedef struct	s_ambiant
+{
+	float	ratio;
+	t_v3	colour;
+}	t_ambiant;
+
+typedef struct	s_camera
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	fov;
+}	t_camera;
+
+typedef struct	s_light
+{
+	t_v3	position;
+	float	ratio;
+	t_v3	colour;
+}	t_light;
+
+typedef struct	s_sphere
+{
+	t_v3	position;
+	float	radius;
+	t_v3	colour;
+}	t_sphere;
+
+typedef struct	s_plane
+{
+	t_v3	position;
+	t_v3	orientation;
+	t_v3	colour;
+}	t_plane;
+
+typedef struct	s_cylinder
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	radius;
+	float	height;
+	t_v3	colour;
+}	t_cylinder;
+
+union	u_object
+{
+	t_ambiant	a;
+	t_camera	c;
+	t_light		l;
+	t_sphere	sp;
+	t_plane		pl;
+	t_cylinder	cy;
+};
+
+typedef struct s_object
+{
+	t_obj_type		type;
+	union u_object	object;
+}	t_object;
+
+typedef struct	s_scene
+{
+	t_ambiant	ambiant;
+	t_camera	camera;
+	t_list		*lights_list;
+	t_list		*objects_list;
+}	t_scene;
+
 /*
 	structure to hold all application information
 	all in one big ugly struct.
@@ -97,6 +167,7 @@ typedef	struct s_app
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
 	// world
+	t_scene		s;
 
 	// ambient light
 	float		a_ratio;
@@ -137,74 +208,5 @@ typedef	struct s_app
 	int			cy_colour;
 
 }	t_app;
-
-/* objects */
-
-typedef struct	s_ambiant
-{
-	float	ratio;
-	t_v3	colour;
-}	t_ambiant;
-
-typedef struct	s_camera
-{
-	t_v3	position;
-	t_v3	orientation;
-	int		fov;
-}	t_camera;
-
-typedef struct	s_light
-{
-	t_v3	position;
-	float	ratio;
-	t_v3	colour;
-}	t_light;
-
-typedef struct	s_sphere
-{
-	t_v3	position;
-	float	diameter;
-	t_v3	colour;
-}	t_sphere;
-
-typedef struct	s_plane
-{
-	t_v3	position;
-	t_v3	orientation;
-	t_v3	colour;
-}	t_plane;
-
-typedef struct	s_cylinder
-{
-	t_v3	position;
-	t_v3	orientation;
-	float	diameter;
-	float	height;
-	t_v3	colour;
-}	t_cylinder;
-
-union	u_object
-{
-	t_ambiant	a;
-	t_camera	c;
-	t_light		l;
-	t_sphere	sp;
-	t_plane		pl;
-	t_cylinder	cy;
-};
-
-typedef struct s_object
-{
-	t_obj_type		type;
-	union u_object	object;
-}	t_object;
-
-typedef struct	s_scene
-{
-	t_ambiant	ambiant;
-	t_camera	camera;
-	t_list		*lights_list;
-	t_list		*objects_list;
-}	t_scene;
 
 #endif
