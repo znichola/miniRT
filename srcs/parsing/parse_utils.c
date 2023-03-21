@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:22:08 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 15:41:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 11:00:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static	int	len_word(const char *str);
 
+//unused!!
 t_list	*tokenize(const char *str)
 {
 	t_list	*lst;
@@ -73,7 +74,13 @@ static	int	len_word(const char *str)
 
 int	is_only_whitespace(const char *str)
 {
-	while(*str && ft_isspace(*str))
+	while (*str && ft_isspace(*str))
 		str++;
 	return (*str == '\0');
+}
+
+void	trim(const char **str)
+{
+	while (ft_isspace(**str))
+		(*str)++;
 }

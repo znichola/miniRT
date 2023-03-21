@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:57:16 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/17 16:46:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 10:27:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,17 @@
 */
 int	parse_ambiant(const char **line, t_ambiant *a)
 {
-	while (ft_isspace(**line))
-		(*line)++;
+	trim(line);
 	if (parse_float(line, &a->ratio) != 0)
-		return (-1);
+		return (ERROR_SYNTAX);
 	if (a->ratio < 0 || a->ratio > 1)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (parse_colour(line, &a->colour) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (**line != '\0')
-		return (-1);
+		return (ERROR_SYNTAX);
 	return (0);
 }
 
@@ -45,24 +42,20 @@ int	parse_ambiant(const char **line, t_ambiant *a)
 */
 int	parse_camera(const char **line, t_camera *c)
 {
-	while (ft_isspace(**line))
-		(*line)++;
+	trim(line);
 	if (parse_position(line, &c->position) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (parse_orientation(line, &c->orientation) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (parse_int(line, &c->fov) != 0)
-		return (-1);
+		return (ERROR_SYNTAX);
 	if (c->fov < 0 || c->fov > 180)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (**line != '\0')
-		return (-1);
+		return (ERROR_SYNTAX);
 	return (0);
 }
 
@@ -74,21 +67,17 @@ int	parse_camera(const char **line, t_camera *c)
 */
 int	parse_light(const char **line, t_light *l)
 {
-	while (ft_isspace(**line))
-		(*line)++;
+	trim(line);
 	if (parse_position(line, &l->position) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (parse_ratio(line, &l->ratio) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (parse_colour(line, &l->colour) != 0)
-		return (-1);
-	while (ft_isspace(**line))
-		(*line)++;
+		return (ERROR_SYNTAX);
+	trim(line);
 	if (**line != '\0')
-		return (-1);
+		return (ERROR_SYNTAX);
 	return (0);
 }

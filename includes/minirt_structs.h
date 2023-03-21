@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 13:45:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 10:50:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_STRUCTS_H
 
 # include "minirt_control_enums.h"
+# include "minirt_defines.h"
 # include "libft.h"
 
 /*
@@ -167,7 +168,7 @@ union	u_object
 
 typedef struct s_object
 {
-	int				type;
+	t_obj_type		type;
 	union u_object	object;
 }	t_object;
 

@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/20 14:42:58 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/21 10:53:11 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ UI_FILES		:= destroy_window mouse_movement_track mouse_on_click mouse_on_release
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light lerp_colour
 MATHS_FILES		:= vector
 UTILS_FILES		:= debug_prints
-PARSING_FILES := parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error
+PARSING_FILES := parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
