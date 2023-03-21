@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 10:16:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:34:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
