@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 17:05:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:03:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,15 @@
 # define MRT_LOADING_PRINT 1U
 # define MRT_DEBUG_PRINT 2U
 # define MRT_MULTI_THRED 4U
+
+typedef enum e_obj_type
+{
+	e_ambiant,
+	e_camera,
+	e_light,
+	e_sphere,
+	e_plane,
+	e_cylinder
+}	t_obj_type;
 
 #endif

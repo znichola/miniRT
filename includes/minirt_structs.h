@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 00:56:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:03:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ union	u_object
 
 typedef struct s_object
 {
-	int				type;
+	t_obj_type		type;
 	union u_object	object;
 }	t_object;
 

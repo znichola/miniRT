@@ -6,23 +6,16 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:57:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 14:56:43 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 10:58:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "minirt.h"
 
-#define AMBIANT		0
-#define CAMERA		1
-#define LIGHT		2
-#define SPHERE		3
-#define PLANE		4
-#define CYLINDER	5
-
 static int	parse_line(const char *line, t_object *obj);
 static int	parse_scene(int fd, const char *filename, t_scene *scene);
-static int	parse_identifier(const char **line, int *id);
+static int	parse_identifier(const char **line, t_obj_type *id);
 
 int	parse(const char *filename, t_scene *scene)
 {
@@ -40,7 +33,7 @@ int	parse(const char *filename, t_scene *scene)
 	return (res);
 }
 
-static int	parse_scene(int fd, const char *filename, t_scene *scene)
+static int	parse_scene(int fd, const char *filename, t_scene *sc)
 {
 	char		*line;
 	int			i;
@@ -49,100 +42,70 @@ static int	parse_scene(int fd, const char *filename, t_scene *scene)
 	int			state;
 
 	state = 0;
-	init_scene(scene);
-	line = get_next_line(fd);
+	init_scene(sc);
 	i = 0;
 	res = 0;
+	line = get_next_line(fd);
 	while (i++, line)
 	{
 		if (!is_only_whitespace(line))
-		{
-			res = parse_line(line, &obj);
-			if (res == 0)
-				res = scene_add_object(scene, obj, &state);
-		}
+			res = (parse_line(line, &obj) || scene_add_object(sc, obj, &state));
 		free(line);
 		if (res != 0)
-		{
-			print_error(res, i, filename);
 			break ;
-		}
 		line = get_next_line(fd);
 	}
-	if (res == 0)
-	{
-		res = validate_scene(state);
-		if (res != 0)
-			print_error(res, -1, filename);
-	}
+	res = (res || validate_scene(state));
+	print_error(res, i, filename);
 	return (res);
 }
 
 static int	parse_line(const char *line, t_object *obj)
 {
+	int	res;
+
 	if (parse_identifier(&line, &obj->type) != 0)
 		return (ERROR_INVALID_ID);
-	if (obj->type == AMBIANT)
-	{
-		if (parse_ambiant(&line, &obj->object.a) != 0)
-			return (ERROR_SYNTAX);
-	}
-	else if (obj->type == CAMERA)
-	{
-		if (parse_camera(&line, &obj->object.c) != 0)
-			return (ERROR_SYNTAX);
-	}
-	else if(obj->type == LIGHT)
-	{
-		if (parse_light(&line, &obj->object.l) != 0)
-			return (ERROR_SYNTAX);
-	}
-	else if (obj->type == SPHERE)
-	{
-		if (parse_sphere(&line, &obj->object.sp) != 0)
-			return (ERROR_SYNTAX);
-	}
-	else if (obj->type == PLANE)
-	{
-		if (parse_plane(&line, &obj->object.pl) != 0)
-			return (ERROR_SYNTAX);
-	}
-	else if (obj->type == CYLINDER)
-	{
-		if (parse_cylinder(&line, &obj->object.cy) != 0)
-			return (ERROR_SYNTAX);
-	}
+	res = 0;
+	if (obj->type == e_ambiant)
+		res = parse_ambiant(&line, &obj->object.a);
+	else if (obj->type == e_camera)
+		res = parse_camera(&line, &obj->object.c);
+	else if (obj->type == e_light)
+		res = parse_light(&line, &obj->object.l);
+	else if (obj->type == e_sphere)
+		res = parse_sphere(&line, &obj->object.sp);
+	else if (obj->type == e_plane)
+		res = parse_plane(&line, &obj->object.pl);
+	else if (obj->type == e_cylinder)
+		res = parse_cylinder(&line, &obj->object.cy);
 	else
-		return (-1);
-	return (0);
+		res = -1;
+	return (res);
 }
 
 #define ID_COUNT 6
 
-static int	parse_identifier(const char **line, int *id)
+static int	parse_identifier(const char **line, t_obj_type *id)
 {
 	const char	*ids[] = {
 		"A", "C", "L", "sp", "pl", "cy"
 	};
 	int			i;
-	char		*token;
+	int			len;
 
-	token = get_word(line);
-	if (!token)
-		return (-1);
-
+	len = 0;
 	i = 0;
 	while (i < ID_COUNT)
 	{
-		if (ft_strcmp(ids[i], token) == 0)
+		len = ft_strlen(ids[i]);
+		if (ft_strncmp(ids[i], *line, len) == 0 && ft_isspace(*(*line + len)))
 			break ;
 		i++;
 	}
-
-	free(token);
-
 	if (i == ID_COUNT)
 		return (-1);
 	*id = i;
+	*line += len;
 	return (0);
 }

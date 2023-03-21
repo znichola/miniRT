@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/20 15:42:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 10:52:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include "minirt_structs.h"
+# include "minirt_defines.h"
 
 # define ERROR_INVALID_ID	1
 # define ERROR_DUPLICATE_ID	2
@@ -35,6 +36,7 @@ int		parse(const char *filename, t_scene *scene);
 t_list	*tokenize(const char *str);
 char	*get_word(const char **str);
 int		is_only_whitespace(const char *str);
+void	trim(const char **str);
 
 /* parse scalar*/
 int		parse_int(const char **str, int *res);
@@ -58,6 +60,8 @@ int		parse_cylinder(const char **line, t_cylinder *cy);
 void	init_scene(t_scene *scene);
 void	cleanup_scene(t_scene *scene);
 int		validate_scene(int state);
+
+/* scene add object */
 int		scene_add_object(t_scene *scene, t_object obj, int *state);
 
 /* parse error */
