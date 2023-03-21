@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 17:05:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:56:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef	struct s_app
 	float		c_viewport_offset;
 	float		c_fov;
 	float		c_aspect_ratio;
-
+	t_mat4x4	c_mat;
 
 	// objects in scene
 

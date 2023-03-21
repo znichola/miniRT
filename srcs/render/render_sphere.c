@@ -6,13 +6,19 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 23:12:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:26:41 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 #include <float.h>
+
+/*
+	https://www.cse.psu.edu/~rtc12/CSE486/lecture12.pdf
+	about the 3d camera
+
+*/
 
 // http://www.illusioncatalyst.com/notes_files/mathematics/line_sphere_intersection.php
 /*

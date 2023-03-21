@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 00:13:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:01:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	render_frame(t_app *a)
 		a->c_normal = v3_unitvec(a->c_normal);
 	}
 
-	if (change_flag && FLT_EPSILON)
+	if (change_flag)
 	{
 		fill_screen(&a->img, MRT_BLACK);
 		render_sphere(a);
