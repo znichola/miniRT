@@ -6,12 +6,15 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:57:16 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 10:27:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:50:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "minirt_structs.h"
+#include <math.h>
+
+int	parse_fov(const char **line, float *fov);
 
 /*
 	Ambiant light has 2 properties:
@@ -49,9 +52,7 @@ int	parse_camera(const char **line, t_camera *c)
 	if (parse_orientation(line, &c->orientation) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
-	if (parse_int(line, &c->fov) != 0)
-		return (ERROR_SYNTAX);
-	if (c->fov < 0 || c->fov > 180)
+	if (parse_fov(line, &c->fov) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
 	if (**line != '\0')
@@ -79,5 +80,17 @@ int	parse_light(const char **line, t_light *l)
 	trim(line);
 	if (**line != '\0')
 		return (ERROR_SYNTAX);
+	return (0);
+}
+
+int	parse_fov(const char **line, float *fov)
+{
+	int	fov_in_degrees;
+
+	if (parse_int(line, &fov_in_degrees) != 0)
+		return (-1);
+	if (fov_in_degrees <= 0 || fov_in_degrees > 180)
+		return (-1);
+	*fov = (float)fov_in_degrees * (M_PI/180);
 	return (0);
 }

@@ -6,12 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:00:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/17 16:44:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 15:44:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "minirt_structs.h"
+#include "minirt_maths.h"
 
 static t_v3	rgb_to_v3(int rgb[3]);
 
@@ -62,14 +63,13 @@ static t_v3	rgb_to_v3(int rgb[3])
 	return (clr);
 }
 
-int	parse_orientation(const char **line, t_v3 *orientation)
+int	parse_orientation(const char **line, t_v3 *vec)
 {
-	if (parse_position(line, orientation) != 0)
+	if (parse_position(line, vec) != 0)
 		return (-1);
-	if (orientation->x < -1 || orientation->x > 1
-		|| orientation->y < -1 || orientation->y > 1
-		|| orientation->z < -1 || orientation->z > 1)
+	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
 		return (-1);
+	*vec = v3_unitvec(*vec);
 	return (0);
 }
 

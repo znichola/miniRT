@@ -6,11 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:58:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 10:29:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:40:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+static int	parse_radius(const char **line, float *radius);
 
 /*
 	Sphere has 3 properties:
@@ -24,9 +26,7 @@ int	parse_sphere(const char **line, t_sphere *sp)
 	if (parse_position(line, &sp->position) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
-	if (parse_float(line, &sp->diameter) != 0)
-		return (ERROR_SYNTAX);
-	if (sp->diameter <= 0)
+	if (parse_radius(line, &sp->radius) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
 	if (parse_colour(line, &sp->colour) != 0)
@@ -77,9 +77,7 @@ int	parse_cylinder(const char **line, t_cylinder *cy)
 	if (parse_orientation(line, &cy->orientation) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
-	if (parse_float(line, &cy->diameter) != 0)
-		return (ERROR_SYNTAX);
-	if (cy->diameter <= 0)
+	if (parse_radius(line, &cy->radius) != 0)
 		return (ERROR_SYNTAX);
 	trim(line);
 	if (parse_float(line, &cy->height) != 0)
@@ -92,5 +90,15 @@ int	parse_cylinder(const char **line, t_cylinder *cy)
 	trim(line);
 	if (**line != '\0')
 		return (ERROR_SYNTAX);
+	return (0);
+}
+
+static int	parse_radius(const char **line, float *radius)
+{
+	if (parse_float(line, radius) != 0)
+		return (-1);
+	if (*radius <= 0)
+		return (-1);
+	*radius /= 2;
 	return (0);
 }

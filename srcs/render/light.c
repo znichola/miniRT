@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 22:46:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:23:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_v3	finite_diff(t_app *a, float tu, float tv);
 	The red book defines the standard OpenGL lighting equation as:
 
 	Vertex Color = emission + globalAmbient + sum(attenuation * spotlight *
-[lightAmbient + (max {L.N, 0} * diffuse) + (max {H.N, 0} ^ shininess)*specular])
+[lightAmbient + (max {L.N, 0} * diffuse) + (mrax {H.N, 0} ^ shininess)*specula])
 
 	Where:
 	emission		is the material's emissive color

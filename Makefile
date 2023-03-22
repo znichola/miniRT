@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/21 11:03:33 by znichola         ###   ########.fr        #
+#    Updated: 2023/03/22 10:51:49 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ endif
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
 					lerp_colour the_moon multithread
-MATHS_FILES		:= vector matrix
+MATHS_FILES		:= vector matrix poi_sphere
 UTILS_FILES		:= debug_prints singletons
 PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
 

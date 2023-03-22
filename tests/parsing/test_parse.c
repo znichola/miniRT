@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:26:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 10:17:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 12:04:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ START_TEST(valid1)
 }
 END_TEST
 
+START_TEST(valid2)
+{
+	test("files/valid3.rt", 0);
+}
+END_TEST
+
 START_TEST(syntax_error0)
 {
 	test("files/syntax-error0.rt", -1);
@@ -52,6 +58,12 @@ END_TEST
 START_TEST(syntax_error3)
 {
 	test("files/syntax-error3.rt", -1);
+}
+END_TEST
+
+START_TEST(syntax_error4)
+{
+	test("files/syntax-error4.rt", -1);
 }
 END_TEST
 
@@ -85,6 +97,7 @@ Suite	*parse_suite(void)
 	tc_valid = tcase_create("valid");
 	tcase_add_test(tc_valid, valid0);
 	tcase_add_test(tc_valid, valid1);
+	tcase_add_test(tc_valid, valid2);
 	suite_add_tcase(s, tc_valid);
 
 	tc_syntax_error = tcase_create("syntax error");
@@ -92,6 +105,7 @@ Suite	*parse_suite(void)
 	tcase_add_test(tc_syntax_error, syntax_error1);
 	tcase_add_test(tc_syntax_error, syntax_error2);
 	tcase_add_test(tc_syntax_error, syntax_error3);
+	tcase_add_test(tc_syntax_error, syntax_error4);
 	suite_add_tcase(s, tc_syntax_error);
 
 	tc_parse_error = tcase_create("parse error");
