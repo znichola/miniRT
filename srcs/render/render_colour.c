@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_colour.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:16:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 13:16:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:43:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_render.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 19:26:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:40:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ void	*thread_routine(void *info_struct);
 void	start_threads(t_app *a);
 void	get_or_release_locks(t_app *a, int action);
 
+/* render colour */
 int		render_colour_frame(t_app *a);
+int		v3_to_col(t_v3 v);
+t_v3	col_add(t_v3 a, t_v3 b);
+t_v3	col_multi(t_v3 a, t_v3 b);
+
+
+int	render_world(t_app *a);
 
 #endif /* MINIRT_RENDER_H */

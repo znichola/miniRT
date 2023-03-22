@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 17:37:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:42:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 #include <float.h>
 
 static t_v3	pixel_to_ray(t_app *a, t_v2int pix);
-static void	draw_ray(t_app *a, t_v3 ray);
+static t_v3	draw_ray(t_app *a, t_v3 ray);
 static int	list_obj_type(t_list *obj);
 static void	*list_obj_content(t_list *obj);
 
-void	render_world(t_app *a)
+t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
+t_v3	get_obj_pos(t_object *obj);
+float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi);
+t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi);
+t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi);
+t_light	*get_light(t_scene *s, int num);
+
+int	render_world(t_app *a)
 {
 	int		u;
 	int		v;
 	t_v3	ray;
+	t_v3	clr;
 
 	u = - a->img.width / 2;
 	v = - a->img.height / 2;
@@ -32,11 +40,13 @@ void	render_world(t_app *a)
 		while (v < a->img.height / 2)
 		{
 			ray = pixel_to_ray(a, (t_v2int){u, v});
-			draw_ray(a, ray);
+			clr = draw_ray(a, ray);
+			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
 			v++;
 		}
 		u++;
 	}
+	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 }
 
 static t_v3	pixel_to_ray(t_app *a, t_v2int pix)
@@ -57,7 +67,7 @@ static t_v3	pixel_to_ray(t_app *a, t_v2int pix)
 	return (v3_add(e, v3_add(xdir, ydir)));
 }
 
-static void	draw_ray(t_app *a, t_v3 ray)
+static t_v3	draw_ray(t_app *a, t_v3 ray)
 {
 	//given a ray, compute the color of the associated pixel?
 	t_object	*closest;
@@ -65,17 +75,37 @@ static void	draw_ray(t_app *a, t_v3 ray)
 	t_v3		col;
 
 	closest = find_poi(a, ray, a->s.camera.position, &poi);
-	col = pix_shader(&a->s, closest, &poi);
+	if (closest)
+		col = pix_shader(&a->s, closest, &poi);
+	else
+		col = (t_v3){0,0,0};
+	return (col);
 }
 
 t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi)
 {
-	t_v3	col;
-	t_v3	poi_normal;
-	t_v3	light_ray;
+	t_v3	emission;
+	t_v3	ambiant;
+	t_v3	normal_of_intersection;
+	float	light_factor;
 
-	// poi_norm = v3_subtract()
-	// get_light(s->lights_list)->position
+	emission = get_obj_emmision(me, *poi);
+	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
+	normal_of_intersection = v3_subtract(get_obj_pos(me), *poi);
+	light_factor = get_obj_lightfactor(s, me, *poi);
+	return (col_multi(
+		v3_multiply(ambiant, 1 - light_factor),
+		emission));
+}
+
+float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi)
+{
+	t_v3	light_poi_unitvec;
+	t_v3	me_poi_unitvec;
+
+	me_poi_unitvec = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
+	light_poi_unitvec = v3_unitvec(v3_subtract(poi, get_light(s, 0)->position));
+	return (fmaxf(v3_dot(me_poi_unitvec, light_poi_unitvec), 0.0));
 }
 
 /*
@@ -135,46 +165,53 @@ static void	*list_obj_content(t_list *obj)
 	return (0);
 }
 
-t_light	*get_light(t_list *l)
+t_light	*get_light(t_scene *s, int num)
 {
-	return ((t_light *)(l->content));
+	t_list *current;
+	int	i;
+
+	current = s->lights_list;
+	i = 0;
+	while (current)
+	{
+		if (i == num)
+		{
+			return (current->content);
+		}
+		current = current->next;
+		i++;
+	}
+	printf("GET_LIGHT CHAOS: num: %d\n", num);
+	return (NULL);
 }
 
-t_v3	get_pos(t_object *obj)
+t_v3	get_obj_pos(t_object *obj)
 {
-	;
+	//later;
+	(void)obj;
+	return ((t_v3){0,0,42});
 }
 
-t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
+t_v3	get_sp_emmision(t_object *me, t_v3 poi)
 {
-	const static t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3)  = {
-		get_emmision_passthrough,
-		get_emmision_passthrough,
-		get_emmision_passthrough,
-		get_sp_emmision,
-		get_cy_emmision,
-		get_pl_emmision};
-
-	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
-		return (get_emmision_passthrough(obj, poi));
-	return (f[obj->type](obj, poi));
-}
-
-t_v3	get_sp_emmision(t_sphere *me, t_v3 poi)
-{
+	t_sphere sp;
 	(void)me;
-	return (me->colour);
+	(void)poi;
+	sp = me->object.sp;
+	return (sp.colour);
 }
 
 t_v3	get_cy_emmision(t_cylinder *me, t_v3 poi)
 {
 	(void)me;
+	(void)poi;
 	return (me->colour);
 }
 
 t_v3	get_pl_emmision(t_cylinder *me, t_v3 poi)
 {
 	(void)me;
+	(void)poi;
 	return (me->colour);
 }
 
@@ -183,4 +220,20 @@ t_v3	get_emmision_passthrough(t_object *me, t_v3 poi)
 	(void)me;
 	printf("can't get an emmision from this type of object\n");
 	return (poi);
+}
+
+
+t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
+{
+	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3)  = {
+		get_emmision_passthrough,
+		get_emmision_passthrough,
+		get_emmision_passthrough,
+		get_sp_emmision,
+		get_emmision_passthrough,
+		get_emmision_passthrough};
+
+	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
+		return (get_emmision_passthrough(obj, poi));
+	return (f[obj->type](obj, poi));
 }
