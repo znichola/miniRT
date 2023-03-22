@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 10:08:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:26:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int		earth_nightlight_texture(t_app *app, int x, int y);
 void	*thread_routine(void *info_struct);
 void	start_threads(t_app *a);
 void	get_or_release_locks(t_app *a, int action);
+
+int		render_colour_frame(t_app *a);
 
 #endif /* MINIRT_RENDER_H */

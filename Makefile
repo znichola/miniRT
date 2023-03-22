@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/22 10:51:49 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/22 17:36:47 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS	= -Wall -Wextra
 # CFLAGS 	+= -Werror
 
 ifdef OPTI
-CFLAGS	+= -O3
+CFLAGS	+= -O$(OPTI)
 else
 ifdef SYMB
 CFLAGS += -g3
@@ -30,7 +30,7 @@ endif
 
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
-					lerp_colour the_moon multithread
+					lerp_colour the_moon multithread render_colour
 MATHS_FILES		:= vector matrix poi_sphere
 UTILS_FILES		:= debug_prints singletons
 PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object

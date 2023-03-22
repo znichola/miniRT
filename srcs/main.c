@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 12:20:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 16:50:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(a.window, mouse_on_click, &a);
 
 	// render hookup
-	mlx_loop_hook(a.mlx_instance, render_frame, &a);
+	// mlx_loop_hook(a.mlx_instance, render_frame, &a);
+	mlx_loop_hook(a.mlx_instance, render_colour_frame, &a);
 
 	mlx_loop(a.mlx_instance);
 

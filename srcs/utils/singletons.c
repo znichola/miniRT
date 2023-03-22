@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 12:23:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:53:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 	else if (a->keyboard_held[key])
 	{
 		// printf("there %d\n", key);
-		diff.x = a->mouse_pos_old.x - a->mouse_pos.x;
-		diff.y = a->mouse_pos_old.y - a->mouse_pos.y;
+		diff.x = a->mouse_pos.x - a->mouse_pos_old.x;
+		diff.y = a->mouse_pos.y - a->mouse_pos_old.y;
 		return (diff);
 	}
 	return ((t_v2int){0, 0});
@@ -69,15 +69,20 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
 {
 	t_v2int	diff;
+	float	dir;
 
+	if (ctrl[2] == '-')
+		dir = -1.0;
+	else
+		dir = 1.0;
 	if (ctrl[0] == 'm')
 		diff = get_mouse_diff(a, key);
 	else if (ctrl[0] == 'k')
 		diff = get_keyboard_diff(a, key);
 	if (ctrl[1] == 'x')
-		*property += diff.x * factor;
+		*property = *property + (dir * (float)diff.x) * factor;
 	else if (ctrl[1] == 'y')
-		*property += diff.y * factor;
+		*property = *property + (dir * (float)diff.y) * factor;
 	else
 		return (0);
 	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
