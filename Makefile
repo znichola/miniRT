@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/22 18:29:07 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/22 22:55:23 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,14 @@ RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
 					lerp_colour the_moon multithread render_colour render_world
 MATHS_FILES		:= vector matrix poi_sphere
 UTILS_FILES		:= debug_prints singletons
+PRIMITIVES_FILES	:= sphere plane cylinder
 PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
 FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
-          $(addprefix parsing/, $(PARSING_FILES))
+					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
 
 OBJS_PATH = objs/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 18:42:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 23:40:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <float.h>
 
-static t_v3	pixel_to_ray(t_app *a, t_v2int pix);
+static t_v3	pixel_to_ray(t_app *a, int u, int v);
 static t_v3	draw_ray(t_app *a, t_v3 ray);
 static int	list_obj_type(t_list *obj);
 static void	*list_obj_content(t_list *obj);
@@ -22,6 +22,8 @@ static void	*list_obj_content(t_list *obj);
 t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
 t_v3	get_obj_pos(t_object *obj);
 float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi);
+float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi);
+
 t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi);
 t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi);
 t_light	*get_light(t_scene *s, int num);
@@ -33,13 +35,13 @@ int	render_world(t_app *a)
 	t_v3	ray;
 	t_v3	clr;
 
-	u = - a->img.width / 2;
-	v = - a->img.height / 2;
-	while (u < a->img.width / 2)
+	u = 0;
+	while (u < a->img.width)
 	{
-		while (v < a->img.height / 2)
+		v = 0;
+		while (v < a->img.height)
 		{
-			ray = pixel_to_ray(a, (t_v2int){u, v});
+			ray = pixel_to_ray(a, u, v);
 			clr = draw_ray(a, ray);
 			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
 			v++;
@@ -47,24 +49,19 @@ int	render_world(t_app *a)
 		u++;
 	}
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+	return (0);
 }
 
-static t_v3	pixel_to_ray(t_app *a, t_v2int pix)
+static t_v3	pixel_to_ray(t_app *a, int u, int v)
 {
 	float	wr;
 	float	hr;
-	t_v3	e;
-	t_v3	xdir;
-	t_v3	ydir;
 
-	wr = tanf(a->s.camera.fov / 2) * pix.x;
-	hr = tanf((a->s.camera.fov / 2) * (a->img.width / a->img.height)) * pix.y;
-	e = v3_add(a->s.camera.position, a->s.camera.orientation);
-	xdir = v3_unitvec(v3_cross(a->s.camera.orientation, (t_v3){0,1,0}));
-	ydir = v3_unitvec(v3_cross(a->s.camera.orientation, (t_v3){-1,0,0}));
-	xdir = v3_multiply(xdir, wr);
-	ydir = v3_multiply(ydir, hr);
-	return (v3_add(e, v3_add(xdir, ydir)));
+	wr = tanf(a->s.camera.fov / 2) * (u / a->img.width);
+	hr = tanf((a->s.camera.fov / 2) * (a->img.width / a->img.height)) * (v / a->img.height);
+
+
+	return ((t_v3){wr*u, hr*v, 1});
 }
 
 static t_v3	draw_ray(t_app *a, t_v3 ray)
@@ -76,6 +73,7 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 
 	closest = find_poi(a, ray, a->s.camera.position, &poi);
 	if (closest)
+		// col = (t_v3){0,1,0};
 		col = pix_shader(&a->s, closest, &poi);
 	else
 		col = (t_v3){0,0,0};
@@ -118,29 +116,17 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 	float		closest_dist;
 	float		dist;
 
+	int debug = 0;
+
 	closest = NULL;
 	closest_dist = FLT_MAX;
 	current = a->s.objects_list;
 	while (current)
 	{
-		if (list_obj_type(current) == e_sphere)
-		{
-			dist = poi_sphere(list_obj_content(current), ray, origin, poi);
-		}
-		else if (list_obj_type(current) == e_plane)
-		{
-			dist = FLT_MAX /*plane*/;
-		}
-		else if (list_obj_type(current) == e_cylinder)
-		{
-			dist = FLT_MAX /*cylinder*/;
-		}
-		else
-		{
-			dist = FLT_MAX /*pass*/;
-		}
+		dist = get_obj_poi(current->content, ray, origin, poi);
 		if (dist != FLT_MAX && dist < closest_dist)
 		{
+			debug += 1;
 			closest_dist = dist;
 			closest = current->content;
 		}
@@ -185,35 +171,9 @@ t_light	*get_light(t_scene *s, int num)
 	return (NULL);
 }
 
-t_v3	get_obj_pos(t_object *obj)
-{
-	//later;
-	(void)obj;
-	return ((t_v3){0,0,42});
-}
 
-t_v3	get_sp_emmision(t_object *me, t_v3 poi)
-{
-	t_sphere sp;
-	(void)me;
-	(void)poi;
-	sp = me->object.sp;
-	return (sp.colour);
-}
 
-t_v3	get_cy_emmision(t_cylinder *me, t_v3 poi)
-{
-	(void)me;
-	(void)poi;
-	return (me->colour);
-}
 
-t_v3	get_pl_emmision(t_cylinder *me, t_v3 poi)
-{
-	(void)me;
-	(void)poi;
-	return (me->colour);
-}
 
 t_v3	get_emmision_passthrough(t_object *me, t_v3 poi)
 {
@@ -222,7 +182,6 @@ t_v3	get_emmision_passthrough(t_object *me, t_v3 poi)
 	return (poi);
 }
 
-
 t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
 {
 	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3)  = {
@@ -230,10 +189,65 @@ t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
 		get_emmision_passthrough,
 		get_emmision_passthrough,
 		get_sp_emmision,
-		get_emmision_passthrough,
-		get_emmision_passthrough};
+		get_pl_emmision,
+		get_cy_emmision};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
 		return (get_emmision_passthrough(obj, poi));
 	return (f[obj->type](obj, poi));
+}
+
+
+
+
+
+t_v3	get_pos_passthrough(t_object *me)
+{
+	(void)me;
+	printf("can't get an position from this type of object\n");
+	return ((t_v3){0, 0, 42});
+}
+
+t_v3	get_obj_pos(t_object *obj)
+{
+	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *)  = {
+		get_pos_passthrough,
+		get_pos_passthrough,
+		get_pos_passthrough,
+		get_sp_position,
+		get_pl_position,
+		get_cy_position};
+
+	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
+		return (get_pos_passthrough(obj));
+	return (f[obj->type](obj));
+}
+
+
+
+
+
+float	get_poi_passthrough(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+{
+	(void)me;
+	(void)ray;
+	(void)source;
+	(void)poi;
+	printf("can't get a poi from this type of object\n");
+	return (FLT_MAX);
+}
+
+float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
+{
+	float	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3, t_v3, t_v3 *)  = {
+		get_poi_passthrough,
+		get_poi_passthrough,
+		get_poi_passthrough,
+		get_sp_poi,
+		get_pl_poi,
+		get_cy_poi};
+
+	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
+		return (get_poi_passthrough(obj, ray, source, poi));
+	return (f[obj->type](obj, ray, source, poi));
 }
