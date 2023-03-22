@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 10:16:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:37:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,45 @@ t_light	*get_light(t_list *l)
 
 t_v3	get_pos(t_object *obj)
 {
+	;
+}
 
+t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
+{
+	const static t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3)  = {
+		get_emmision_passthrough,
+		get_emmision_passthrough,
+		get_emmision_passthrough,
+		get_sp_emmision,
+		get_cy_emmision,
+		get_pl_emmision};
+
+	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
+		return (get_emmision_passthrough(obj, poi));
+	return (f[obj->type](obj, poi));
+}
+
+t_v3	get_sp_emmision(t_sphere *me, t_v3 poi)
+{
+	(void)me;
+	return (me->colour);
+}
+
+t_v3	get_cy_emmision(t_cylinder *me, t_v3 poi)
+{
+	(void)me;
+	return (me->colour);
+}
+
+t_v3	get_pl_emmision(t_cylinder *me, t_v3 poi)
+{
+	(void)me;
+	return (me->colour);
+}
+
+t_v3	get_emmision_passthrough(t_object *me, t_v3 poi)
+{
+	(void)me;
+	printf("can't get an emmision from this type of object\n");
+	return (poi);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:26:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 12:22:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 16:47:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	render_frame(t_app *a)
 		change_flag = 0;
 		get_mouse_diff(a, -1);
 		// print_v3("light", &a->l_origin);
-		print_v3("camera", &a->c_origin);
-		print_v3("normal", &a->c_normal);
+		// print_v3("camera", &a->c_origin);
+		// print_v3("normal", &a->c_normal);
 	}
 	else
 		usleep(100);

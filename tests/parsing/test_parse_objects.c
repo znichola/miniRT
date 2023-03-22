@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_parse_objects.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:13:12 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 16:04:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:35:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

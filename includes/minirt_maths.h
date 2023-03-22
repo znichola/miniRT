@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_maths.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 10:51:21 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:36:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define MINIRT_MATHS_H
 
 # include "minirt_structs.h"
+
+# define V_I (t_v3){1.0, 0.0, 0.0}
+# define V_J (t_v3){0.0, 1.0, 0.0}
+# define V_K (t_v3){0.0, 0.0, 1.0}
 
 float		v3_mag(t_v3 v);
 t_v3		v3_unitvec(t_v3 v);

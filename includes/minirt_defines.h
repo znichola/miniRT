@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 11:03:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:30:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 // window settings
 # define WIDTH 800
 # define HEIGHT 800
+
+# define UP (t_v3){0, 1, 0}
+# define RIGHT (t_v3){1, 0, 0}
+# define IN (t_v3){0, 0, 1}
 
 // rendering settings
 # define MRT_THREAD_COUNT 4
@@ -28,6 +32,8 @@
 # define MRT_LOADING_PRINT 1U
 # define MRT_DEBUG_PRINT 2U
 # define MRT_MULTI_THRED 4U
+
+# define MRT_NUM_OBJ_TYPES 6
 
 typedef enum e_obj_type
 {
