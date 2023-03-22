@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 16:30:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 10:16:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi)
 	t_v3	poi_normal;
 	t_v3	light_ray;
 
-	poi_norm = v3_subtract()
-	get_light(s->lights_list)->position
+	// poi_norm = v3_subtract()
+	// get_light(s->lights_list)->position
 }
 
 /*
@@ -117,41 +117,6 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 		current = current->next;
 	}
 	return (closest);
-}
-
-int poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
-{
-	t_v3	w;
-	float	a;
-	float	b;
-	float	c;
-	float	discrimant;
-	float	t1;
-	float	t2;
-
-	w = v3_subtract(source, me->position);
-	a = v3_dot(ray, ray);
-	b = v3_dot(ray, w) * 2;
-	c = v3_dot(w, w) - powf(me->radius, 2);
-	discrimant = powf(b, 2) - 4 * a * c;
-	if (discrimant > FLT_EPSILON)
-	{
-		discrimant = sqrtf(discrimant);
-		t1 = (-b - discrimant) / (2 * a);
-		t2 = (-b + discrimant) / (2 * a);
-		if (t1 < t2)
-		{
-			*poi = v3_multiply(ray, t1);
-			return (1); /*intersection happened!*/
-		}
-		else
-		{
-			*poi = v3_multiply(ray, t2);
-			return (1); /*intersection happened! but really should'nt, i think*/
-		}
-	}
-	else
-		return (0);
 }
 
 static int	list_obj_type(t_list *obj)

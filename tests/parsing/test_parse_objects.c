@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:13:12 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 15:52:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 16:04:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	test_camera(const char *str, t_v3 pos, t_v3 ori, int fov, int res)
 		ck_assert_float_eq(c.position.y, pos.y);
 		ck_assert_float_eq(c.position.z, pos.z);
 
+		ori = v3_unitvec(ori);
 		ck_assert_float_eq(c.orientation.x, ori.x);
 		ck_assert_float_eq(c.orientation.y, ori.y);
 		ck_assert_float_eq(c.orientation.z, ori.z);
@@ -107,6 +108,7 @@ static void	test_plane(const char *str, t_v3 pos, t_v3 ori, t_v3 clr, int res)
 		ck_assert_float_eq(pl.position.y, pos.y);
 		ck_assert_float_eq(pl.position.z, pos.z);
 
+		ori = v3_unitvec(ori);
 		ck_assert_float_eq(pl.orientation.x, ori.x);
 		ck_assert_float_eq(pl.orientation.y, ori.y);
 		ck_assert_float_eq(pl.orientation.z, ori.z);
@@ -131,6 +133,7 @@ static void	test_cylinder(const char *str, t_v3 pos, t_v3 ori, float diam, float
 		ck_assert_float_eq(cy.position.y, pos.y);
 		ck_assert_float_eq(cy.position.z, pos.z);
 
+		ori = v3_unitvec(ori);
 		ck_assert_float_eq(cy.orientation.x, ori.x);
 		ck_assert_float_eq(cy.orientation.y, ori.y);
 		ck_assert_float_eq(cy.orientation.z, ori.z);
@@ -196,14 +199,22 @@ START_TEST(c_valid1)
 }
 END_TEST
 
+/*
+	we have decided orientation doesn't have to be a unit vector,
+	we unify it ourselves
+*/
+START_TEST(c_valid2)
+{
+	test_camera("0.03,23456624,20.4 -1.0,35.6,1.0 180   ",
+		(t_v3){0.03,23456624,20.4}, (t_v3){-1,35.6,1}, 180, 0);
+}
+END_TEST
+
+/* orientation cannot bu nul */
 START_TEST(c_invalid0)
 {
-	test_camera("10,10,10 -1.2,0,0 30",
-		(t_v3){0,0,0}, (t_v3){0,0,0}, 0, -1);
-	test_camera("10,10,10 0.2,34,0 30",
-		(t_v3){0,0,0}, (t_v3){0,0,0}, 0, -1);
-	test_camera("10,10,10 0.2,0,1.1 30",
-		(t_v3){0,0,0}, (t_v3){0,0,0}, 0, -1);
+	test_camera("0,0,0   0,0,0   30",
+	(t_v3){0,0,0}, (t_v3){0,0,0}, 0, -1);
 }
 END_TEST
 
@@ -320,13 +331,17 @@ END_TEST
 
 START_TEST(pl_invalid1)
 {
-	test_plane("0,0,0    -1.1,0,0  255,255,255",
-		(t_v3){0,0,0}, (t_v3){0,0,0}, (t_v3){0,0,0}, -1);
 	test_plane("100.30,40,0.56    0,0,1 0,256,0   ",
 		(t_v3){0,0,0}, (t_v3){0,0,0}, (t_v3){0,0,0}, -1);
 }
 END_TEST
 
+START_TEST(pl_invalid2)
+{
+	test_plane("100.30,40,8      0,0,0   0,0,0",
+	(t_v3){0,0,0}, (t_v3){0,0,0}, (t_v3){0,0,0}, -1);
+}
+END_TEST
 /* tests cylinder */
 
 START_TEST(cy_valid0)
@@ -384,6 +399,7 @@ Suite	*parse_objects_suite(void)
 	tc_camera_valid = tcase_create("camera: valid");
 	tcase_add_test(tc_camera_valid, c_valid0);
 	tcase_add_test(tc_camera_valid, c_valid1);
+	tcase_add_test(tc_camera_valid, c_valid2);
 	suite_add_tcase(s, tc_camera_valid);
 
 	tc_camera_invalid = tcase_create("camera: invalid");
@@ -419,6 +435,7 @@ Suite	*parse_objects_suite(void)
 	tc_plane_invalid = tcase_create("plane: invalid");
 	tcase_add_test(tc_plane_invalid, pl_invalid0);
 	tcase_add_test(tc_plane_invalid, pl_invalid1);
+	tcase_add_test(tc_plane_invalid, pl_invalid2);
 	suite_add_tcase(s, tc_plane_invalid);
 
 	tc_cylinder_valid = tcase_create("cylinder: valid");

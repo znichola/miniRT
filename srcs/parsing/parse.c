@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:57:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 10:58:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/22 15:52:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ static int	parse_line(const char *line, t_object *obj)
 	else if (obj->type == e_plane)
 		res = parse_plane(&line, &obj->object.pl);
 	else if (obj->type == e_cylinder)
+	{
 		res = parse_cylinder(&line, &obj->object.cy);
+		if (res)
+			printf("KY@EGU@YGEDUG@EDYG: %d\n", res);
+	}
 	else
 		res = -1;
 	return (res);
