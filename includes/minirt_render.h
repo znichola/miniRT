@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_render.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 18:40:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 11:51:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ t_v3	col_add(t_v3 a, t_v3 b);
 t_v3	col_multi(t_v3 a, t_v3 b);
 
 
-int	render_world(t_app *a);
+int		render_world(t_app *a);
+
+t_v3	get_obj_pos(t_object *obj);
+t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
+t_light	*get_light(t_scene *s, int num);
 
 #endif /* MINIRT_RENDER_H */
