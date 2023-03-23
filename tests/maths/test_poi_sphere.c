@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:28:38 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 23:50:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:07:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ START_TEST(basic_intersect0)
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 4, 0.01); //there should be an intersection
 
 	//poi should be {0,0,4}
 	ck_assert_float_eq(poi.x, 0);
@@ -37,7 +37,7 @@ START_TEST(basic_nointersect0)
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, FLT_MAX, 0.0005); //there should be no intersection
+	ck_assert_float_eq_tol(res, FLT_MAX, 0.01); //there should be no intersection
 }
 END_TEST
 
@@ -49,7 +49,7 @@ START_TEST(basic_intersect1)
 	t_v3 ray = {0,1,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 6.07, 0.01); //there should be an intersection
 
 	//poi should be {0,4.29,4.29}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);
@@ -66,7 +66,7 @@ START_TEST(origin_intersect0) // origin different than 0 0 0
 	t_v3 ray = {0,1,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 5.66, 0.01); //there should be an intersection
 
 	//poi should be {0,5,4}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);
@@ -83,7 +83,7 @@ START_TEST(origin_nointersect0) // origin different than 0 0 0
 	t_v3 ray = {0,1,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, FLT_MAX, 0.0005); //there should no intersection
+	ck_assert_float_eq_tol(res, FLT_MAX, 0.01); //there should no intersection
 }
 END_TEST
 
@@ -95,7 +95,7 @@ START_TEST(origin_intersect1) // origin different than 0 0 0
 	t_v3 ray = {0,1,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 9.8995, 0.01); //there should be an intersection
 
 	//poi should be {2,8,4}
 	ck_assert_float_eq_tol(poi.x, 2, 0.01);
@@ -113,7 +113,7 @@ START_TEST(inside_0) // origin different than 0 0 0
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 5, 0.01); //there should be an intersection
 
 	//poi should be {0,0, 5}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);
@@ -131,7 +131,7 @@ START_TEST(inside_1) // origin different than 0 0 0
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 6.89898, 0.01); //there should be an intersection
 
 	//poi should be {0,0,6.9}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);
@@ -149,7 +149,7 @@ START_TEST(inside_2) // origin different than 0 0 0
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 3, 0.01); //there should be an intersection
 
 	//poi should be {0,0,3}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);
@@ -166,7 +166,7 @@ START_TEST(on_the_origin_0)
 	t_v3 ray = {0,0,1};
 	float	res = poi_sphere(&sp, ray, origin, &poi);
 
-	ck_assert_float_eq_tol(res, 1, 0.0005); //there should be an intersection
+	ck_assert_float_eq_tol(res, 0, 0.01); //there should be an intersection
 
 	//poi should be {0,0,3}
 	ck_assert_float_eq_tol(poi.x, 0, 0.01);

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/23 01:19:25 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:55:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 static t_v3	pixel_to_ray(t_app *a, int u, int v);
 static t_v3	draw_ray(t_app *a, t_v3 ray);
-static int	list_obj_type(t_list *obj);
-static void	*list_obj_content(t_list *obj);
+// static int	list_obj_type(t_list *obj);
+// static void	*list_obj_content(t_list *obj);
 
 t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
 t_v3	get_obj_pos(t_object *obj);
@@ -61,12 +61,17 @@ static t_v3	pixel_to_ray(t_app *a, int u, int v)
 {
 	t_v3	ray;
 
+	/*
+		creat a ray from the origin through the pixel in question. Assuming
+		the camera is fixed at (0, 0, 0) and looking at (0,0,1)
+	*/
 	ray = (t_v3){get_ratio(a, 'w', u), get_ratio(a, 'h', v), 1};
 
 	/*
 		now we should have a transformation matrix that translates this
 		calculated ray to the camera position, then orients it.
 	*/
+
 
 	return (ray);
 }
@@ -143,22 +148,22 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 	return (closest);
 }
 
-static int	list_obj_type(t_list *obj)
-{
-	return (((t_object *)obj->content)->type);
-}
+// static int	list_obj_type(t_list *obj)
+// {
+// 	return (((t_object *)obj->content)->type);
+// }
 
-static void	*list_obj_content(t_list *obj)
-{
-	(void)list_obj_content;
-	if (list_obj_type(obj) == e_sphere)
-		return (&((t_object *)obj->content)->object.sp);
-	if (list_obj_type(obj) == e_cylinder)
-		return (&((t_object *)obj->content)->object.cy);
-	if (list_obj_type(obj) == e_plane)
-		return (&((t_object *)obj->content)->object.pl);
-	return (0);
-}
+// static void	*list_obj_content(t_list *obj)
+// {
+// 	(void)list_obj_content;
+// 	if (list_obj_type(obj) == e_sphere)
+// 		return (&((t_object *)obj->content)->object.sp);
+// 	if (list_obj_type(obj) == e_cylinder)
+// 		return (&((t_object *)obj->content)->object.cy);
+// 	if (list_obj_type(obj) == e_plane)
+// 		return (&((t_object *)obj->content)->object.pl);
+// 	return (0);
+// }
 
 
 t_light	*get_light(t_scene *s, int num)
