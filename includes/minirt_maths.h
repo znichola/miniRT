@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_maths.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 23:17:40 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:36:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ t_v3 		v3_multiply_matrix(t_v3 i, t_mat4x4 t);
 t_mat4x4	direction_mat(t_v3 dir);
 
 float		poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi);
+float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_v3 *poi);
 
 #endif /* MINIRT_VECTOR_H */
