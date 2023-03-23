@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:16:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 16:50:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:09:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 	Compute the closest point of intersection between a ray and a sphere.
 	The ray is defined by a source point and a ray vector.
 
-	Returns 1 if there is an intersection, 0 otherwise.
+	Returns the distace from the intersection or FLT_MAX if there is non.
 */
-int poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
+float	poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
 {
 	t_v3	w;
 	float	i;
@@ -45,13 +45,14 @@ int poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
 		if (dist1 < dist2 || dist2 < -FLT_EPSILON)
 		{
 			*poi = v3_add(source, v3_multiply(ray, dist1));
+			return (dist1);
 		}
 		else
 		{
 			*poi = v3_add(source, v3_multiply(ray, dist2));
+			return (dist2);
 		}
-		return (1);
 	}
 	else
-		return (0);
+		return (FLT_MAX);
 }

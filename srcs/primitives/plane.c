@@ -1,29 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ui.h                                        :+:      :+:    :+:   */
+/*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 01:18:53 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/22 23:17:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_UI_H
-# define MINIRT_UI_H
-
 #include "minirt_structs.h"
+#include "minirt_defines.h"
 
-int	destroy_window(t_app *a);
+#include "float.h"
 
-int	mouse_movement_track(int x, int y, t_app *a);
-int	mouse_on_click(int action, int x, int y, t_app *a);
-int	mouse_on_release(int action, int x, int y, t_app *a);
+t_v3	get_pl_emmision(t_object *me, t_v3 poi)
+{
+	t_plane	pl;
 
-int	keyboard_on_press(int key, t_app *a);
-int	keyboard_on_release(int key, t_app *a);
+	pl = me->object.pl;
+	(void)poi;
+	return (pl.colour);
+}
 
-int	assign_keybinds(t_app *a);
 
-#endif /* MINIRT_UI_H */
+t_v3	get_pl_position(t_object *me)
+{
+	t_plane	pl;
+
+	pl = me->object.pl;
+	return (pl.position);
+}
+
+float	get_pl_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+{
+	t_plane	pl;
+
+	pl = me->object.pl;
+
+	(void)ray;
+	(void)source;
+	(void)poi;
+	return (FLT_MAX);
+}

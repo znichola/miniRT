@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ui.h                                        :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 01:18:53 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/22 23:19:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_UI_H
-# define MINIRT_UI_H
-
 #include "minirt_structs.h"
+#include "minirt_defines.h"
+#include "minirt_maths.h"
 
-int	destroy_window(t_app *a);
+t_v3	get_sp_emmision(t_object *me, t_v3 poi)
+{
+	t_sphere	sp;
 
-int	mouse_movement_track(int x, int y, t_app *a);
-int	mouse_on_click(int action, int x, int y, t_app *a);
-int	mouse_on_release(int action, int x, int y, t_app *a);
+	sp = me->object.sp;
+	(void)poi;
+	return (sp.colour);
+}
 
-int	keyboard_on_press(int key, t_app *a);
-int	keyboard_on_release(int key, t_app *a);
+t_v3	get_sp_position(t_object *me)
+{
+	t_sphere	sp;
 
-int	assign_keybinds(t_app *a);
+	sp = me->object.sp;
+	return (sp.position);
+}
 
-#endif /* MINIRT_UI_H */
+float	get_sp_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+{
+	t_sphere	sp;
+
+	sp = me->object.sp;
+	return (poi_sphere(&sp, ray, source, poi));
+}

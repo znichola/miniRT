@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ui.h                                        :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 01:18:53 by znichola         ###   ########.fr       */
+/*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
+/*   Updated: 2023/03/23 00:02:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_UI_H
-# define MINIRT_UI_H
-
 #include "minirt_structs.h"
+#include "minirt_defines.h"
 
-int	destroy_window(t_app *a);
+#include "float.h"
 
-int	mouse_movement_track(int x, int y, t_app *a);
-int	mouse_on_click(int action, int x, int y, t_app *a);
-int	mouse_on_release(int action, int x, int y, t_app *a);
+t_v3	get_cy_emmision(t_object *me, t_v3 poi)
+{
+	t_cylinder	cy;
 
-int	keyboard_on_press(int key, t_app *a);
-int	keyboard_on_release(int key, t_app *a);
+	cy = me->object.cy;
+	(void)poi;
+	return (cy.colour);
+}
 
-int	assign_keybinds(t_app *a);
+t_v3	get_cy_position(t_object *me)
+{
+	t_cylinder	cy;
 
-#endif /* MINIRT_UI_H */
+	cy = me->object.cy;
+	return (cy.position);
+}
+
+float	get_cy_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+{
+	t_cylinder	cy;
+
+	cy = me->object.cy;
+
+	(void)ray;
+	(void)source;
+	(void)poi;
+	return (FLT_MAX);
+}

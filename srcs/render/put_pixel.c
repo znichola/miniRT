@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:05:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/14 01:02:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:35:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	wrapper_pixel_put(t_img_data *img, int x, int y, int colour)
 {
-	x += img->width / 2;
-	y += img->height / 2;
+	// x += img->width / 2;
+	// y += img->height / 2;
 	my_mlx_pixel_put(img, x, y, colour);
 }
 
