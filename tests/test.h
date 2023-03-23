@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:35:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 10:31:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 12:09:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ Suite	*parse_objects_suite(void);
 Suite	*parse_suite(void);
 
 Suite	*poi_sphere_suite(void);
+Suite	*poi_plane_suite(void);
 
 #endif

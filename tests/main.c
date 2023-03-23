@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:34:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 15:52:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 12:09:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	main(int argc, char **argv)
 	else if (strcmp(argv[1], "maths") == 0)
 	{
 		Suite *m0 = poi_sphere_suite();
+		Suite *m1 = poi_plane_suite();
 
 		SRunner *maths_runner = srunner_create(m0);
+		srunner_add_suite(maths_runner, m1);
 
 		srunner_run_all(maths_runner, CK_NORMAL);
 		number_failed = srunner_ntests_failed(maths_runner);
