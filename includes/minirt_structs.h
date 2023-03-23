@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 00:28:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:57:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ typedef	struct s_app
 	int			keyboard_press[KEYBOARD_KEY_COUNT];
 	int			keyboard_held[KEYBOARD_KEY_COUNT];
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
+
+	t_object	*selected;
 
 	// world
 	t_scene		s;

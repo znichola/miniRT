@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/23 11:50:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:41:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi);
 float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi);
 
 t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi);
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi);
-t_light	*get_light(t_scene *s, int num);
+t_light		*get_light(t_scene *s, int num);
 
 int	render_world(t_app *a)
 {
@@ -85,8 +84,8 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 
 	closest = find_poi(a, ray, a->s.camera.position, &poi);
 	if (closest)
-		// col = (t_v3){0,1,0};
-		col = pix_shader(&a->s, closest, &poi);
+		// col = closest->object.sp.colour;
+		col = pix_shader(&a->s, closest, a->s.camera.position, poi);
 	else
 		col = (t_v3){0,0,0};
 	return (col);
@@ -102,8 +101,6 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 	float		closest_dist;
 	float		dist;
 
-	int debug = 0;
-
 	closest = NULL;
 	closest_dist = FLT_MAX;
 	current = a->s.objects_list;
@@ -112,7 +109,6 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 		dist = get_obj_poi(current->content, ray, origin, poi);
 		if (dist < closest_dist)
 		{
-			debug += 1;
 			closest_dist = dist;
 			closest = current->content;
 		}
