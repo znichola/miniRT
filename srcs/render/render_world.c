@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/23 10:55:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:50:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,32 +90,6 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 	else
 		col = (t_v3){0,0,0};
 	return (col);
-}
-
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 *poi)
-{
-	t_v3	emission;
-	t_v3	ambiant;
-	t_v3	normal_of_intersection;
-	float	light_factor;
-
-	emission = get_obj_emmision(me, *poi);
-	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
-	normal_of_intersection = v3_subtract(get_obj_pos(me), *poi);
-	light_factor = get_obj_lightfactor(s, me, *poi);
-	return (col_multi(
-		v3_multiply(ambiant, 1 - light_factor),
-		emission));
-}
-
-float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi)
-{
-	t_v3	light_poi_unitvec;
-	t_v3	me_poi_unitvec;
-
-	me_poi_unitvec = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
-	light_poi_unitvec = v3_unitvec(v3_subtract(poi, get_light(s, 0)->position));
-	return (fmaxf(v3_dot(me_poi_unitvec, light_poi_unitvec), 0.0));
 }
 
 /*
