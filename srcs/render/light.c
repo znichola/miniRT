@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 13:23:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 12:28:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,11 @@ void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center)
 
 	https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
 */
-t_v3	reflection(t_v3 incident, t_v3 surface_normal)
-{
-	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
-	return (v3_unitvec(v3_subtract(incident, foo)));
-}
+// t_v3	reflection(t_v3 incident, t_v3 surface_normal)
+// {
+// 	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
+// 	return (v3_unitvec(v3_subtract(incident, foo)));
+// }
 
 
 float	get_angle(t_v3 norm, t_v3 obj)
