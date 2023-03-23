@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 12:12:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:16:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,26 @@ t_v3	get_light_diffuse(t_scene *s, t_object *me, t_v3 poi)
 		fmaxf(v3_dot(me_poi_unitvec, light_poi_unitvec), 0.0)));
 }
 
+/*
+	returns the light's colour attenuated via the intesity.
+*/
 static t_v3	get_light_colour(t_scene *s, int l_num)
 {
 	return (v3_multiply(get_light(s, l_num)->colour,
 						get_light(s, l_num)->ratio));
+}
+
+
+/*
+	I - 2.0 * dot(N, I) * N.
+
+	For a given incident vector I and surface normal N reflect returns the reflection direction calculated as I - 2.0 * dot(N, I) * N.
+	N should be normalized in order to achieve the desired result.
+
+	https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
+*/
+t_v3	reflection(t_v3 incident, t_v3 surface_normal)
+{
+	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
+	return (v3_unitvec(v3_subtract(incident, foo)));
 }
