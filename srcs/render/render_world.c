@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 23:40:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:19:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	render_world(t_app *a)
 	t_v3	ray;
 	t_v3	clr;
 
+	if (!assign_keybinds(a))
+		return (0);
+
 	u = 0;
 	while (u < a->img.width)
 	{
@@ -46,22 +49,26 @@ int	render_world(t_app *a)
 			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
 			v++;
 		}
+		// printf("\n"); /*for debug writing into a file*/
 		u++;
 	}
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+	// exit(0); /*for debug writing into a file*/
 	return (0);
 }
 
 static t_v3	pixel_to_ray(t_app *a, int u, int v)
 {
-	float	wr;
-	float	hr;
+	t_v3	ray;
 
-	wr = tanf(a->s.camera.fov / 2) * (u / a->img.width);
-	hr = tanf((a->s.camera.fov / 2) * (a->img.width / a->img.height)) * (v / a->img.height);
+	ray = (t_v3){get_ratio(a, 'w', u), get_ratio(a, 'h', v), 1};
 
+	/*
+		now we should have a transformation matrix that translates this
+		calculated ray to the camera position, then orients it.
+	*/
 
-	return ((t_v3){wr*u, hr*v, 1});
+	return (ray);
 }
 
 static t_v3	draw_ray(t_app *a, t_v3 ray)
@@ -124,7 +131,7 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 	while (current)
 	{
 		dist = get_obj_poi(current->content, ray, origin, poi);
-		if (dist != FLT_MAX && dist < closest_dist)
+		if (dist < closest_dist)
 		{
 			debug += 1;
 			closest_dist = dist;
@@ -132,6 +139,7 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 		}
 		current = current->next;
 	}
+	// printf("%.2f ", closest_dist); /*for debug writing into a file*/
 	return (closest);
 }
 
@@ -142,6 +150,7 @@ static int	list_obj_type(t_list *obj)
 
 static void	*list_obj_content(t_list *obj)
 {
+	(void)list_obj_content;
 	if (list_obj_type(obj) == e_sphere)
 		return (&((t_object *)obj->content)->object.sp);
 	if (list_obj_type(obj) == e_cylinder)
@@ -150,6 +159,7 @@ static void	*list_obj_content(t_list *obj)
 		return (&((t_object *)obj->content)->object.pl);
 	return (0);
 }
+
 
 t_light	*get_light(t_scene *s, int num)
 {

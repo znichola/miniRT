@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 11:50:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:18:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ int	mouse_on_release(int action, int x, int y, t_app *a);
 
 int	keyboard_on_press(int key, t_app *a);
 int	keyboard_on_release(int key, t_app *a);
+
+int	assign_keybinds(t_app *a);
 
 #endif /* MINIRT_UI_H */

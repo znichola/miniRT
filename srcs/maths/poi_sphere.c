@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:16:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 23:19:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:09:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	Compute the closest point of intersection between a ray and a sphere.
 	The ray is defined by a source point and a ray vector.
 
-	Returns 1 if there is an intersection, 0 otherwise.
+	Returns the distace from the intersection or FLT_MAX if there is non.
 */
 float	poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
 {

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 17:30:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:10:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define WIDTH 800
 # define HEIGHT 800
 
+# define ORIGIN (t_v3){0, 0, 0}
 # define UP (t_v3){0, 1, 0}
 # define RIGHT (t_v3){1, 0, 0}
 # define IN (t_v3){0, 0, 1}

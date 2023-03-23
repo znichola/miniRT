@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 21:53:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:26:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,34 @@ int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
 		return (0);
 	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
 	// printf("getting diff %s %d, %d\n", ctrl, diff.x, diff.y);
+	printf("(%.1f)\n", *property * (180 / M_PI ));
 	return (1);
+}
+
+/*
+	used to get the aspect ratio converted to wold space
+	be carefull it's got statics so threads amke sure it's not changing.
+*/
+float	get_ratio(t_app *a, char action, int px)
+{
+	static t_v2int	extents;
+	static t_v3		cam_ratio;
+	static t_v3		offset;
+
+	if (a->img.height != extents.x
+		|| a->img.width != extents.y
+		|| a->s.camera.fov != cam_ratio.z)
+	{
+		extents.x = a->img.height;
+		extents.y = a->img.width;
+		cam_ratio.x = tanf(a->s.camera.fov / 2);
+		cam_ratio.y = tanf((a->s.camera.fov / 2) * (extents.x / extents.y));
+		offset.x = cam_ratio.x / 2;
+		offset.y = cam_ratio.y / 2;
+	}
+	if (action == 'w')
+		return (cam_ratio.x * ((double)px / extents.x) - offset.x);
+	if (action == 'h')
+		return (cam_ratio.y * ((double)px / extents.y) - offset.y);
+	return (0.0);
 }
