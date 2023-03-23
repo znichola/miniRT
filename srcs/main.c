@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 18:40:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:04:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int ac, char **av)
 	// parse the scene
 	if (parse(av[1], &a.s) != 0)
 		return (1);
+
+	// a.selected = a.s.lights_list->content;
 
 	//some settings!
 	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
