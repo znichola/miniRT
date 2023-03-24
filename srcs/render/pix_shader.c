@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/24 15:35:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:55:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
-	diffuse = get_light_diffuse(s, 0, me, poi);
-	specular = get_light_specular(s, poo, poi, poi_norm);
+
+	// t_v3	tmp = ORIGIN;
+	// if (find_poi(s, v3_unitvec(v3_subtract(poi, get_light(s, 0)->position)), poi, &tmp))
+	// 	return (col_multi(ambiant, obj_col));
+	// else
+	// {
+		diffuse = get_light_diffuse(s, 0, me, poi);
+		specular = get_light_specular(s, poo, poi, poi_norm);
+	// }
 
 	// specular = ORIGIN; // uncomment to switch off spec component.
 	// diffuse = ORIGIN;

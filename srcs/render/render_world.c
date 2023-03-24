@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/24 12:43:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:51:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_v3	get_obj_pos(t_object *obj);
 float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi);
 float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi);
 
-t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi);
 t_light		*get_light(t_scene *s, int num);
 
 int	render_world(t_app *a)
@@ -84,19 +83,19 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 	t_v3		poi;
 	t_v3		col;
 
-	closest = find_poi(a, ray, a->s.camera.position, &poi);
+	closest = find_poi(&a->s, ray, a->s.camera.position, &poi);
 	if (closest)
 		// col = closest->object.sp.colour;
 		col = pix_shader(&a->s, closest, a->s.camera.position, poi);
 	else
-		col = (t_v3){0,0,0};
+		col = (t_v3){0.2,0.2,0.2};
 	return (col);
 }
 
 /*
 	poi means: "point of intersection"
 */
-t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
+t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi)
 {
 	t_list		*current;
 	t_object	*closest;
@@ -105,7 +104,7 @@ t_object	*find_poi(t_app *a, t_v3 ray, t_v3 origin, t_v3 *poi)
 
 	closest = NULL;
 	closest_dist = FLT_MAX;
-	current = a->s.objects_list;
+	current = s->objects_list;
 	while (current)
 	{
 		dist = get_obj_poi(current->content, ray, origin, poi);
