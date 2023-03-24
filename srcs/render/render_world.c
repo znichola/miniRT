@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/23 18:41:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:43:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ int	render_world(t_app *a)
 			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
 			v++;
 		}
-		// printf("\n"); /*for debug writing into a file*/
+		if (getset_settings(MRT_PRT_TO_FILE))
+			printf("\n"); /*for debug writing into a file*/
 		u++;
 	}
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
-	// exit(0); /*for debug writing into a file*/
+	if (getset_settings(MRT_PRT_TO_FILE))
+		exit(0); /*for debug writing into a file*/
 	return (0);
 }
 

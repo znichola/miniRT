@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 01:10:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:06:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define MRT_LOADING_PRINT 1U
 # define MRT_DEBUG_PRINT 2U
 # define MRT_MULTI_THRED 4U
+# define MRT_PRT_TO_FILE 8U
+
 
 # define MRT_NUM_OBJ_TYPES 6
 

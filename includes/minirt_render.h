@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 14:39:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:08:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		render_colour_frame(t_app *a);
 int		v3_to_col(t_v3 v);
 t_v3	col_add(t_v3 a, t_v3 b);
 t_v3	col_multi(t_v3 a, t_v3 b);
+t_v3	col_scale(t_v3 a, float s);
 
 
 int		render_world(t_app *a);
