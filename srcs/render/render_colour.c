@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_colour.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:16:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 17:43:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/24 12:27:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,23 @@ int	v3_to_col(t_v3 v)
 
 t_v3	col_add(t_v3 a, t_v3 b)
 {
-	return ((t_v3){fminf(a.x + b.x, 1.0),
-					fminf(a.y + b.y, 1.0),
-					fminf(a.z + b.z, 1.0)});
+	return ((t_v3){fminf(a.x + b.x, 1.0f),
+					fminf(a.y + b.y, 1.0f),
+					fminf(a.z + b.z, 1.0f)});
 }
 
 t_v3	col_multi(t_v3 a, t_v3 b)
 {
-	return ((t_v3){fminf(a.x * b.x, 1.0),
-					fminf(a.y * b.y, 1.0),
-					fminf(a.z * b.z, 1.0)});
+	return ((t_v3){fminf(a.x * b.x, 1.0f),
+					fminf(a.y * b.y, 1.0f),
+					fminf(a.z * b.z, 1.0f)});
+}
+
+t_v3	col_scale(t_v3 a, float s)
+{
+	return ((t_v3){fminf(a.x * s, 1.0f),
+					fminf(a.y * s, 1.0f),
+					fminf(a.z * s, 1.0f)});
 }
 
 t_v2f	v2sub(t_v2f a, t_v2f b)

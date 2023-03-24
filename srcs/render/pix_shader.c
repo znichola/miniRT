@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 19:40:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:35:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
 	diffuse = get_light_diffuse(s, 0, me, poi);
-	diffuse = ORIGIN;
 	specular = get_light_specular(s, poo, poi, poi_norm);
-	// specular = ORIGIN;
-	return (col_multi(col_add(col_add(ambiant, diffuse), specular), obj_col));
-	// return ((t_v3){0,1,1});
+
+	// specular = ORIGIN; // uncomment to switch off spec component.
+	// diffuse = ORIGIN;
+	// ambiant = ORIGIN;
+	// obj_col = (t_v3){1.0f, 1.0f, 1.0f};
+
+	// return (col_multi(col_add(col_add(ambiant, diffuse), specular), obj_col));
+	return (col_add(col_multi(col_add(ambiant, diffuse), obj_col), specular)); // I think this is correct but it's not how the openGL site explains it.
 }
 
 t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi)
@@ -52,7 +56,7 @@ t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi)
 }
 
 /*
-	returns the light's colour attenuated via the intesity.
+	returns the light's colour attenuated by the intesity.
 */
 static t_v3	get_light_colour(t_scene *s, int l_num)
 {
@@ -76,25 +80,32 @@ t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 }
 
 /*
-	return the specular
+	return the specular colour
 	poo: is the point of origin
 	poi: is the point of intersection
 */
 static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 {
+	static float	strength = 0.3;
+	static float	epx = 128;
 	float	spec;
-	float	strength;
-	float	epx;
-	t_v3	light_norm;
-	t_v3	view_norm;
+	t_v3	view_norm_dir;
+	t_v3	light_norm_dir;
 
-	strength = .8;
-	epx = 32;
+	//poo is the  camera positon in this instance maybe this should be refactored
+	//and dosn't need to be passed as it's alwyas the same variable. idk really.
+	view_norm_dir = v3_unitvec(v3_subtract(poo, poi)); //sure it's good
+	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, 0)->position)); // inverting these flips the specular location
 
-	view_norm = v3_unitvec(v3_subtract(poo, poi));
-	light_norm = v3_unitvec(v3_subtract(poi, get_light(s, 0)->position));
+	t_v3	reflection_dir = reflection(light_norm_dir, poi_norm);
+	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), epx);
 
-	t_v3	reflection_dir = reflection(light_norm, view_norm);
-	spec = powf(fmaxf(v3_dot(view_norm, reflection_dir), 0), epx);
-	return (v3_multiply(get_light(s, 0)->colour, strength * spec));
+	// printf("%.3f\n", fmaxf(v3_dot(view_norm, reflection_dir), 0), epx);
+	// print_v3("reflection\n", &reflection_dir);
+	// print_v3("col", col_scale(get_light(s, 0)->colour, strength * spec));
+	return (col_scale(get_light(s, 0)->colour, strength * spec));
+
+
+	// return ((t_v3){0,0,0});
+	// return ((t_v3){0.2, .2, .13});
 }
