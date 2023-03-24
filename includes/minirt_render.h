@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 21:08:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:45:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_v3	col_add(t_v3 a, t_v3 b);
 t_v3	col_multi(t_v3 a, t_v3 b);
 t_v3	col_scale(t_v3 a, float s);
 
+
+t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi);
 
 int		render_world(t_app *a);
 
