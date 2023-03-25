@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/25 15:30:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:38:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	render_world(t_app *a)
 			printf("\n"); /*for debug writing into a file*/
 		u++;
 	}
+	// put_circle_fast(&a->img, 4, (t_v2int){});
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 	if (getset_settings(MRT_PRT_TO_FILE))
 		exit(0); /*for debug writing into a file*/
@@ -243,9 +244,10 @@ float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
 
 t_v2int	wold_to_screen(t_app *a, t_v3 world)
 {
-	t_v3	ray;
-
+	// t_v3	ray;
+	(void)a;
+	(void)world;
 	printf("this function is yet implemented\n");
-	ray = v3_subtract(world, a->s.camera.position);
+	// ray = v3_subtract(world, a->s.camera.position);
 	return ((t_v2int){42, 42});
 }
