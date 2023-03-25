@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 11:34:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/25 13:23:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
 	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
 	// printf("getting diff %s %d, %d\n", ctrl, diff.x, diff.y);
 	// printf("(%.1f)\n", *property * (180 / M_PI ));
-	printf("(%.1f)\n", *property);
+	// printf("(%.1f)\n", *property);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:02:16 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/16 14:09:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:16:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@
 # define MRT_CYAN		0x0000ffee
 # define MRT_YELLOW		0x00eeff00
 # define MRT_BRICK		0x00cf6922
+
+# define COL_PINK	(t_v3){1, 0, 0.7}
 
 #endif /* MINIRT_COLOUR_H */

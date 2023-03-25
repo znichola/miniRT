@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/24 15:55:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:40:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi);
 static t_v3	get_light_colour(t_scene *s, int l_num);
 static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm);
+static int	is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 
 
 /*
 	We are following the workflow outlined for openGL in this article
 	https://learnopengl.com/Lighting/Basic-Lighting
+
+	If we follow the formula I think it's not quite right, the
+
 */
 t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 {
@@ -33,13 +37,17 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
 
-	// t_v3	tmp = ORIGIN;
-	// if (find_poi(s, v3_unitvec(v3_subtract(poi, get_light(s, 0)->position)), poi, &tmp))
+	// if (is_in_shadow(s, me, poi, 0))
+	// {
+	// 	// printf("test\n");
 	// 	return (col_multi(ambiant, obj_col));
+	// 	return (COL_PINK);
+	// }
 	// else
 	// {
 		diffuse = get_light_diffuse(s, 0, me, poi);
-		specular = get_light_specular(s, poo, poi, poi_norm);
+		specular = col_scale(get_light_specular(s, poo, poi, poi_norm), get_light(s, 0)->ratio);
+		// specular = get_light_specular(s, poo, poi, poi_norm);
 	// }
 
 	// specular = ORIGIN; // uncomment to switch off spec component.
@@ -115,4 +123,29 @@ static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 
 	// return ((t_v3){0,0,0});
 	// return ((t_v3){0.2, .2, .13});
+}
+
+static int	is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
+{
+	t_list	*current;
+	t_v3	light_norm_dir;
+	t_v3	tmp;
+
+	light_norm_dir = v3_unitvec(v3_subtract(poo, get_light(s, l_num)->position));
+	// light_norm_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, poo));
+	current = s->objects_list;
+	while(current)
+	{
+		if (current->content == me)
+		{
+			;// printf("it's me, don't check.");
+		}
+		else
+		{
+			if (get_obj_poi(current->content, light_norm_dir, poo, &tmp) < FLT_MAX)
+				return (1);
+		}
+		current = current->next;
+	}
+	return (0);
 }

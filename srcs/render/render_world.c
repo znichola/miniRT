@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/24 15:51:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:30:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static t_v3	draw_ray(t_app *a, t_v3 ray);
 t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
 t_v3	get_obj_pos(t_object *obj);
 float	get_obj_lightfactor(t_scene *s, t_object *me, t_v3 poi);
-float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi);
 
 t_light		*get_light(t_scene *s, int num);
 
@@ -100,6 +99,7 @@ t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi)
 	t_list		*current;
 	t_object	*closest;
 	float		closest_dist;
+	t_v3		closest_poi;
 	float		dist;
 
 	closest = NULL;
@@ -110,12 +110,14 @@ t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi)
 		dist = get_obj_poi(current->content, ray, origin, poi);
 		if (dist < closest_dist)
 		{
+			closest_poi = *poi;
 			closest_dist = dist;
 			closest = current->content;
 		}
 		current = current->next;
 	}
 	// printf("%.2f ", closest_dist); /*for debug writing into a file*/
+	*poi = closest_poi;
 	return (closest);
 }
 
@@ -236,4 +238,14 @@ float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
 		return (get_poi_passthrough(obj, ray, source, poi));
 	return (f[obj->type](obj, ray, source, poi));
+}
+
+
+t_v2int	wold_to_screen(t_app *a, t_v3 world)
+{
+	t_v3	ray;
+
+	printf("this function is yet implemented\n");
+	ray = v3_subtract(world, a->s.camera.position);
+	return ((t_v2int){42, 42});
 }
