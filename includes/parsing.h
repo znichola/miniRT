@@ -30,10 +30,33 @@
 # define ERROR_MISSING_C	4
 # define ERROR_SYNTAX		5
 
+enum e_tok_type
+{
+	e_vector,
+	e_scalar,
+	e_string,
+	e_end_of_line
+};
+
+union u_val
+{
+	char	*str;
+	t_v3	pos;
+	float	scalar;
+};
+
+/* save the line number to give more interesting error messages */
+typedef struct s_token
+{
+	enum e_tok_type	type;
+	union u_val		value;
+	int				line;
+	struct s_token	*next;
+}	t_token;
+
 int		parse(const char *filename, t_scene *scene);
 
 /* parse utils */
-t_list	*tokenize(const char *str);
 char	*get_word(const char **str);
 int		is_only_whitespace(const char *str);
 void	trim(const char **str);
@@ -49,12 +72,12 @@ int		parse_orientation(const char **line, t_v3 *orientation);
 int		parse_ratio(const char **line, float *ratio);
 
 /* parse objects */
-int		parse_ambiant(const char **line, t_ambiant *a);
-int		parse_camera(const char **line, t_camera *c);
-int		parse_light(const char **line, t_light *l);
-int		parse_sphere(const char **line, t_sphere *sp);
-int		parse_plane(const char **line, t_plane *pl);
-int		parse_cylinder(const char **line, t_cylinder *cy);
+int		parse_ambiant(t_token **lst, t_object *obj);
+int		parse_camera(t_token **lst, t_object *obj);
+int		parse_light(t_token **lst, t_object *obj);
+int		parse_sphere(t_token **lst, t_object *obj);
+int		parse_plane(t_token **lst, t_object *obj);
+int		parse_cylinder(t_token **lst, t_object *obj);
 
 /* scene */
 void	init_scene(t_scene *scene);
