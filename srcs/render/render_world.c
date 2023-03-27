@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/27 13:52:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:44:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 		// col = closest->object.sp.colour;
 		col = pix_shader(&a->s, closest, a->s.camera.position, poi);
 	else
+		// col = v3_multiply(a->s.ambiant.colour, a->s.ambiant.ratio);
 		col = (t_v3){0.2,0.2,0.2};
 	return (col);
 }
@@ -251,7 +252,7 @@ t_v2int	wold_to_screen(t_app *a, t_v3 world)
 	// t_v3	ray;
 	(void)a;
 	(void)world;
-	printf("this function is yet implemented\n");
+	printf("this function is yet to be implemented\n");
 	// ray = v3_subtract(world, a->s.camera.position);
 	return ((t_v2int){42, 42});
 }
