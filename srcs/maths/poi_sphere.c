@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:16:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/23 00:09:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:29:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,18 @@ float	poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi)
 		discrimant = sqrtf(discrimant);
 		dist1 = - v3_dot(ray, w) + discrimant;
 		dist2 = - v3_dot(ray, w) - discrimant;
-		if (dist1 < dist2 || dist2 < -FLT_EPSILON)
+		if (dist1 < dist2 && dist1 > FLT_EPSILON)
 		{
 			*poi = v3_add(source, v3_multiply(ray, dist1));
 			return (dist1);
 		}
-		else
+		else if (dist2 > FLT_EPSILON)
 		{
 			*poi = v3_add(source, v3_multiply(ray, dist2));
 			return (dist2);
 		}
+		else
+			return (FLT_MAX);
 	}
 	else
 		return (FLT_MAX);

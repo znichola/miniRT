@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/25 16:49:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:46:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	if (tmp)
 	{
 		// printf("test\n");
-		// return (col_multi(ambiant, obj_col));
-		return (col_scale(get_obj_emmision(tmp, poi), 1.1));
+		return (col_multi(ambiant, obj_col));
+		// return (col_scale(get_obj_emmision(tmp, poi), 1.1));
 	}
 	else
 	{
