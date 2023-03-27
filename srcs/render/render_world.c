@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/25 16:38:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:52:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ static t_v3	pixel_to_ray(t_app *a, int u, int v)
 		calculated ray to the camera position, then orients it.
 	*/
 
+	/*
+		translate the pixel/ray to the correct posisiton.
+	*/
+	ray = v3_add(ray, a->s.camera.position);
 
 	return (ray);
 }
