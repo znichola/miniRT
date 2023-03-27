@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cylinder.c                                   :+:      :+:    :+:   */
+/*   parse_obj_cylinder.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/26 14:38:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/27 10:01:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static int	check_grammar_cylinder(t_token *tokens);
+static void	consume_cylinder(t_token **tokens, t_object *obj);
+static int	validate_and_reformat_cylinder(t_object *obj);
 
 int	parse_cylinder(t_token **tokens, t_object *obj)
 {
@@ -21,34 +25,35 @@ int	parse_cylinder(t_token **tokens, t_object *obj)
 		return (res);
 	consume_cylinder(tokens, obj);
 	if (validate_and_reformat_cylinder(obj) != 0)
-		return (E_VALIDATION_ERROR);
+		return (e_validation);
+	return (0);
 }
 
 /* check if grammar for cylinder is valid */
-static int check_grammar_cylinder(t_token *tokens)
+static int	check_grammar_cylinder(t_token *tokens)
 {
 	if (tokens->type != e_string)
-		return (E_MISSING_ID);
+		return (e_missing_id);
 	if (strcmp(tokens->value.str, "cy") != 0)
-		return (E_INVALID_ID);
+		return (e_invalid_id);
 	tokens = tokens->next;
 	if (tokens->type != e_vector)
-		return (E_MISSING_VECTOR);
+		return (e_missing_vector);
 	tokens = tokens->next;
 	if (tokens->type != e_vector)
-		return (E_MISSING_VECTOR);
+		return (e_missing_vector);
 	tokens = tokens->next;
 	if (tokens->type != e_scalar)
-		return (E_MISSING_SCALAR);
+		return (e_missing_scalar);
 	tokens = tokens->next;
 	if (tokens->type != e_scalar)
-		return (E_MISSING_SCALAR);
+		return (e_missing_scalar);
 	tokens = tokens->next;
 	if (tokens->type != e_vector)
-		return (E_MISSING_VECTOR);
+		return (e_missing_vector);
 	tokens = tokens->next;
 	if (tokens->type != e_end_of_line)
-		return (E_MISSING_EOL);
+		return (e_missing_eol);
 	return (0);
 }
 
@@ -57,15 +62,15 @@ static void	consume_cylinder(t_token **tokens, t_object *obj)
 {
 	obj->type = e_cylinder;
 	*tokens = (*tokens)->next; //skip the identifier
-	obj->content.cy.position = (*tokens)->value.pos;
+	obj->object.cy.position = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-	obj->content.cy.orientation = (*tokens)->value.pos;
+	obj->object.cy.orientation = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-	obj->content.cy.radius = (*tokens)->value.scalar;
+	obj->object.cy.radius = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
-	obj->content.cy.height = (*tokens)->value.scalar;
+	obj->object.cy.height = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
-	obj->content.cy.colour = (*tokens)->value.pos;
+	obj->object.cy.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next; //skip the end-of-line token
 }
 
@@ -74,7 +79,7 @@ static int	validate_and_reformat_cylinder(t_object *obj)
 {
 	t_cylinder	*cy;
 
-	cy = &obj->content.cy;
+	cy = &obj->object.cy;
 	if (!validate_orientation(cy->orientation))
 		return (-1);
 	if (cy->radius < 0)
@@ -82,7 +87,7 @@ static int	validate_and_reformat_cylinder(t_object *obj)
 	cy->radius /= 2;
 	if (cy->height < 0)
 		return (-1);
-	if (!validate_colour(cy->colour))
+	if (!validate_colour(&cy->colour))
 		return (-1);
 	return (0);
 }

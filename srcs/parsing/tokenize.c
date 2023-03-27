@@ -6,44 +6,19 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:45:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/26 11:45:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/27 10:46:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-enum e_tok_type
-{
-	e_vector,
-	e_scalar,
-	e_string,
-	e_end_of_line
-};
-
-union u_val
-{
-	char	*str;
-	t_v3	pos;
-	float	scalar;
-};
-
-/* save the line number to give more interesting error messages */
-typedef struct s_token
-{
-	enum e_tok_type	type;
-	union u_val		value;
-	int				line;
-	struct s_token	*next;
-}	t_token;
-
-static void		tokenize_line(t_token **lst, char *line, int line_number);
-static t_token *tokenize_word(char *word);
-static t_token *token_factory(int type, union u_val value, int line);
+static void		tokenize_line(t_token **lst, const char *line, int line_number);
+static t_token	*tokenize_word(const char *word);
+static t_token	*token_factory(int type, union u_val value, int line);
 
 t_token	*tokenize(int fd)
 {
 	t_token	*lst;
-	char	*word;
 	char	*line;
 	int		i;
 
@@ -54,48 +29,74 @@ t_token	*tokenize(int fd)
 	{
 		i++;
 		tokenize_line(&lst, line, i);
+		free(line);
+		line = get_next_line(fd);
 	}
 	return (lst);
 }
 
-static void	tokenize_line(t_token **lst, char *line, int line_number)
+void	free_tokens(t_token *tok)
+{
+	t_token	*current;
+	t_token	*next;
+
+	current = tok;
+	while (current)
+	{
+		next = current->next;
+		if (current->type == e_string)
+			free((void *)current->value.str);
+		free(current);
+		current = next;
+	}
+}
+
+static void	tokenize_line(t_token **lst, const char *line, int line_number)
 {
 	char	*word;
 	t_token	*tok;
 	t_token	**current;
 
 	current = lst;
+	if (*current)
+		current = &(*current)->next;
 	while (1)
 	{
 		word = get_word(&line);
+		printf("{%s}\n", word);
 		if (!word || !*word)
 		{
-			tok = token_factory(e_end_of_line, (union u_val)0, line_number);
-			(*current)->next = tok;
+			tok = token_factory(e_end_of_line, (union u_val)0.0f, line_number);
+			*current = tok;
 			break;
 		}
 		tok = tokenize_word(word);
 		tok->line = line_number;
-		(*current)->next = tok;
+		*current = tok;
 		current = &(*current)->next;
 	}
 }
 
-static t_token *tokenize_word(char *word)
+/* a bit ugly, no? */
+static t_token *tokenize_word(const char *word)
 {
 	union u_val	value;
+	const char	*cpy1;
+	const char	*cpy2;
 
-	if (parse_position(&word, &value.pos) == 0)
+	cpy1 = word;
+	cpy2 = word;
+	if (parse_position(&cpy1, &value.pos) == 0)
 	{
 		return (token_factory(e_vector, value, -1));
 	}
-	else if (parse_float(&word, &value.scalar) == 0)
+	else if (parse_float(&cpy2, &value.scalar) == 0)
 	{
 		return (token_factory(e_scalar, value, -1));
 	}
 	else
 	{
-		value.s = word;
+		value.str = word;
 		return (token_factory(e_string, value, -1));
 	}
 }

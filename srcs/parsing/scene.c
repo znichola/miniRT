@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:03:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 10:54:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/27 10:02:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	cleanup_scene(t_scene *scene)
 int	validate_scene(int state)
 {
 	if (!(state & MASK_AMBIANT))
-		return (ERROR_MISSING_A);
+		return (-1);
 	if (!(state & MASK_CAMERA))
-		return (ERROR_MISSING_C);
+		return (-1);
 	return (0);
 }
