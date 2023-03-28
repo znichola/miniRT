@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:05:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/22 22:35:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 00:54:51 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,35 @@ void	fill_screen(t_img_data *img, int colour)
 	i = 0;
 	while (i < img->width * img->height * 4)
 		img->addr[i++] = (unsigned int)colour;
+}
+
+// https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
+void	put_line(t_img_data *img, t_v2int p1, t_v2int p2)
+{
+	int	dx = abs(p2.x - p1.x);
+	int	dy = abs(p2.y - p1.y);
+
+	int	sx = p1.x < p2.x ? 1 : -1;
+	int	sy = p1.y < p2.y ? 1 : -1;
+
+	int	err = (dx > dy ? dx : -dy) / 2;
+	int	e2;
+
+	while (1)
+	{
+		my_mlx_pixel_put(img, p1.x, p1.y, MRT_BRICK);
+		if (p1.x == p2.x && p1.y == p2.y)
+			break;
+		e2 = err;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			p1.x += sx;
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			p1.y += sy;
+		}
+	}
 }

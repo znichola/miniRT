@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/24 13:04:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:17:03 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	main(int ac, char **av)
 
 	// initialising everything to 0 so we are sure it's all copacetic
 	ft_memset(&a, 0, sizeof(t_app));
+
+	getset_app(&a);
 
 	// parse the scene
 	if (parse(av[1], &a.s) != 0)

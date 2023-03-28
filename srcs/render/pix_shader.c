@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/27 18:46:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:38:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi);
 static t_v3	get_light_colour(t_scene *s, int l_num);
-static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm);
+static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
+static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
 
 
 /*
@@ -33,24 +34,23 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	t_v3	specular;
 	t_v3	poi_norm;
 
-	t_object	*tmp;
-
 	poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
+
+	poi_norm = bmp_offset(s, me, poi_norm, 3.0);
+
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
+	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
+	specular = (t_v3){0.0f, 0.0f, 0.0f};
 
-	tmp = is_in_shadow(s, me, poi, 0);
-	if (tmp)
+	int i = ft_lstsize(s->lights_list);
+	while (--i >= 0)
 	{
-		// printf("test\n");
-		return (col_multi(ambiant, obj_col));
-		// return (col_scale(get_obj_emmision(tmp, poi), 1.1));
-	}
-	else
-	{
-		diffuse = get_light_diffuse(s, 0, me, poi);
-		specular = col_scale(get_light_specular(s, poo, poi, poi_norm), get_light(s, 0)->ratio);
-		// specular = get_light_specular(s, poo, poi, poi_norm);
+		if (!is_in_shadow(s, me, poi, i))
+		{
+			diffuse = col_add(get_light_diffuse(s, i, me, poi), diffuse);
+			specular = col_add(col_scale(get_light_specular(s, i, poo, poi, poi_norm), get_light(s, i)->ratio), specular);
+		}
 	}
 
 	// specular = ORIGIN; // uncomment to switch off spec component.
@@ -102,7 +102,7 @@ t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 	poo: is the point of origin
 	poi: is the point of intersection
 */
-static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm)
+static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 {
 	static float	strength = 0.3;
 	static float	epx = 128;
@@ -113,7 +113,7 @@ static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 	//poo is the  camera positon in this instance maybe this should be refactored
 	//and dosn't need to be passed as it's alwyas the same variable. idk really.
 	view_norm_dir = v3_unitvec(v3_subtract(poo, poi)); //sure it's good
-	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, 0)->position)); // inverting these flips the specular location
+	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, i)->position)); // inverting these flips the specular location
 
 	t_v3	reflection_dir = reflection(light_norm_dir, poi_norm);
 	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), epx);
@@ -121,7 +121,7 @@ static t_v3	get_light_specular(t_scene *s, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 	// printf("%.3f\n", fmaxf(v3_dot(view_norm, reflection_dir), 0), epx);
 	// print_v3("reflection\n", &reflection_dir);
 	// print_v3("col", col_scale(get_light(s, 0)->colour, strength * spec));
-	return (col_scale(get_light(s, 0)->colour, strength * spec));
+	return (col_scale(get_light(s, i)->colour, strength * spec));
 
 
 	// return ((t_v3){0,0,0});
@@ -151,4 +151,31 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
 		current = current->next;
 	}
 	return (NULL);
+}
+
+// void	light_itteraor(t_scene *s, t_object *me, t_v3 poo, t_v3 poi, t_v3 *diffuse, t_v3 *specular)
+// {
+
+// }
+
+
+// getting uv texture coordinates
+// https://www.mvps.org/directx/articles/spheremap.htm
+// http://raytracerchallenge.com/bonus/texture-mapping.html
+
+/*
+	calculates the new normal rsulting from the bmp deformation
+*/
+static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
+{
+	float	tu;
+	float	tv;
+
+	(void)s;
+	(void)me;
+	tu = (((atan2f(norm.x, norm.z)) / (2 * M_PI)) + 0.5);
+	tv = ((acosf(norm.y / 1)) / M_PI);
+
+	return (v3_unitvec(v3_add(norm,
+			v3_multiply(finite_diff(getset_app(NULL), tu, tv), strength))));
 }
