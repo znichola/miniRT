@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/25 13:23:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:17:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,41 @@ float	get_ratio(t_app *a, char action, int px)
 	if (action == 'h')
 		return (cam_ratio.y * ((double)px / extents.y) - offset.y);
 	return (0.0);
+}
+
+/*
+	used to get the aspect ratio converted to wold space
+	be carefull it's got statics so threads amke sure it's not changing.
+*/
+int	get_world_to_pix_ratio(t_app *a, char action, float wrld)
+{
+	static t_v2int	extents;
+	static t_v3		cam_ratio;
+	static t_v3		offset;
+
+	if (a->img.height != extents.x
+		|| a->img.width != extents.y
+		|| a->s.camera.fov != cam_ratio.z)
+	{
+		extents.x = a->img.height;
+		extents.y = a->img.width;
+		cam_ratio.x = tanf(a->s.camera.fov / 2);
+		cam_ratio.y = tanf((a->s.camera.fov / 2) * (extents.x / extents.y));
+		offset.x = cam_ratio.x / 2;
+		offset.y = cam_ratio.y / 2;
+	}
+	if (action == 'w')
+		return ((wrld + offset.x) / cam_ratio.x * (float)extents.x);
+	if (action == 'h')
+		return ((wrld + offset.y) / cam_ratio.y * (float)extents.y);
+	return (0);
+}
+
+t_app	*getset_app(t_app *a)
+{
+	static t_app	*app;
+
+	if (a)
+		app = a;
+	return (app);
 }

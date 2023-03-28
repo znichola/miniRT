@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/24 12:38:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:17:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		getset_settings(int settings_mask);
 t_v2int	get_mouse_diff(t_app *a, int key);
 int		scale_property(t_app *app, float *property, char *ctrl, int key, float factor);
 float	get_ratio(t_app *a, char action, int px);
+int		get_world_to_pix_ratio(t_app *a, char action, float wrld);
+t_app	*getset_app(t_app *a);
 
 
 /* debug prints */

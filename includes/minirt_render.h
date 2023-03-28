@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/25 15:10:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:06:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,8 @@ t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
 t_light	*get_light(t_scene *s, int num);
 
 t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi);
+void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
+
+t_v3	finite_diff(t_app *a, float tu, float tv);
 
 #endif /* MINIRT_RENDER_H */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:52:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 12:28:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/03/28 12:06:03 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <math.h>
 
 float	get_angle(t_v3 norm, t_v3 obj);
-static t_v3	finite_diff(t_app *a, float tu, float tv);
 
 /*
 	https://www.paulsprojects.net/tutorials/simplebump/simplebump.html
@@ -188,7 +187,7 @@ float	get_angle(t_v3 norm, t_v3 obj)
 	return (angle / (M_PI));
 }
 
-static t_v3	finite_diff(t_app *a, float tu, float tv)
+t_v3	finite_diff(t_app *a, float tu, float tv)
 {
 	int	u = tu * (3072);
 	int	v = tv * (1536);
