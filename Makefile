@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/23 11:36:35 by skoulen          ###   ########.fr        #
+#    Updated: 2023/03/28 13:45:35 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 endif
 endif
 
-UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds
+UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui
 RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
 					lerp_colour the_moon multithread render_colour render_world \
 					pix_shader
