@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/28 11:51:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:21:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	render_world(t_app *a)
 	// 					world_to_screen(a, v3_multiply(get_obj_pos(a->s.objects_list->content), -1000)));
 	// put_line(&a->img,	world_to_screen(a, get_light(&a->s, 0)->position),
 	// 					world_to_screen(a, v3_multiply(get_light(&a->s, 0)->position, -1000)));
-
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+	render_ui(a);
 	return (0);
 }
 
