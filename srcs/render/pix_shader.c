@@ -6,13 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/28 13:38:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:11:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi);
+t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm);
 static t_v3	get_light_colour(t_scene *s, int l_num);
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
@@ -36,7 +36,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 
 	poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
 
-	poi_norm = bmp_offset(s, me, poi_norm, 3.0);
+	// poi_norm = bmp_offset(s, me, poi_norm, 1.0);
 
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
@@ -48,7 +48,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	{
 		if (!is_in_shadow(s, me, poi, i))
 		{
-			diffuse = col_add(get_light_diffuse(s, i, me, poi), diffuse);
+			diffuse = col_add(get_light_diffuse(s, i, me, poi, poi_norm), diffuse);
 			specular = col_add(col_scale(get_light_specular(s, i, poo, poi, poi_norm), get_light(s, i)->ratio), specular);
 		}
 	}
@@ -62,12 +62,14 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	return (col_add(col_multi(col_add(ambiant, diffuse), obj_col), specular)); // I think this is correct but it's not how the openGL site explains it.
 }
 
-t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi)
+t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
 {
 	t_v3	l_poi_norm;
-	t_v3	me_poi_norm;
+	t_v3	me_poi_norm; // needs to be given as parameter!
 
-	me_poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
+	(void)me;
+	// me_poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
+	me_poi_norm = norm;
 	l_poi_norm = v3_unitvec(v3_subtract(poi, get_light(s, l_num)->position));
 	return (v3_multiply(get_light_colour(s, l_num),
 		fmaxf(v3_dot(me_poi_norm, l_poi_norm), 0.0)));
@@ -177,5 +179,6 @@ static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
 	tv = ((acosf(norm.y / 1)) / M_PI);
 
 	return (v3_unitvec(v3_add(norm,
-			v3_multiply(finite_diff(getset_app(NULL), tu, tv), strength))));
+			v3_multiply(finite_diff(getset_app(NULL), tu, tv), strength)
+			)));
 }

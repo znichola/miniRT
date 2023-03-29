@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 13:41:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/28 17:22:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:54:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,12 @@
 
 void	render_ui(t_app *a)
 {
-	static t_img_data	ui;
-	static clock_t		last_frame_time;
+	static clock_t		last_frame_time = 0;
 	clock_t				current_frame_time;
 	char				fps[100];
 
-	if (ui.img)
-	{
-		ui.img = mlx_new_image(a->mlx_instance, a->img.width, a->img.height);
-		ui.addr = mlx_get_data_addr(&ui.img,
-					&ui.bits_per_pixel, &ui.line_length, &ui.endian);
+	if (last_frame_time == 0)
 		last_frame_time = clock();
-	}
-
 	current_frame_time = clock();
 	sprintf(fps, "fps %.1f\n", 1 /
 		((float)(current_frame_time - last_frame_time) / CLOCKS_PER_SEC));
