@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/03/28 13:45:35 by znichola         ###   ########.fr        #
+#    Updated: 2023/04/25 15:11:51 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,13 @@ MATHS_FILES		:= vector matrix poi_sphere poi_plane
 UTILS_FILES		:= debug_prints singletons
 PRIMITIVES_FILES	:= sphere plane cylinder
 PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
-
+GETTERS_FILES	:= getters
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
 FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
-					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))
+					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))\
+					$(addprefix getters/, $(GETTERS_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
 
 OBJS_PATH = objs/

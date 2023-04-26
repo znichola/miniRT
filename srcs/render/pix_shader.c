@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/28 18:11:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:23:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_n
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
 
+/* should be in header file this function decl */
+t_v3	get_poi_norm(t_object* obj, t_v3 point);
 
-/*
+	/*
 	We are following the workflow outlined for openGL in this article
 	https://learnopengl.com/Lighting/Basic-Lighting
 
@@ -34,7 +36,8 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	t_v3	specular;
 	t_v3	poi_norm;
 
-	poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
+	//poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
+	poi_norm = get_poi_norm(me, poi);
 
 	// poi_norm = bmp_offset(s, me, poi_norm, 1.0);
 
