@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/25 15:23:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/26 11:03:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
 	(void)me;
 	// me_poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
 	me_poi_norm = norm;
-	l_poi_norm = v3_unitvec(v3_subtract(poi, get_light(s, l_num)->position));
+	l_poi_norm = v3_unitvec(v3_subtract(get_light(s, l_num)->position, poi));
 	return (v3_multiply(get_light_colour(s, l_num),
 		fmaxf(v3_dot(me_poi_norm, l_poi_norm), 0.0)));
 }
