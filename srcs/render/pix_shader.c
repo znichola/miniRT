@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/26 11:03:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/26 13:39:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
 static t_v3	get_light_colour(t_scene *s, int l_num);
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
-static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
 
-/* should be in header file this function decl */
-t_v3	get_poi_norm(t_object* obj, t_v3 point);
+//static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
 
-	/*
+/*
 	We are following the workflow outlined for openGL in this article
 	https://learnopengl.com/Lighting/Basic-Lighting
 
@@ -171,6 +169,7 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
 /*
 	calculates the new normal rsulting from the bmp deformation
 */
+/*
 static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
 {
 	float	tu;
@@ -185,3 +184,4 @@ static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
 			v3_multiply(finite_diff(getset_app(NULL), tu, tv), strength)
 			)));
 }
+*/

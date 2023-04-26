@@ -6,13 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/26 12:31:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/26 13:48:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_structs.h"
-#include "minirt_defines.h"
-#include "minirt_maths.h"
+#include "minirt.h"
 
 t_v3	get_sp_emmision(t_object *me, t_v3 poi)
 {
