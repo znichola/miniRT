@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 12:20:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/26 12:26:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ float	get_pl_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
 
 	pl = me->object.pl;
 	return (poi_plane(&pl, ray, source, poi));
+}
+
+t_v3	get_pl_poi_norm(t_object *obj, t_v3 point)
+{
+	t_plane pl;
+
+	pl = obj->object.pl;
+	return (v3_unitvec(pl.orientation));
 }

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:01:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/04/25 15:25:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/26 12:33:56 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,27 @@ float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
 }
 
 /* get normal unitvec of surface at point of intersection */
+
+static t_v3	get_poi_norm_passthrough(t_object *obj, t_v3 point)
+{
+	(void)obj;
+	(void)point;
+	printf("can't get normal vector of surface for this type of object\n");
+	return ((t_v3){42,42,42});
+}
+
 t_v3	get_poi_norm(t_object* obj, t_v3 point)
 {
-	if (obj->type == e_sphere)
-	{
-		return (v3_unitvec(v3_subtract(point, obj->object.sp.position)));
-	}
-	else if (obj->type == e_plane)
-	{
-		return (v3_unitvec(obj->object.pl.orientation));
-	}
+	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3) = {
+		get_poi_norm_passthrough,
+		get_poi_norm_passthrough,
+		get_poi_norm_passthrough,
+		get_sp_poi_norm,
+		get_pl_poi_norm,
+		get_cy_poi_norm
+	};
+	
+	if (obj->type < 0 || obj->type >= MRT_NUM_OBJ_TYPES)
+		return (get_poi_norm_passthrough(obj, point));
+	return (f[obj->type](obj, point));
 }
