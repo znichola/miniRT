@@ -15,14 +15,14 @@ We need to be able to parse files that contain the description of the scene we
 need to render.
 
 The grammar is roughly as follows:
-FILE	:=	{LINE}
-LINE	:=	CAMERA | LIGHT | AMBIENT | CYLINDER | PLANE | SPHERE
-CAMERA	:=	"C" POSITION UNITVECTOR FOV
-LIGHT	:=	"L" POSITION RATIO COLOR
-AMBIENT :=	"A" RATIO COLOR
-CYLINDER	:= "cy" POSITION UNITVECTOR DIAMETER HEIGHT COLOR
-PLANE		:= "pl" POSITION UNITVECTOR COLOR
-SPHERE		:= "sp" POSITION DIAMETER COLOR
+FILE	:=	{LINE}  
+LINE	:=	CAMERA | LIGHT | AMBIENT | CYLINDER | PLANE | SPHERE  
+CAMERA	:=	"C" POSITION UNITVECTOR FOV  
+LIGHT	:=	"L" POSITION RATIO COLOR  
+AMBIENT :=	"A" RATIO COLOR  
+CYLINDER	:= "cy" POSITION UNITVECTOR DIAMETER HEIGHT COLOR  
+PLANE		:= "pl" POSITION UNITVECTOR COLOR  
+SPHERE		:= "sp" POSITION DIAMETER COLOR  
 
 Some extra validation needs to be done after verifying the grammar, for example,
 there can only be one camera in the scene.
