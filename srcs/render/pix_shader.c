@@ -6,13 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/28 11:37:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/28 12:03:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm);
+static t_v3	get_light_diffuse(t_scene *s, int l_num, t_v3 poi, t_v3 norm);
 static t_v3	get_light_colour(t_scene *s, int l_num);
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
@@ -34,11 +34,8 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	t_v3	specular;
 	t_v3	poi_norm;
 
-	//poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi)); // need to pass this to other functions for opti!
-	poi_norm = get_poi_norm(me, poi);
-
 	// poi_norm = bmp_offset(s, me, poi_norm, 1.0);
-
+	poi_norm = get_poi_norm(me, poi);
 	obj_col = get_obj_emmision(me, poi);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
 	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
@@ -49,35 +46,30 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	{
 		if (!is_in_shadow(s, me, poi, i))
 		{
-			diffuse = col_add(get_light_diffuse(s, i, me, poi, poi_norm), diffuse);
+			diffuse = col_add(get_light_diffuse(s, i, poi, poi_norm), diffuse);
 			specular = col_add(col_scale(get_light_specular(s, i, poo, poi, poi_norm), get_light(s, i)->ratio), specular);
 		}
 	}
 
-	// specular = ORIGIN; // uncomment to switch off spec component.
-	// diffuse = ORIGIN;
-	// ambiant = ORIGIN;
-	// obj_col = (t_v3){1.0f, 1.0f, 1.0f};
-
-	// return (col_multi(col_add(col_add(ambiant, diffuse), specular), obj_col));
-	return (col_add(col_multi(col_add(ambiant, diffuse), obj_col), specular)); // I think this is correct but it's not how the openGL site explains it.
-}
-
-static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
-{
-	t_v3	l_poi_norm;
-	t_v3	me_poi_norm; // needs to be given as parameter!
-
-	(void)me;
-	// me_poi_norm = v3_unitvec(v3_subtract(get_obj_pos(me), poi));
-	me_poi_norm = norm;
-	l_poi_norm = v3_unitvec(v3_subtract(get_light(s, l_num)->position, poi));
-	return (v3_multiply(get_light_colour(s, l_num),
-		fmaxf(v3_dot(me_poi_norm, l_poi_norm), 0.0)));
+	/* I think this is correct but it's not how the openGL site explains it.*/
+	return (col_add(col_multi(col_add(ambiant, diffuse), obj_col), specular));
 }
 
 /*
-	returns the light's colour attenuated by the intesity.
+	Compute diffuse color of i-th light at a certain point, given a point
+	and the normal of the surface at that point.
+*/
+static t_v3	get_light_diffuse(t_scene *s, int l_num, t_v3 point, t_v3 norm)
+{
+	t_v3	light_dir;
+
+	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, point));
+	return (v3_multiply(get_light_colour(s, l_num),
+				fmaxf(v3_dot(norm, light_dir), 0.0)));
+}
+
+/*
+	returns the light's colour attenuated by the intensity.
 */
 static t_v3	get_light_colour(t_scene *s, int l_num)
 {
