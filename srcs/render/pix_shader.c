@@ -6,13 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/26 13:39:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/04/28 11:37:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm);
+static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm);
 static t_v3	get_light_colour(t_scene *s, int l_num);
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
@@ -63,7 +63,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 	return (col_add(col_multi(col_add(ambiant, diffuse), obj_col), specular)); // I think this is correct but it's not how the openGL site explains it.
 }
 
-t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
+static t_v3	get_light_diffuse(t_scene *s, int l_num, t_object *me, t_v3 poi, t_v3 norm)
 {
 	t_v3	l_poi_norm;
 	t_v3	me_poi_norm; // needs to be given as parameter!
@@ -93,6 +93,8 @@ static t_v3	get_light_colour(t_scene *s, int l_num)
 	N should be normalized in order to achieve the desired result.
 
 	https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
+
+	is this function used somewhere else? why is it not static?
 */
 t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 {
@@ -101,34 +103,27 @@ t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 }
 
 /*
-	return the specular colour
+	compute the specular colour of the i-th light
+
 	poo: is the point of origin
 	poi: is the point of intersection
 */
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm)
 {
 	static float	strength = 0.3;
-	static float	epx = 128;
-	float	spec;
-	t_v3	view_norm_dir;
-	t_v3	light_norm_dir;
+	static float	exp = 128;
+	float			spec;
+	t_v3			view_norm_dir;
+	t_v3			light_norm_dir;
+	t_v3			reflection_dir;
 
 	//poo is the  camera positon in this instance maybe this should be refactored
 	//and dosn't need to be passed as it's alwyas the same variable. idk really.
 	view_norm_dir = v3_unitvec(v3_subtract(poo, poi)); //sure it's good
 	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, i)->position)); // inverting these flips the specular location
-
-	t_v3	reflection_dir = reflection(light_norm_dir, poi_norm);
-	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), epx);
-
-	// printf("%.3f\n", fmaxf(v3_dot(view_norm, reflection_dir), 0), epx);
-	// print_v3("reflection\n", &reflection_dir);
-	// print_v3("col", col_scale(get_light(s, 0)->colour, strength * spec));
+	reflection_dir = reflection(light_norm_dir, poi_norm);
+	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), exp);
 	return (col_scale(get_light(s, i)->colour, strength * spec));
-
-
-	// return ((t_v3){0,0,0});
-	// return ((t_v3){0.2, .2, .13});
 }
 
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
@@ -137,10 +132,9 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
 	t_v3	light_norm_dir;
 	t_v3	tmp;
 
-	// light_norm_dir = v3_unitvec(v3_subtract(poo, get_light(s, l_num)->position));
 	light_norm_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, poo));
 	current = s->objects_list;
-	while(current)
+	while (current)
 	{
 		if (current->content == me)
 		{
@@ -155,12 +149,6 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
 	}
 	return (NULL);
 }
-
-// void	light_itteraor(t_scene *s, t_object *me, t_v3 poo, t_v3 poi, t_v3 *diffuse, t_v3 *specular)
-// {
-
-// }
-
 
 // getting uv texture coordinates
 // https://www.mvps.org/directx/articles/spheremap.htm
