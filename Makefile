@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/01 10:45:05 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/01 17:56:06 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,11 @@ endif
 endif
 
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui
-RENDER_FILES	:=  put_pixel trpg_colour \
-					lerp_colour the_moon multithread render_colour render_world \
+RENDER_FILES	:=  put_pixel \
+					lerp_colour the_moon multithread render_world \
 					pix_shader
-MATHS_FILES		:= vector matrix poi_sphere poi_plane
-UTILS_FILES		:= debug_prints singletons
+MATHS_FILES		:= vector matrix poi_sphere poi_plane colour
+UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder
 PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
 GETTERS_FILES	:= getters

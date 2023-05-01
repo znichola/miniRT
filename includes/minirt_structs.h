@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/23 14:57:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:42:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ typedef struct	s_v2int
 {
 	int	x;
 	int	y;
-}				t_v2int;
+}	t_v2int;
+
+typedef struct s_v2f
+{
+	float	x;
+	float	y;
+}	t_v2f;
 
 /*
 	3 point vector

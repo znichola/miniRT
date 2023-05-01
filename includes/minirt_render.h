@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 13:55:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/01 17:55:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness
 void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
 t_v3	finite_diff(t_app *a, float tu, float tv);
 
-/* trgp_colour.c */
-
-int		create_trgb(int t, int r, int g, int b);
-int		get_t(int trgb);
-int		get_r(int trgb);
-int		get_g(int trgb);
-int		get_b(int trgb);
-
 int		colour_lerp(float min, float max, float point);
 int		colour_pallet_lerp(float min, float max, float point, t_v2int pallet);
 int		colour_pallet_add(int x, int y);
@@ -54,15 +46,6 @@ int		earth_nightlight_texture(t_app *app, int x, int y);
 void	*thread_routine(void *info_struct);
 void	start_threads(t_app *a);
 void	get_or_release_locks(t_app *a, int action);
-
-/* render colour */
-
-int		render_colour_frame(t_app *a);
-int		v3_to_col(t_v3 v);
-t_v3	col_add(t_v3 a, t_v3 b);
-t_v3	col_multi(t_v3 a, t_v3 b);
-t_v3	col_scale(t_v3 a, float s);
-
 
 /* render_world.c */
 
