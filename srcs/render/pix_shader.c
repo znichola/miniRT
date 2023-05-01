@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/28 12:03:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/01 09:08:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,6 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
 	}
 	return (NULL);
 }
-
-// getting uv texture coordinates
-// https://www.mvps.org/directx/articles/spheremap.htm
-// http://raytracerchallenge.com/bonus/texture-mapping.html
 
 /*
 	calculates the new normal rsulting from the bmp deformation

@@ -2,6 +2,9 @@
 Resources:
 - (https://www.scratchapixel.com/index.html)
 - (https://learnopengl.com/Lighting/Basic-Lighting)
+- (https://www.mvps.org/directx/articles/spheremap.htm)
+- (http://raytracerchallenge.com/bonus/texture-mapping.html)
+- (https://math.stackexchange.com/questions/2305792/3d-projection-on-a-2d-plane-weak-maths-ressources)
 
 ## introdution
 In this exercice, we have to write a basic raytracer in C.
@@ -44,6 +47,9 @@ This technique allows us to realistically compute shadows and reflection.
 
 ### lighting
 In this project, we use the ambiant, diffuse and specular lighting model.
+
+### textures / bump maps / normal maps
+
 
 ## UI
 In this project we are required to be able to move all objects in the scene.

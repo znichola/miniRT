@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/04/26 12:31:56 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/01 10:45:05 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 endif
 
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui
-RENDER_FILES	:= render_frame put_pixel render_sphere trpg_colour light \
+RENDER_FILES	:=  put_pixel trpg_colour \
 					lerp_colour the_moon multithread render_colour render_world \
 					pix_shader
 MATHS_FILES		:= vector matrix poi_sphere poi_plane

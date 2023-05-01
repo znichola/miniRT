@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/28 12:06:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/01 10:40:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness
 
 t_v3	reflection(t_v3 incident, t_v3 surface_normal);
 
+void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
+t_v3	finite_diff(t_app *a, float tu, float tv);
 
-// trgp_colour.c
+/* trgp_colour.c */
+
 int		create_trgb(int t, int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);
@@ -56,6 +59,7 @@ void	start_threads(t_app *a);
 void	get_or_release_locks(t_app *a, int action);
 
 /* render colour */
+
 int		render_colour_frame(t_app *a);
 int		v3_to_col(t_v3 v);
 t_v3	col_add(t_v3 a, t_v3 b);
@@ -63,18 +67,12 @@ t_v3	col_multi(t_v3 a, t_v3 b);
 t_v3	col_scale(t_v3 a, float s);
 
 
-t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi);
+/* render_world.c */
 
 int		render_world(t_app *a);
 
-float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi);
-t_v3	get_obj_pos(t_object *obj);
-t_v3	get_obj_emmision(t_object *obj, t_v3 poi);
-t_light	*get_light(t_scene *s, int num);
+/* pix_shader.c */
 
 t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi);
-void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
-
-t_v3	finite_diff(t_app *a, float tu, float tv);
 
 #endif /* MINIRT_RENDER_H */

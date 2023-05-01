@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/29 14:53:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/01 10:17:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	main(int ac, char **av)
 	if (parse(av[1], &a.s) != 0)
 		return (1);
 
-	// a.selected = a.s.lights_list->content;
-
 	//some settings!
-	// getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED | MRT_PRT_TO_FILE);
 	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
 	init_mlx_window(&a);
@@ -54,8 +51,6 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(a.window, mouse_on_click, &a);
 
 	// render hookup
-	// mlx_loop_hook(a.mlx_instance, render_frame, &a);
-	// mlx_loop_hook(a.mlx_instance, render_colour_frame, &a);
 	mlx_loop_hook(a.mlx_instance, render_world, &a);
 
 	mlx_loop(a.mlx_instance);
