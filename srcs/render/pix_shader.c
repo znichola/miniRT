@@ -6,15 +6,16 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 09:08:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/01 14:34:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_v3	get_light_diffuse(t_scene *s, int l_num, t_v3 poi, t_v3 norm);
-static t_v3	get_light_colour(t_scene *s, int l_num);
-static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm);
+static t_v3		get_light_diffuse(t_scene *s, int l_num, t_v3 poi, t_v3 norm);
+static t_v3		get_light_colour(t_scene *s, int l_num);
+static t_v3		reflection(t_v3 incident, t_v3 surface_normal);
+static t_v3		get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 
 //static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
@@ -22,11 +23,8 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 /*
 	We are following the workflow outlined for openGL in this article
 	https://learnopengl.com/Lighting/Basic-Lighting
-
-	If we follow the formula I think it's not quite right, the
-
 */
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
+t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poi)
 {
 	t_v3	obj_col;
 	t_v3	ambiant;
@@ -47,7 +45,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi)
 		if (!is_in_shadow(s, me, poi, i))
 		{
 			diffuse = col_add(get_light_diffuse(s, i, poi, poi_norm), diffuse);
-			specular = col_add(col_scale(get_light_specular(s, i, poo, poi, poi_norm), get_light(s, i)->ratio), specular);
+			specular = col_add(col_scale(get_light_specular(s, i, poi, poi_norm), get_light(s, i)->ratio), specular);
 		}
 	}
 
@@ -77,18 +75,11 @@ static t_v3	get_light_colour(t_scene *s, int l_num)
 						get_light(s, l_num)->ratio));
 }
 
-
 /*
-	I - 2.0 * dot(N, I) * N.
-
-	For a given incident vector I and surface normal N reflect returns the reflection direction calculated as I - 2.0 * dot(N, I) * N.
-	N should be normalized in order to achieve the desired result.
-
-	https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
-
-	is this function used somewhere else? why is it not static?
+	Compute the reflection direction, given an incident vector and the surface
+	normal.
 */
-t_v3	reflection(t_v3 incident, t_v3 surface_normal)
+static t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 {
 	t_v3	foo = v3_multiply(surface_normal, 2.0 * v3_dot(incident, surface_normal));
 	return (v3_unitvec(v3_subtract(incident, foo)));
@@ -97,10 +88,9 @@ t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 /*
 	compute the specular colour of the i-th light
 
-	poo: is the point of origin
-	poi: is the point of intersection
+	poi: is the point of intersection	
 */
-static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_norm)
+static t_v3	get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm)
 {
 	static float	strength = 0.3;
 	static float	exp = 128;
@@ -109,32 +99,33 @@ static t_v3	get_light_specular(t_scene *s, int i, t_v3 poo, t_v3 poi, t_v3 poi_n
 	t_v3			light_norm_dir;
 	t_v3			reflection_dir;
 
-	//poo is the  camera positon in this instance maybe this should be refactored
-	//and dosn't need to be passed as it's alwyas the same variable. idk really.
-	view_norm_dir = v3_unitvec(v3_subtract(poo, poi)); //sure it's good
-	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, i)->position)); // inverting these flips the specular location
+	view_norm_dir = v3_unitvec(v3_subtract(s->camera.position, poi));
+	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, i)->position));
 	reflection_dir = reflection(light_norm_dir, poi_norm);
 	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), exp);
 	return (col_scale(get_light(s, i)->colour, strength * spec));
 }
 
-static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num)
+/*
+	Check if there is an object between the l_num-th light source and a given
+	point on an object.
+	Return a pointer to that object or NULL.
+*/
+static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 {
 	t_list	*current;
-	t_v3	light_norm_dir;
+	t_v3	light_dir;
 	t_v3	tmp;
+	float	dist;
 
-	light_norm_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, poo));
+	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, point));
 	current = s->objects_list;
 	while (current)
 	{
-		if (current->content == me)
+		if (current->content != me)
 		{
-			;// printf("it's me, don't check.");
-		}
-		else
-		{
-			if (get_obj_poi(current->content, light_norm_dir, poo, &tmp) < FLT_MAX)
+			dist = get_obj_poi(current->content, light_dir, point, &tmp); 
+			if (dist < FLT_MAX)
 				return (current->content);
 		}
 		current = current->next;

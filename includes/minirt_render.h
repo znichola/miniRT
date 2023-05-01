@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 10:40:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/01 13:55:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void	fill_screen(t_img_data *img, int colour);
 void	render_sphere(t_app *a);
 void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
 
-
 int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness , int obj_colour);
-
-t_v3	reflection(t_v3 incident, t_v3 surface_normal);
 
 void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
 t_v3	finite_diff(t_app *a, float tu, float tv);
@@ -73,6 +70,6 @@ int		render_world(t_app *a);
 
 /* pix_shader.c */
 
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poo, t_v3 poi);
+t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poi);
 
 #endif /* MINIRT_RENDER_H */

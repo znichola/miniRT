@@ -5,6 +5,8 @@ Resources:
 - (https://www.mvps.org/directx/articles/spheremap.htm)
 - (http://raytracerchallenge.com/bonus/texture-mapping.html)
 - (https://math.stackexchange.com/questions/2305792/3d-projection-on-a-2d-plane-weak-maths-ressources)
+- (http://www.illusioncatalyst.com/notes_files/mathematics/line_sphere_intersection.php);
+- (https://www.cse.psu.edu/~rtc12/CSE486/lecture12.pdf)
 
 ## introdution
 In this exercice, we have to write a basic raytracer in C.
@@ -47,6 +49,8 @@ This technique allows us to realistically compute shadows and reflection.
 
 ### lighting
 In this project, we use the ambiant, diffuse and specular lighting model.
+Specular reflection:
+- (https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml)
 
 ### textures / bump maps / normal maps
 

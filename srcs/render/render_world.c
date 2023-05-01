@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/01 10:51:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/01 13:56:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 
 	closest = find_poi(&a->s, ray, a->s.camera.position, &poi);
 	if (closest)
-		col = pix_shader(&a->s, closest, a->s.camera.position, poi);
+		col = pix_shader(&a->s, closest, poi);
 	else
 		col = (t_v3){0.2,0.2,0.2};
 	return (col);

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:28:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/21 10:26:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:46:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@
 
 */
 
-// http://www.illusioncatalyst.com/notes_files/mathematics/line_sphere_intersection.php
 /*
-	This link is great at explaining the steps and is what this
-	calculation is based off.
 */
-
 void	render_sphere(t_app *a)
 {
 	for (int x = - a->img.width / 2; x < a->img.width / 2; x++)
