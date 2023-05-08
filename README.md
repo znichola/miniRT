@@ -20,14 +20,30 @@ We need to be able to parse files that contain the description of the scene we
 need to render.
 
 The grammar is roughly as follows:
-FILE	:=	{LINE}  
-LINE	:=	CAMERA | LIGHT | AMBIENT | CYLINDER | PLANE | SPHERE  
-CAMERA	:=	"C" POSITION UNITVECTOR FOV  
-LIGHT	:=	"L" POSITION RATIO COLOR  
-AMBIENT :=	"A" RATIO COLOR  
-CYLINDER	:= "cy" POSITION UNITVECTOR DIAMETER HEIGHT COLOR  
-PLANE		:= "pl" POSITION UNITVECTOR COLOR  
-SPHERE		:= "sp" POSITION DIAMETER COLOR  
+
+```ebnf
+file         := {line}
+line         := ( camera | light | ambient | cylinder | plane | sphere ) line_end
+
+camera       := "c"  position unitvector fov
+light        := "l"  position ratio color
+ambient      := "a"  ratio color
+
+cylinder     := "cy" position unitvector diameter height color [bonus]
+plane        := "pl" position unitvector color [bonus]
+sphere       := "sp" position diameter color [bonus]
+
+bonus        := [texture] [bmp] [normal_map] [checkerboard]
+
+checkerboard := "checkerboard"
+
+texture      := "texture:"path
+bmp          := "bmp:"path
+normal_map   := "normal_map:"path
+
+path         := "relative_path/to/file.xpm"
+line_end     := lf | crlf | eof
+```
 
 Some extra validation needs to be done after verifying the grammar, for example,
 there can only be one camera in the scene.
@@ -62,4 +78,3 @@ change their coordinates.
 
 ## maths
 In this project, we use a lot of operation between vectors.
-
