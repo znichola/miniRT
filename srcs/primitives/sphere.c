@@ -6,18 +6,18 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/26 13:48:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 21:48:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_v3	get_sp_emmision(t_object *me, t_v3 poi)
+t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 {
 	t_sphere	sp;
 
 	sp = me->object.sp;
-	(void)poi;
+	(void)i;
 	return (sp.colour);
 }
 
@@ -29,18 +29,18 @@ t_v3	get_sp_position(t_object *me)
 	return (sp.position);
 }
 
-float	get_sp_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+float	get_sp_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_sphere	sp;
 
 	sp = me->object.sp;
-	return (poi_sphere(&sp, ray, source, poi));
+	return (poi_sphere(&sp, ray, source, &i->poi));
 }
 
-t_v3	get_sp_poi_norm(t_object *obj, t_v3 point)
+t_v3	get_sp_poi_norm(t_object *obj, t_intersection *i)
 {
 	t_sphere	sp;
 
 	sp = obj->object.sp;
-	return (v3_unitvec(v3_subtract(point, sp.position)));
+	return (v3_unitvec(v3_subtract(i->poi, sp.position)));
 }

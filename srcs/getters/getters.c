@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:01:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/04/26 12:33:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 22:02:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ t_light	*get_light(t_scene *s, int num)
 
 /* get object emmission (color) */
 
-static t_v3	get_emmision_passthrough(t_object *me, t_v3 poi)
+static t_v3	get_emmision_passthrough(t_object *me, t_intersection *i)
 {
 	(void)me;
+	(void)i;
 	printf("can't get an emmision from this type of object\n");
-	return (poi);
+	return ((t_v3){42,200,42});
 }
 
-t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
+t_v3	get_obj_emmision(t_object *obj, t_intersection *i)
 {
-	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3)  = {
+	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_intersection *)  = {
 		get_emmision_passthrough,
 		get_emmision_passthrough,
 		get_emmision_passthrough,
@@ -54,8 +55,8 @@ t_v3	get_obj_emmision(t_object *obj, t_v3 poi)
 		get_cy_emmision};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
-		return (get_emmision_passthrough(obj, poi));
-	return (f[obj->type](obj, poi));
+		return (get_emmision_passthrough(obj, i));
+	return (f[obj->type](obj, i));
 }
 
 
@@ -86,19 +87,19 @@ t_v3	get_obj_pos(t_object *obj)
 
 /* point of intersection with object */
 
-static float	get_poi_passthrough(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
+static float	get_poi_passthrough(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	(void)me;
 	(void)ray;
 	(void)source;
-	(void)poi;
+	(void)i;
 	printf("can't get a poi from this type of object\n");
 	return (FLT_MAX);
 }
 
-float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
+float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_intersection *i)
 {
-	float	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3, t_v3, t_v3 *)  = {
+	float	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3, t_v3, t_intersection *) = {
 		get_poi_passthrough,
 		get_poi_passthrough,
 		get_poi_passthrough,
@@ -107,23 +108,23 @@ float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_v3 *poi)
 		get_cy_poi};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
-		return (get_poi_passthrough(obj, ray, source, poi));
-	return (f[obj->type](obj, ray, source, poi));
+		return (get_poi_passthrough(obj, ray, source, i));
+	return (f[obj->type](obj, ray, source, i));
 }
 
 /* get normal unitvec of surface at point of intersection */
 
-static t_v3	get_poi_norm_passthrough(t_object *obj, t_v3 point)
+static t_v3	get_poi_norm_passthrough(t_object *obj, t_intersection *i)
 {
 	(void)obj;
-	(void)point;
+	(void)i;
 	printf("can't get normal vector of surface for this type of object\n");
 	return ((t_v3){42,42,42});
 }
 
-t_v3	get_poi_norm(t_object* obj, t_v3 point)
+t_v3	get_poi_norm(t_object* obj, t_intersection *i)
 {
-	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_v3) = {
+	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_intersection *) = {
 		get_poi_norm_passthrough,
 		get_poi_norm_passthrough,
 		get_poi_norm_passthrough,
@@ -131,8 +132,8 @@ t_v3	get_poi_norm(t_object* obj, t_v3 point)
 		get_pl_poi_norm,
 		get_cy_poi_norm
 	};
-	
+
 	if (obj->type < 0 || obj->type >= MRT_NUM_OBJ_TYPES)
-		return (get_poi_norm_passthrough(obj, point));
-	return (f[obj->type](obj, point));
+		return (get_poi_norm_passthrough(obj, i));
+	return (f[obj->type](obj, i));
 }

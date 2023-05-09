@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/09 21:31:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:44:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ static void		calc_normal(t_terms *t, t_cylinder *me, t_intersection *i);
 	https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm
 
 */
-float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_v3 *poi)
+float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_terms	t;
-	t_intersection i;
 
 	t.x = v3_subtract(source, me->position);
 	t.dd = v3_dot(ray, ray);
@@ -40,11 +39,12 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_v3 *poi)
 		return (FLT_MAX);
 
 	t.height = me->height;
-	i.poi_disance = calc_poi(&t, source, ray, &i);
-	if (i.poi_disance != FLT_EPSILON)
-		calc_normal(&t, me, &i);
-	*poi = i.poi; /* should be removed */
-	return (i.poi_disance);
+	i->poi_disance = calc_poi(&t, source, ray, i);
+
+	if (i->poi_disance != FLT_EPSILON)
+		calc_normal(&t, me, i);
+
+	return (i->poi_disance);
 }
 
 static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
@@ -76,6 +76,7 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	//   N = nrm( P-C-V*m )
+	(void)t;
 	i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
 		v3_multiply(me->orientation, me->height));
 }
