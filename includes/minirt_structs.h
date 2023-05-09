@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 17:42:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 15:49:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct	s_ptinfo
 	void	*app;
 }	t_ptinfo;
 
+/* used in the return to help transfer this data to avoid duplication*/
+typedef struct	s_intersection
+{
+	t_v3	poi;
+	t_v3	poi_normal;
+	t_v3	poi_normal_unitvec;
+}	t_intersection;
 
 /* objects */
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/04/26 13:49:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:24:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ float	get_cy_poi(t_object *me, t_v3 ray, t_v3 source, t_v3 *poi)
 	t_cylinder	cy;
 
 	cy = me->object.cy;
-	(void)ray;
-	(void)source;
-	(void)poi;
-	return (FLT_MAX);
+	return (poi_cylinder(&cy, ray, source, poi));
 }
 
 /* not implemented yet */
