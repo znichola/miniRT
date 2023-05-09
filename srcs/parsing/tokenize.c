@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:45:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/27 10:46:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:16:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@ static void		tokenize_line(t_token **lst, const char *line, int line_number);
 static t_token	*tokenize_word(const char *word);
 static t_token	*token_factory(int type, union u_val value, int line);
 
+static void print_tokens(t_token *list);
+
 t_token	*tokenize(int fd)
 {
-	t_token	*lst;
+	t_token	*start;
 	char	*line;
 	int		i;
 
-	lst = NULL;
+	start = NULL;
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		i++;
-		tokenize_line(&lst, line, i);
+		tokenize_line(&start, line, i);
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (lst);
+	print_tokens(start);
+	return (start);
 }
 
 void	free_tokens(t_token *tok)
@@ -58,12 +61,13 @@ static void	tokenize_line(t_token **lst, const char *line, int line_number)
 	t_token	**current;
 
 	current = lst;
-	if (*current)
+	while (*current)
 		current = &(*current)->next;
+	if (is_only_whitespace(line))
+		return;
 	while (1)
 	{
 		word = get_word(&line);
-		printf("{%s}\n", word);
 		if (!word || !*word)
 		{
 			tok = token_factory(e_end_of_line, (union u_val)0.0f, line_number);
@@ -113,4 +117,20 @@ static t_token *token_factory(int type, union u_val value, int line)
 	tok->line = line;
 	tok->next = NULL;
 	return (tok);
+}
+
+static void print_tokens(t_token *list)
+{
+	while (list)
+	{
+		if (list->type == e_string)
+			printf("<string>:{%s}\n", list->value.str);
+		else if (list->type == e_vector)
+			printf("<vector>:{%f, %f, %f}\n", list->value.pos.x, list->value.pos.y, list->value.pos.z);
+		else if (list->type == e_scalar)
+			printf("<scalar>:{%f}\n", list->value.scalar);
+		else if (list->type == e_end_of_line)
+			printf("<end of line>\n");
+		list = list->next;
+	}
 }

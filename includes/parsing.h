@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/27 10:00:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:47:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ enum e_parse_error
 	e_invalid_id,
 	e_eof
 } ;
+
+typedef struct s_error
+{
+	int			line;
+	const char*	msg;
+}	t_error;
 
 /* primary parsing function */
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/01 17:56:06 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/10 11:19:23 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,10 @@ RENDER_FILES	:=  put_pixel \
 MATHS_FILES		:= vector matrix poi_sphere poi_plane colour
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder
-PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 parse_objects2 scene parse_error scene_add_object
+
+PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate
 GETTERS_FILES	:= getters
+
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
 FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \

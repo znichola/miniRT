@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/27 10:01:02 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:02:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	parse_cylinder(t_token **tokens, t_object *obj)
 {
 	int	res;
 
+	printf("CYLINDER\n");
 	res = check_grammar_cylinder(*tokens);
 	if (res != 0)
 		return (res);
@@ -71,6 +72,8 @@ static void	consume_cylinder(t_token **tokens, t_object *obj)
 	obj->object.cy.height = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
 	obj->object.cy.colour = (*tokens)->value.pos;
+	*tokens = (*tokens)->next;
+
 	*tokens = (*tokens)->next; //skip the end-of-line token
 }
 
@@ -80,14 +83,14 @@ static int	validate_and_reformat_cylinder(t_object *obj)
 	t_cylinder	*cy;
 
 	cy = &obj->object.cy;
-	if (!validate_orientation(cy->orientation))
+	if (validate_orientation(cy->orientation) != 0)
 		return (-1);
 	if (cy->radius < 0)
 		return (-1);
 	cy->radius /= 2;
 	if (cy->height < 0)
 		return (-1);
-	if (!validate_colour(&cy->colour))
+	if (validate_colour(&cy->colour) != 0)
 		return (-1);
 	return (0);
 }
