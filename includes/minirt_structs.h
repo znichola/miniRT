@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/09 20:17:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:13:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct	s_terms
 	float	discrimant;
 	float	d1;
 	float	d2;
+	float	m1;
+	float	m2;
 	float	height;
 	t_v3	x;
 }	t_terms;
@@ -100,6 +102,7 @@ typedef struct	s_intersection
 	t_v3	poi;
 	t_v3	poi_normal;
 	t_v3	poi_normal_unitvec;
+	float	poi_disance;
 }	t_intersection;
 
 /* objects */
