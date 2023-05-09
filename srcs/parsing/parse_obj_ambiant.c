@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:19:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:51:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,7 @@ int	parse_ambiant(t_token **tokens, t_object *obj)
 /* check if grammar for ambiant is valid */
 static int	check_grammar_ambiant(t_token *tokens)
 {
-	if (tokens->type != e_string)
-	{
-		return (e_missing_id);
-	}
-	if (strcmp(tokens->value.str, "A") != 0)
-		return (e_invalid_id);
-
-	tokens = tokens->next;
-
-	if (tokens->type != e_scalar) //ratio
-		return (e_missing_scalar);
-
-
-	tokens = tokens->next;
-	if (tokens->type != e_vector) //color
-		return (e_missing_vector);
-
-	tokens = tokens->next;
-	if (tokens->type != e_end_of_line)
-		return (e_missing_eol);
-	return (0);
+	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */

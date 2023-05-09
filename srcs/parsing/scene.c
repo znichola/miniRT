@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:03:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 11:26:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:53:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int	validate_scene(int state)
 		return (-1);
 	if (!(state & MASK_CAMERA))
 		return (-1);
+	printf("SCENE OKAY\n");
 	return (0);
 }

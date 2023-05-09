@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:03:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:50:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,7 @@ int	parse_plane(t_token **tokens, t_object *obj)
 /* check if grammar for plane is valid */
 static int	check_grammar_plane(t_token *tokens)
 {
-	if (tokens->type != e_string)
-		return (e_missing_id);
-	if (strcmp(tokens->value.str, "pl") != 0)
-		return (e_invalid_id);
-
-	tokens = tokens->next;
-	if (tokens->type != e_vector) //position
-		return (e_missing_vector);
-
-	tokens = tokens->next;
-	if (tokens->type != e_vector) //orientation
-		return (e_missing_vector);
-
-	tokens = tokens->next;
-	if (tokens->type != e_vector) //colour
-		return (e_missing_vector);
-
-	tokens = tokens->next;
-	if (tokens->type != e_end_of_line)
-		return (e_missing_eol);
-	return (0);
+	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */

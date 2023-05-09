@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/10 11:19:23 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/10 11:20:27 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MATHS_FILES		:= vector matrix poi_sphere poi_plane colour
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder
 
-PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate
+PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check
 GETTERS_FILES	:= getters
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils

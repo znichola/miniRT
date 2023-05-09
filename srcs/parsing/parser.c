@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 13:04:14 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 13:05:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 15:24:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,31 @@ static int	parser2(t_token *tokens, t_scene *scene)
 
 static int	parse_object(t_token **tokens, t_object *obj)
 {
-	int	res;
+	const char	*obj_ids[6] = {"C", "L", "A", "cy", "pl", "sp"};
+	int			i;
 
-	res = parse_ambiant(tokens, obj);
-	if (res == e_invalid_id)
-		res = parse_camera(tokens, obj);
-	if (res == e_invalid_id)
-		res = parse_light(tokens, obj);
-	if (res == e_invalid_id)
-		res = parse_sphere(tokens, obj);
-	if (res == e_invalid_id)
-		res = parse_plane(tokens, obj);
-	if (res == e_invalid_id)
-		res = parse_cylinder(tokens, obj);
-	return (res);
+	if (!*tokens)
+		return (e_eof);
+	if ((*tokens)->type != e_string)
+		return (e_missing_id);
+	i = -1;
+	while (++i < 6)
+	{
+		if (ft_strcmp((*tokens)->value.str, obj_ids[i]) == 0)
+			break ;
+	}
+	if (i == 0)
+		return (parse_camera(tokens, obj));
+	else if (i == 1)
+		return (parse_light(tokens, obj));
+	else if (i == 2)
+		return (parse_ambiant(tokens, obj));
+	else if (i == 3)
+		return (parse_cylinder(tokens, obj));
+	else if (i == 4)
+		return (parse_plane(tokens, obj));
+	else if (i == 5)
+		return (parse_sphere(tokens, obj));
+	else
+		return (e_invalid_id);
 }

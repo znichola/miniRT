@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:02:35 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 14:51:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,7 @@ int	parse_camera(t_token **tokens, t_object *obj)
 /* check if grammar for camera is valid */
 static int	check_grammar_camera(t_token *tokens)
 {
-	if (tokens->type != e_string)
-		return (e_missing_id);
-	if (strcmp(tokens->value.str, "C") != 0)
-		return (e_invalid_id);
-	tokens = tokens->next;
-	if (tokens->type != e_vector)
-		return (e_missing_vector);
-	tokens = tokens->next;
-	if (tokens->type != e_vector)
-		return (e_missing_vector);
-	tokens = tokens->next;
-	if (tokens->type != e_scalar)
-		return (e_missing_scalar);
-	tokens = tokens->next;
-	if (tokens->type != e_end_of_line)
-		return (e_missing_eol);
-	return (0);
+	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */
