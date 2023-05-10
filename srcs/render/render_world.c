@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/01 13:56:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 21:57:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_v3		pixel_to_ray(t_app *a, int u, int v);
 static t_v3		draw_ray(t_app *a, t_v3 ray);
-static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi);
+static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i);
 
 /*
 	For each pixel in our image, compute it's color by computing a ray that goes
@@ -74,18 +74,18 @@ static t_v3	pixel_to_ray(t_app *a, int u, int v)
 	return (ray);
 }
 
-/*	
+/*
 	Compute the color of a ray.
 */
 static t_v3	draw_ray(t_app *a, t_v3 ray)
 {
-	t_object	*closest;
-	t_v3		poi;
-	t_v3		col;
+	t_object		*closest;
+	t_intersection	i;
+	t_v3			col;
 
-	closest = find_poi(&a->s, ray, a->s.camera.position, &poi);
+	closest = find_poi(&a->s, ray, a->s.camera.position, &i);
 	if (closest)
-		col = pix_shader(&a->s, closest, poi);
+		col = pix_shader(&a->s, closest, &i);
 	else
 		col = (t_v3){0.2,0.2,0.2};
 	return (col);
@@ -94,31 +94,31 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 /*
 	Find closest object our ray intersects with.
 	*poi is set to the point of intersection with that object.
-	
+
 	If the ray does not intersect with any object, NULL is returned.
 */
-static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_v3 *poi)
+static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i)
 {
-	t_list		*current;
-	t_object	*closest;
-	float		closest_dist;
-	t_v3		closest_poi;
-	float		dist;
+	t_list			*current;
+	t_object		*closest;
+	float			closest_dist;
+	t_intersection	closest_i;
+	float			dist;
 
 	closest = NULL;
 	closest_dist = FLT_MAX;
 	current = s->objects_list;
 	while (current)
 	{
-		dist = get_obj_poi(current->content, ray, origin, poi);
+		dist = get_obj_poi(current->content, ray, origin, i);
 		if (dist < closest_dist)
 		{
-			closest_poi = *poi;
+			closest_i = *i;
 			closest_dist = dist;
 			closest = current->content;
 		}
 		current = current->next;
 	}
-	*poi = closest_poi;
+	*i = closest_i;
 	return (closest);
 }

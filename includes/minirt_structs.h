@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 17:42:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 09:55:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,34 @@ typedef struct	s_ptinfo
 	void	*app;
 }	t_ptinfo;
 
+typedef struct	s_terms
+{
+	float	a;
+	float	b;
+	float	c;
+	float	dd;
+	float	dv;
+	float	dx;
+	float	xv;
+	float	xx;
+	float	discrimant;
+	float	d1;
+	float	d2;
+	float	m1;
+	float	m2;
+	float	m;
+	float	height;
+	int		message;
+	t_v3	x;
+}	t_terms;
+
+/* used in the return to help transfer this data to avoid duplication*/
+typedef struct	s_intersection
+{
+	t_v3	poi;
+	t_v3	poi_normal;
+	float	poi_disance;
+}	t_intersection;
 
 /* objects */
 

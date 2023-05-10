@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 14:34:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 22:01:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 	We are following the workflow outlined for openGL in this article
 	https://learnopengl.com/Lighting/Basic-Lighting
 */
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poi)
+t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 {
 	t_v3	obj_col;
 	t_v3	ambiant;
@@ -32,9 +32,11 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poi)
 	t_v3	specular;
 	t_v3	poi_norm;
 
+	t_v3	poi = in->poi; /* tmp compatability shit */
+
 	// poi_norm = bmp_offset(s, me, poi_norm, 1.0);
-	poi_norm = get_poi_norm(me, poi);
-	obj_col = get_obj_emmision(me, poi);
+	poi_norm = get_poi_norm(me, in);
+	obj_col = get_obj_emmision(me, in);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
 	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
 	specular = (t_v3){0.0f, 0.0f, 0.0f};
@@ -88,7 +90,7 @@ static t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 /*
 	compute the specular colour of the i-th light
 
-	poi: is the point of intersection	
+	poi: is the point of intersection
 */
 static t_v3	get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm)
 {
@@ -113,10 +115,10 @@ static t_v3	get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm)
 */
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 {
-	t_list	*current;
-	t_v3	light_dir;
-	t_v3	tmp;
-	float	dist;
+	t_list			*current;
+	t_v3			light_dir;
+	t_intersection	tmp;
+	float			dist;
 
 	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, point));
 	current = s->objects_list;
@@ -124,7 +126,7 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 	{
 		if (current->content != me)
 		{
-			dist = get_obj_poi(current->content, light_dir, point, &tmp); 
+			dist = get_obj_poi(current->content, light_dir, point, &tmp);
 			if (dist < FLT_MAX)
 				return (current->content);
 		}

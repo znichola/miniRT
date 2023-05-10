@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_maths.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 17:39:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 21:42:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ float		poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi);
 
 /* poi_plane.c */
 float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_v3 *poi);
+
+/* poi_cylinder.c */
+float		poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 #endif /* MINIRT_VECTOR_H */

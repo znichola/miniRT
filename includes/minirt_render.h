@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 17:55:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/09 21:59:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int		render_world(t_app *a);
 
 /* pix_shader.c */
 
-t_v3	pix_shader(t_scene *s, t_object *me, t_v3 poi);
+t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *i);
 
 #endif /* MINIRT_RENDER_H */

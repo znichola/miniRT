@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_getters.h                                   :+:      :+:    :+:   */
+/*   poi_utility.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 13:27:27 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 21:54:11 by znichola         ###   ########.fr       */
+/*   Created: 2023/05/09 16:55:51 by znichola          #+#    #+#             */
+/*   Updated: 2023/05/09 17:00:40 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_GETTERS_H
-# define MINIRT_GETTERS_H
+#include "minirt.h"
 
-t_light	*get_light(t_scene *s, int num);
-t_v3	get_obj_emmision(t_object *obj, t_intersection *i);
-t_v3	get_obj_pos(t_object *obj);
-float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_intersection *i);
-t_v3	get_poi_norm(t_object* obj, t_intersection *i);
+/*
 
-#endif /* MINIRT_GETTERS_H */
+*/
+float	calculate_poi_normal(float d, t_v3 source, t_v3 ray, t_intersection i)
+{
+	d = sqrt(d);
+	dist1 = - v3_dot(ray, w) + discrimant;
+	dist2 = - v3_dot(ray, w) - discrimant;
+}
