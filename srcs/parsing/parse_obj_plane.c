@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 11:13:05 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 13:56:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ static void	consume_plane(t_token **tokens, t_object *obj)
 
 static void consume_optional_plane(t_token **tokens, t_plane *pl)
 {
-	pl->texture = NULL;
-	pl->bump = NULL;
-	pl->normal = NULL;
+	pl->texture.filepath = NULL;
+	pl->bump.filepath = NULL;
+	pl->normal.filepath = NULL;
 	while (*tokens && (*tokens)->type == e_optional)
 	{
 		if ((*tokens)->value.opt.type == e_texture)
-			pl->texture = ft_strdup((*tokens)->value.opt.filepath);
+			pl->texture.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_bump)
-			pl->bump = ft_strdup((*tokens)->value.opt.filepath);
+			pl->bump.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_normal)
-			pl->normal = ft_strdup((*tokens)->value.opt.filepath);
+			pl->normal.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		*tokens = (*tokens)->next;
 	}
 }

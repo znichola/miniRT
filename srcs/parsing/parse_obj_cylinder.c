@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 11:13:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 13:55:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ static void	consume_cylinder(t_token **tokens, t_object *obj)
 
 static void consume_optional_cylinder(t_token **tokens, t_cylinder *cy)
 {
-	cy->texture = NULL;
-	cy->bump = NULL;
-	cy->normal = NULL;
+	cy->texture.filepath = NULL;
+	cy->bump.filepath = NULL;
+	cy->normal.filepath = NULL;
 	while (*tokens && (*tokens)->type == e_optional)
 	{
 		if ((*tokens)->value.opt.type == e_texture)
-			cy->texture = ft_strdup((*tokens)->value.opt.filepath);
+			cy->texture.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_bump)
-			cy->bump = ft_strdup((*tokens)->value.opt.filepath);
+			cy->bump.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_normal)
-			cy->normal = ft_strdup((*tokens)->value.opt.filepath);
+			cy->normal.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		*tokens = (*tokens)->next;
 	}
 }
