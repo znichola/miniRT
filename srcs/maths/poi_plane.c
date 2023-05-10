@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:26:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 15:12:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:36:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 	Equation taken from: https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
 */
-float	poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_v3 *poi)
+float	poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 /*
 	float	dist;
@@ -28,16 +28,21 @@ float	poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_v3 *poi)
 		v3_dot(ray, me->orientation);
 	*poi = v3_add(source, v3_multiply(ray, dist));
 */
-	float	t, xv, dv;
-	t_v3	x;
+	t_terms	t;
 
-	x = v3_subtract(source, me->position);
-	xv = v3_dot(x, me->orientation);
-	dv = v3_dot(ray, me->orientation);
+	t.x = v3_subtract(source, me->position);
+	// t.x = v3_multiply(t.x, -1);
+	t.xv = v3_dot(t.x, me->orientation);
+	t.dv = v3_dot(ray, me->orientation);
 
-	if (dv == FLT_EPSILON || (xv > 0 && dv > 0) || (xv < 0 && dv < 0))
+	if (t.dv == FLT_EPSILON || (t.xv > 0 && t.dv > 0) || (t.xv < 0 && t.dv < 0))
 		return (FLT_MAX);
-	t = - xv / dv;
-	*poi = v3_add(source, v3_multiply(ray, t));
-	return (t);
+
+	t.d1 = - t.xv / t.dv;
+	i->poi = v3_add(source, v3_multiply(ray, -t.d1));
+	if (t.dv < FLT_EPSILON)
+		i->poi_normal = v3_multiply(me->orientation, -1);
+	else
+		i->poi_normal = me->orientation;
+	return (t.d1);
 }

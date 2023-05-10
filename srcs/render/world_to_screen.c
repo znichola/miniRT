@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   world_to_screen.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:49:29 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/01 10:50:47 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 10:52:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/*
+	untested and un used world to screen function.
+*/
 t_v2int	world_to_screen(t_app *a, t_v3 world)
 {
 	t_v3	p0 = world;
@@ -37,4 +40,3 @@ t_v2int	world_to_screen(t_app *a, t_v3 world)
 	}
 	return ((t_v2int){0, 0});
 }
-
