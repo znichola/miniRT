@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 12:03:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:53:09 by skoulen          ###   ########.fr       */
+/*   Created: 2023/03/27 09:53:57 by skoulen           #+#    #+#             */
+/*   Updated: 2023/05/09 11:17:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "libft.h"
+#include "minirt.h"
 
-#define MASK_AMBIANT	1
-#define MASK_CAMERA		2
-
-void	init_scene(t_scene *scene)
+int	validate_orientation(t_v3 vec)
 {
-	scene->lights_list = NULL;
-	scene->objects_list = NULL;
+	if (vec.x == 0 && vec.y == 0 && vec.z == 0)
+		return (-1);
+	return (0);
 }
 
-void	cleanup_scene(t_scene *scene)
+/*
+	check if all three components of colour are in [0, 255]
+	reformat colour to [0, 1]
+*/
+int	validate_colour(t_v3 *vec)
 {
-	ft_lstclear(&scene->lights_list, free);
-	ft_lstclear(&scene->objects_list, free);
-}
-
-int	validate_scene(int state)
-{
-	if (!(state & MASK_AMBIANT))
+	if (vec->x < 0 || vec->x > 255 || vec->y < 0 || vec->y > 255
+		|| vec->z < 0 || vec->z > 255)
 		return (-1);
-	if (!(state & MASK_CAMERA))
-		return (-1);
-	printf("SCENE OKAY\n");
+	vec->x /= 255;
+	vec->y /= 255;
+	vec->z /= 255;
 	return (0);
 }

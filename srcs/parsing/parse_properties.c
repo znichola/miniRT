@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:00:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/22 15:44:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 10:41:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,29 @@ int	parse_ratio(const char **line, float *ratio)
 		return (-1);
 	if (*ratio < 0 || *ratio > 1)
 		return (-1);
+	return (0);
+}
+
+int	parse_optional(const char **line, t_optional *opt)
+{
+	const char	*tokens[] = {"texture", "bump", "normal"};
+
+	int i = 0;
+	while (i < 3)
+	{
+		if (ft_strncmp(tokens[i], *line, ft_strlen(tokens[i])) == 0)
+		{
+			*line += ft_strlen(tokens[i]);
+			break;
+		}
+		i++;
+	}
+	if (i == 3)
+		return (-1);
+	opt->type = i;
+	if (**line != ':')
+		return (-1);
+	(*line)++;
+	opt->filepath = ft_strdup(*line);
 	return (0);
 }
