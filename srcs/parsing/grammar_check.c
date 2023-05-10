@@ -6,14 +6,14 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:20:38 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 11:03:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:23:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	*get_obj_grammar(int obj_id);
-static int	check_obj_grammar(t_token *tokens, int *grammar);
+static enum e_tok_type	*get_obj_grammar(int obj_id);
+static int	check_obj_grammar(t_token *tokens, enum e_tok_type *grammar);
 static int	get_error_enum(int token_enum);
 
 int	check_line_grammar(t_token *tokens)
@@ -39,9 +39,9 @@ int	check_line_grammar(t_token *tokens)
 	change if you need more.
 	each objects grammar should always be terminated by e_end_of_line
 */
-static int	*get_obj_grammar(int obj_id)
+static enum e_tok_type	*get_obj_grammar(int obj_id)
 {
-	static int	grammar[6][8] = {
+	static enum e_tok_type	grammar[6][8] = {
 		{e_vector, e_vector, e_scalar, e_end_of_line},
 		{e_vector, e_scalar, e_vector, e_end_of_line},
 		{e_scalar, e_vector, e_end_of_line},
@@ -60,7 +60,7 @@ static int	*get_obj_grammar(int obj_id)
 /*
 	follows the grammar given as a list of token enums
 */
-static int	check_obj_grammar(t_token *tokens, int *grammar)
+static int	check_obj_grammar(t_token *tokens, enum e_tok_type *grammar)
 {
 	while (tokens && *grammar != e_end_of_line)
 	{
