@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:50:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:13:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_grammar_sphere(t_token *tokens);
 static void	consume_sphere(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_sphere(t_object *obj);
+static void consume_optional_sphere(t_token **tokens, t_sphere *sp);
 
 int	parse_sphere(t_token **tokens, t_object *obj)
 {
@@ -49,7 +50,27 @@ static void	consume_sphere(t_token **tokens, t_object *obj)
 	*tokens = (*tokens)->next;
 	obj->object.sp.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
+
+	consume_optional_sphere(tokens, &obj->object.sp);
+
 	*tokens = (*tokens)->next; //skip the end-of-line token
+}
+
+static void consume_optional_sphere(t_token **tokens, t_sphere *sp)
+{
+	sp->texture = NULL;
+	sp->bump = NULL;
+	sp->normal = NULL;
+	while (*tokens && (*tokens)->type == e_optional)
+	{
+		if ((*tokens)->value.opt.type == e_texture)
+			sp->texture = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_bump)
+			sp->bump = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_normal)
+			sp->normal = ft_strdup((*tokens)->value.opt.filepath);
+		*tokens = (*tokens)->next;
+	}
 }
 
 /* check if values are valid */

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:20:38 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 15:28:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:03:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static int	*get_obj_grammar(int obj_id)
 		{e_vector, e_vector, e_scalar, e_end_of_line},
 		{e_vector, e_scalar, e_vector, e_end_of_line},
 		{e_scalar, e_vector, e_end_of_line},
-		{e_vector, e_vector, e_scalar, e_scalar, e_vector, e_end_of_line},
-		{e_vector, e_vector, e_vector, e_end_of_line},
-		{e_vector, e_scalar, e_vector, e_end_of_line}};
+		{e_vector, e_vector, e_scalar, e_scalar, e_vector, e_optional, e_end_of_line},
+		{e_vector, e_vector, e_vector, e_optional, e_end_of_line},
+		{e_vector, e_scalar, e_vector, e_optional, e_end_of_line}};
 
 	if (obj_id < 0 || obj_id >= 6)
 	{
@@ -64,9 +64,18 @@ static int	check_obj_grammar(t_token *tokens, int *grammar)
 {
 	while (tokens && *grammar != e_end_of_line)
 	{
-		if (tokens->type != *grammar)
+		if (*grammar == e_optional && tokens->type != e_optional)
 		{
-			printf("bruh\n");
+			grammar++;
+			continue;
+		}
+		if (*grammar == e_optional && tokens->type == e_optional)
+		{
+			tokens = tokens->next;
+			continue;
+		}
+		if (*grammar != tokens->type)
+		{
 			return (get_error_enum(*grammar));
 		}
 		tokens = tokens->next;

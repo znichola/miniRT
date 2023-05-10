@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:45:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:16:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 10:41:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,22 @@ static void	tokenize_line(t_token **lst, const char *line, int line_number)
 	}
 }
 
-/* a bit ugly, no? */
 static t_token *tokenize_word(const char *word)
 {
 	union u_val	value;
 	const char	*cpy1;
 	const char	*cpy2;
+	const char	*cpy3;
 
 	cpy1 = word;
 	cpy2 = word;
+	cpy3 = word;
 	if (parse_position(&cpy1, &value.pos) == 0)
-	{
 		return (token_factory(e_vector, value, -1));
-	}
 	else if (parse_float(&cpy2, &value.scalar) == 0)
-	{
 		return (token_factory(e_scalar, value, -1));
-	}
+	else if (parse_optional(&cpy3, &value.opt) == 0)
+		return (token_factory(e_optional, value, -1));
 	else
 	{
 		value.str = word;
@@ -129,6 +128,8 @@ static void print_tokens(t_token *list)
 			printf("<vector>:{%f, %f, %f}\n", list->value.pos.x, list->value.pos.y, list->value.pos.z);
 		else if (list->type == e_scalar)
 			printf("<scalar>:{%f}\n", list->value.scalar);
+		else if (list->type == e_optional)
+			printf("<optional>:{%d:%s}\n", list->value.opt.type, list->value.opt.filepath);
 		else if (list->type == e_end_of_line)
 			printf("<end of line>\n");
 		list = list->next;

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:50:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:13:05 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_grammar_plane(t_token *tokens);
 static void	consume_plane(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_plane(t_object *obj);
+static void	consume_optional_plane(t_token **tokens, t_plane *pl);
 
 int	parse_plane(t_token **tokens, t_object *obj)
 {
@@ -50,7 +51,26 @@ static void	consume_plane(t_token **tokens, t_object *obj)
 	obj->object.pl.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 
+	consume_optional_plane(tokens, &obj->object.pl);
+
 	*tokens = (*tokens)->next; //skip the end-of-line token
+}
+
+static void consume_optional_plane(t_token **tokens, t_plane *pl)
+{
+	pl->texture = NULL;
+	pl->bump = NULL;
+	pl->normal = NULL;
+	while (*tokens && (*tokens)->type == e_optional)
+	{
+		if ((*tokens)->value.opt.type == e_texture)
+			pl->texture = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_bump)
+			pl->bump = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_normal)
+			pl->normal = ft_strdup((*tokens)->value.opt.filepath);
+		*tokens = (*tokens)->next;
+	}
 }
 
 /* check if values are valid */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/01 17:42:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:20:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ typedef struct	s_sphere
 	t_v3	position;
 	float	radius;
 	t_v3	colour;
+	char	*texture;
+	char	*bump;
+	char	*normal;
 }	t_sphere;
 
 typedef struct	s_plane
@@ -112,6 +115,9 @@ typedef struct	s_plane
 	t_v3	position;
 	t_v3	orientation;
 	t_v3	colour;
+	char	*texture;
+	char	*bump;
+	char	*normal;
 }	t_plane;
 
 typedef struct	s_cylinder
@@ -121,6 +127,9 @@ typedef struct	s_cylinder
 	float	radius;
 	float	height;
 	t_v3	colour;
+	char	*texture;
+	char	*bump;
+	char	*normal;
 }	t_cylinder;
 
 union	u_object

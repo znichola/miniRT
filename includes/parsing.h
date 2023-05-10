@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:30:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 10:34:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,31 @@ enum e_tok_type
 	e_vector,
 	e_scalar,
 	e_string,
-	e_end_of_line
+	e_end_of_line,
+	e_optional
 };
+
+enum e_optional_type
+{
+	e_texture,
+	e_bump,
+	e_normal
+};
+
+typedef struct s_optional
+{
+	enum e_optional_type	type;
+	char					*filepath;
+}	t_optional;
 
 union u_val
 {
 	const char	*str;
 	t_v3		pos;
 	float		scalar;
+	t_optional	opt;
 };
+
 
 /* save the line number to give more interesting error messages */
 typedef struct s_token
@@ -93,6 +109,7 @@ int		parse_position(const char **line, t_v3 *pos);
 int		parse_colour(const char **line, t_v3 *clr);
 int		parse_orientation(const char **line, t_v3 *orientation);
 int		parse_ratio(const char **line, float *ratio);
+int		parse_optional(const char **line, t_optional *opt);
 
 /* parse objects */
 

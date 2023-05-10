@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:51:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:13:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_grammar_cylinder(t_token *tokens);
 static void	consume_cylinder(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_cylinder(t_object *obj);
+static void consume_optional_cylinder(t_token **tokens, t_cylinder *cy);
 
 int	parse_cylinder(t_token **tokens, t_object *obj)
 {
@@ -52,7 +53,26 @@ static void	consume_cylinder(t_token **tokens, t_object *obj)
 	obj->object.cy.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 
+	consume_optional_cylinder(tokens, &obj->object.cy);
+
 	*tokens = (*tokens)->next; //skip the end-of-line token
+}
+
+static void consume_optional_cylinder(t_token **tokens, t_cylinder *cy)
+{
+	cy->texture = NULL;
+	cy->bump = NULL;
+	cy->normal = NULL;
+	while (*tokens && (*tokens)->type == e_optional)
+	{
+		if ((*tokens)->value.opt.type == e_texture)
+			cy->texture = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_bump)
+			cy->bump = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_normal)
+			cy->normal = ft_strdup((*tokens)->value.opt.filepath);
+		*tokens = (*tokens)->next;
+	}
 }
 
 /* check if values are valid */
