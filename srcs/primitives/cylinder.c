@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/09 21:45:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:12:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_v3	get_cy_poi_norm(t_object *obj, t_intersection *i)
 {
 	t_cylinder cy;
 
-	cy = obj->object.cy;;
-	(void)cy;
-	(void)i;
-	return ((t_v3){42,42,42});
+	cy = obj->object.cy;
+	return (i->poi_normal);
 }
