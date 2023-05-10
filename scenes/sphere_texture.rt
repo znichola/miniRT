@@ -1,4 +1,4 @@
 A	0.02							255,255,255
 C	0,0,0 0,0,1	70
 L	-40,0,12		0.7				255,255,255
-sp	0,0,42			20				255,42,42 texture file.xpm bmp file2.xpm norm file3.xpm
+sp	0,0,42			20				255,42,42 texture:doc/earth/blue_marble.xpm

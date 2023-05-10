@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/09 10:47:12 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/10 16:24:12 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ PARSING_FILES	:= parse parse_utils parse_scalar parse_properties parse_objects1 
 GETTERS_FILES	:= getters
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
-FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
+FILES			:= main texture $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
 					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))\
 					$(addprefix getters/, $(GETTERS_FILES))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/01 10:17:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/10 14:26:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int ac, char **av)
 	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
 	init_mlx_window(&a);
+
+	load_all_textures(&a);
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 
