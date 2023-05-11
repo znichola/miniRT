@@ -3,7 +3,7 @@ Resources:
 - (https://www.scratchapixel.com/index.html)
 - (https://learnopengl.com/Lighting/Basic-Lighting)
 - (https://www.mvps.org/directx/articles/spheremap.htm)
-- (http://raytracerchallenge.com/bonus/texture-mapping.html)
+- (http://raytracerchallenge.com/optional/texture-mapping.html)
 - (https://math.stackexchange.com/questions/2305792/3d-projection-on-a-2d-plane-weak-maths-ressources)
 - (http://www.illusioncatalyst.com/notes_files/mathematics/line_sphere_intersection.php);
 - (https://www.cse.psu.edu/~rtc12/CSE486/lecture12.pdf)
@@ -23,17 +23,17 @@ The grammar is roughly as follows:
 
 ```ebnf
 file         := {line}
-line         := ( camera | light | ambient | cylinder | plane | sphere ) line_end
+line         := ( ambient | camera | light | sphere | plane | cylinder ) line_end
 
+ambient      := "a"  ratio color
 camera       := "c"  position unitvector fov
 light        := "l"  position ratio color
-ambient      := "a"  ratio color
 
-cylinder     := "cy" position unitvector diameter height color [bonus]
-plane        := "pl" position unitvector color [bonus]
-sphere       := "sp" position diameter color [bonus]
+sphere       := "sp" position diameter color [optional]
+plane        := "pl" position unitvector color [optional]
+cylinder     := "cy" position unitvector diameter height color [optional]
 
-bonus        := [texture] [bmp] [normal_map] [checkerboard]
+optional        := [texture] [bmp] [normal_map] [checkerboard]
 
 checkerboard := "checkerboard"
 
