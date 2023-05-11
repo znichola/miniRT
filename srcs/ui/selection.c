@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:02:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 18:11:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:35:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void		ui_put_string(t_app *a, char *s, t_v2int *p);
 static void		ui_put_v3(t_app *a, t_v2int *p, const char *s, t_v3 v);
 static const char	*ret_p1_str(t_object *o);
-static const char	*ret_p1_str(t_object *o);
+static const char	*ret_p2_str(t_object *o);
 
 void	render_selection_ui(t_app *a, t_v2int pos)
 {
@@ -36,7 +36,7 @@ void	render_selection_ui(t_app *a, t_v2int pos)
 	ui_put_v3(a, &pos, "col", get_obj_col(a->selected));
 	sprintf(txt, "%s(%.2f)", ret_p1_str(a->selected), get_obj_p1(a->selected));
 	ui_put_string(a, txt, &pos);
-	sprintf(txt, "%s(%.2f)", ret_p1_str(a->selected), get_obj_p1(a->selected));
+	sprintf(txt, "%s(%.2f)", ret_p2_str(a->selected), get_obj_p2(a->selected));
 	ui_put_string(a, txt, &pos);
 }
 
@@ -69,7 +69,7 @@ static const char	*ret_p1_str(t_object *o)
 	return (s[4]);
 }
 
-static const char	*ret_p1_str(t_object *o)
+static const char	*ret_p2_str(t_object *o)
 {
 	const char	*s[2] = {"height", "none"};
 	if (o->type == e_cylinder)

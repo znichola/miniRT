@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 13:41:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 15:51:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:36:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	render_ui(t_app *a)
 {
 	render_fps_ui(a, (t_v2int){5, 15});
 	render_selection_ui(a, (t_v2int){5, 30});
+
+	ft_memset(&a->mouse_key_click, 0, sizeof(a->mouse_key_click));
+	ft_memset(&a->mouse_key_release, 0, sizeof(a->mouse_key_release));
+	ft_memset(&a->keyboard_press, 0, sizeof(a->keyboard_press));
+	ft_memset(&a->keyboard_release, 0, sizeof(a->keyboard_release));
 }
 
 static void	render_fps_ui(t_app *a, t_v2int pos)

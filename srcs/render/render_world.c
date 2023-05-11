@@ -6,15 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 21:57:25 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:19:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_v3		pixel_to_ray(t_app *a, int u, int v);
 static t_v3		draw_ray(t_app *a, t_v3 ray);
-static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i);
 
 /*
 	For each pixel in our image, compute it's color by computing a ray that goes
@@ -51,7 +49,7 @@ int	render_world(t_app *a)
 /*
 	Compute direction vector of the given pixel.
 */
-static t_v3	pixel_to_ray(t_app *a, int u, int v)
+t_v3	pixel_to_ray(t_app *a, int u, int v)
 {
 	t_v3	ray;
 
@@ -97,7 +95,7 @@ static t_v3	draw_ray(t_app *a, t_v3 ray)
 
 	If the ray does not intersect with any object, NULL is returned.
 */
-static t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i)
+t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i)
 {
 	t_list			*current;
 	t_object		*closest;
