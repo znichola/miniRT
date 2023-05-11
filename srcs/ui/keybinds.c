@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:12:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 22:41:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:56:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	assign_keybinds(t_app *a)
 	int	chagne;
 
 	modify_v3(a, ref_obj_pos(a->selected), e_key_g);
+	// modify_v3(a, ref_obj_dir(a->selected), e_key_y);
+	modify_v3_unitvec(a, ref_obj_dir(a->selected), e_key_y);
 	modify_v3_colour(a, ref_obj_col(a->selected), e_key_t);
 	mofify_float(a, ref_obj_p1(a->selected), e_key_r);
 	mofify_float(a, ref_obj_p2(a->selected), e_key_h);
