@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 15:27:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:56:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int ac, char **av)
 
 	load_all_textures(&a);
 
+	a.selected = a.s.objects_list->content;
 	print_scene(&a);
 	// exit(42);
 

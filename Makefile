@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/10 16:27:23 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/11 18:00:05 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ endif
 endif
 endif
 
-UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui
+UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection
 RENDER_FILES	:=  put_pixel \
 					lerp_colour the_moon multithread render_world \
 					pix_shader
@@ -36,7 +36,7 @@ UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder
 
 PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check
-GETTERS_FILES	:= getters
+GETTERS_FILES	:= getters getters2
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
