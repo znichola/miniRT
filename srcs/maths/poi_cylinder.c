@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/10 10:15:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:21:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int		count_and_set_intersection(t_terms *t);
 float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_terms	t;
+
+	/* patch fix only*/
+	me->orientation = v3_unitvec(me->orientation);
 
 	t.x = v3_subtract(source, me->position);
 	t.dd = v3_dot(ray, ray);
