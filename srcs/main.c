@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 14:26:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 15:27:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int	main(int ac, char **av)
 	init_mlx_window(&a);
 
 	load_all_textures(&a);
+
+	print_scene(&a);
+	// exit(42);
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 

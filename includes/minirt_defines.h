@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/24 13:06:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:04:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 
 # define MRT_NUM_OBJ_TYPES 6
 
+/*
+	This order cannot be change at all!!
+	only things can be added to the end of it.
+*/
 typedef enum e_obj_type
 {
 	e_ambiant,
