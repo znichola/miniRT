@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 10:34:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 12:20:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		scene_add_object(t_scene *scene, t_object obj, int *state);
 
 /* validate and reformat parsed properties */
 
-int	validate_orientation(t_v3 vec);
+int	validate_orientation(t_v3 *vec);
 int	validate_colour(t_v3 *vec);
 
 /* grammar check */

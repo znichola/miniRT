@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:51:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 12:20:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	validate_and_reformat_camera(t_object *obj)
 	t_camera	*c;
 
 	c = &obj->object.c;
-	if (validate_orientation(c->orientation) != 0)
+	if (validate_orientation(&c->orientation) != 0)
 		return (-1);
 	if (c->fov <= 0 || c->fov > 180)
 		return (-1);

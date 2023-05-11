@@ -6,16 +6,17 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 09:53:57 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 11:17:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 12:19:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	validate_orientation(t_v3 vec)
+int	validate_orientation(t_v3 *vec)
 {
-	if (vec.x == 0 && vec.y == 0 && vec.z == 0)
+	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
 		return (-1);
+	*vec = v3_unitvec(*vec);
 	return (0);
 }
 
