@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:22:08 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/21 11:00:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 13:53:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ void	trim(const char **str)
 {
 	while (ft_isspace(**str))
 		(*str)++;
+}
+
+
+const char	*ret_obj_string(t_object *o)
+{
+	const char	*types[6] = {
+		"ambiant",
+		"camera",
+		"light",
+		"sphere",
+		"plane",
+		"cylinder"
+		};
+	if (o->type < 0 || o->type >= 6)
+	{
+		printf("%d not a valid object type enum somehow !?\n", o->type);
+		exit(42);
+	}
+	return (types[o->type]);
 }

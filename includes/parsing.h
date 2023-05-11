@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 10:34:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 13:53:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ void	free_tokens(t_token *tok);
 
 /* parse utils */
 
-char	*get_word(const char **str);
-int		is_only_whitespace(const char *str);
-void	trim(const char **str);
+char		*get_word(const char **str);
+int			is_only_whitespace(const char *str);
+void		trim(const char **str);
+const char	*ret_obj_string(t_object *o);
 
 /* parse scalar*/
 
