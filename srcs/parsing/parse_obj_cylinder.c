@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 13:55:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 12:16:56 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	validate_and_reformat_cylinder(t_object *obj)
 	t_cylinder	*cy;
 
 	cy = &obj->object.cy;
-	if (validate_orientation(cy->orientation) != 0)
+	if (validate_orientation(&cy->orientation) != 0)
 		return (-1);
 	if (cy->radius < 0)
 		return (-1);

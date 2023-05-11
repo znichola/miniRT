@@ -133,7 +133,7 @@ int		scene_add_object(t_scene *scene, t_object obj, int *state);
 
 /* validate and reformat parsed properties */
 
-int	validate_orientation(t_v3 vec);
+int	validate_orientation(t_v3 *vec);
 int	validate_colour(t_v3 *vec);
 
 /* grammar check */

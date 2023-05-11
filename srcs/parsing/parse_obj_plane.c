@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 13:56:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 12:20:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	validate_and_reformat_plane(t_object *obj)
 	t_plane	*pl;
 
 	pl = &obj->object.pl;
-	if (validate_orientation(pl->orientation) != 0)
+	if (validate_orientation(&pl->orientation) != 0)
 		return (-1);
 
 	if (validate_colour(&pl->colour) != 0)
