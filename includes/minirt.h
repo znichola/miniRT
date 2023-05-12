@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 14:25:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 12:24:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 # include "parsing.h"
 
 void	load_texture(t_app	*app, t_img_data *texture);
-t_v3	get_pix_from_texture(t_img_data *texture, int x, int y);
+t_v3	get_pix_from_checkerboard(t_v2f point);
+t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point);
 void	load_all_textures(t_app *a);
 
 #endif

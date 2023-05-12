@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 14:25:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 12:32:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	load_texture(t_app	*app, t_img_data *texture)
 		texture->img = (void *)0;
 		return ;
 	}
-	texture->width = 1024;
-	texture->height = 512;
 	texture->img = mlx_xpm_file_to_image(&app->mlx_instance, texture->filepath,
 		&texture->width, &texture->height);
 	if (texture->img == NULL)
@@ -61,11 +59,23 @@ void	load_texture(t_app	*app, t_img_data *texture)
 		&texture->line_length, &texture->endian);
 }
 
-t_v3	get_pix_from_texture(t_img_data *texture, int x, int y)
+t_v3	get_pix_from_checkerboard(t_v2f point)
+{
+	if (((int)(point.x / (1.0/25)) % 2) == ((int)(point.y / (1.0/25)) % 2))
+		return ((t_v3){0,0,0});
+	else
+		return ((t_v3){255,255,255});
+}
+
+t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)
 {
 	unsigned int	pix;
 	t_v3			clr;
+	int				x;
+	int				y;
 
+	x = texture->width * point.x;
+	y = texture->height * point.y;
 	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
 		x *(texture->bits_per_pixel / 8)));
 	clr.x = get_r(pix);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/09 21:48:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:31:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 
 	sp = me->object.sp;
 	(void)i;
+	if (sp.texture.img != NULL)
+	{
+		//return (get_pix_from_checkerboard(spherical_map(&sp, i->poi)));
+		return (get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
+	}
 	return (sp.colour);
 }
 
@@ -43,4 +48,18 @@ t_v3	get_sp_poi_norm(t_object *obj, t_intersection *i)
 
 	sp = obj->object.sp;
 	return (v3_unitvec(v3_subtract(i->poi, sp.position)));
+}
+
+/* map a 3d point on a sphere to a 2d point on a map */
+t_v2f	spherical_map(t_sphere *sp, t_v3 p)
+{
+	t_v3	vec;
+
+	vec = v3_subtract(p, sp->position);
+	float	theta = atan2(vec.x, vec.z);
+	float	phi = acos(vec.y / sp->radius);
+	float	raw_u = theta / (2 * M_PI);
+	float	u = 1 - (raw_u + 0.5);
+	float	v = 1 - (phi / M_PI);
+	return ((t_v2f){u, v});
 }
