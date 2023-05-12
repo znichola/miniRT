@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:02:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 21:35:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 09:00:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_selection_ui(t_app *a, t_v2int pos)
 	ui_put_v3(a, &pos, "camera pos:",
 		a->s.camera.position);
 	ui_put_v3(a, &pos, "camera dir:",
-		a->s.camera.position);
+		a->s.camera.orientation);
 	sprintf(txt, "camera fov: %f", a->s.camera.fov);
 	ui_put_string(a, txt, &pos);
 
