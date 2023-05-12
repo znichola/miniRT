@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:43:46 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:55:18 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:49:12 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static int	scene_add_camera(t_scene *scene, t_object obj, int *state)
 
 static int	scene_add_light(t_scene *scene, t_object obj)
 {
-	t_light	*l;
-	t_list	*node;
+	t_list		*node;
+	t_object	*cpy;
 
-	l = malloc(sizeof(*l));
-	ft_memcpy(l, &obj.object.l, sizeof(t_light));
-	node = ft_lstnew(l);
+	cpy = malloc(sizeof(*cpy));
+	ft_memcpy(cpy, &obj, sizeof(*cpy));
+	node = ft_lstnew(cpy);
 	if (!node)
 		exit(1);
 	ft_lstadd_front(&scene->lights_list, node);

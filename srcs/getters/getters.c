@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:01:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 11:34:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:51:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_light	*get_light(t_scene *s, int num)
 	{
 		if (i == num)
 		{
-			return (current->content);
+			return (&((t_object *)(current->content))->object.l);
 		}
 		current = current->next;
 		i++;
