@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 12:32:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 12:43:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)
 	int				x;
 	int				y;
 
+	point.x += 0.4;
 	x = texture->width * point.x;
 	y = texture->height * point.y;
 	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
