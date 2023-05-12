@@ -23,7 +23,7 @@ The grammar is roughly as follows:
 
 ```ebnf
 file         := {line}
-line         := ( ambient | camera | light | sphere | plane | cylinder ) line_end
+line         := ( ambient | camera | light | sphere | plane | cylinder | cone ) line_end
 
 ambient      := "a"  ratio color
 camera       := "c"  position unitvector fov
@@ -32,6 +32,7 @@ light        := "l"  position ratio color
 sphere       := "sp" position diameter color [optional]
 plane        := "pl" position unitvector color [optional]
 cylinder     := "cy" position unitvector diameter height color [optional]
+cone         := "co" position unitvector diameter height angle color [optional]
 
 optional        := [texture] [bmp] [normal_map] [checkerboard]
 

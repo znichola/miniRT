@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 21:39:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:10:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_v3	*ref_obj_pos(t_object *o)
 		return (&o->object.pl.position);
 	else if (o->type == e_light)
 		return (&o->object.l.position);
+	else if (o->type == e_cone)
+		return (&o->object.co.position);
 	return (NULL);
 }
 
@@ -37,6 +39,8 @@ t_v3	*ref_obj_col(t_object *o)
 		return (&o->object.pl.colour);
 	else if (o->type == e_light)
 		return (&o->object.l.colour);
+	else if (o->type == e_cone)
+		return (&o->object.co.colour);
 	return (NULL);
 }
 
@@ -46,6 +50,8 @@ t_v3	*ref_obj_dir(t_object *o)
 		return (&o->object.cy.orientation);
 	else if (o->type == e_plane)
 		return (&o->object.pl.orientation);
+	else if (o->type == e_cone)
+		return (&o->object.co.orientation);
 	return (NULL);
 }
 
@@ -59,6 +65,8 @@ float	*ref_obj_p1(t_object *o)
 		return (&o->object.cy.radius);
 	else if (o->type == e_light)
 		return (&o->object.l.ratio);
+	else if (o->type == e_cone)
+		return (&o->object.co.radius);
 	return (NULL);
 }
 
@@ -66,5 +74,14 @@ float	*ref_obj_p2(t_object *o)
 {
 	if (o->type == e_cylinder)
 		return (&o->object.cy.height);
+	else if (o->type == e_cone)
+		return (&o->object.co.height);
+	return (NULL);
+}
+
+float	*ref_obj_p3(t_object *o)
+{
+	if (o->type == e_cone)
+		return (&o->object.co.angle);
 	return (NULL);
 }

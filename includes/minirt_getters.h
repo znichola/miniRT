@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 13:27:27 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 21:37:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:04:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ t_v3	get_obj_col(t_object *o);
 t_v3	get_obj_dir(t_object *o);
 float	get_obj_p1(t_object *o);
 float	get_obj_p2(t_object *o);
+float	get_obj_p3(t_object *o);
 
 t_v3	*ref_obj_pos(t_object *o);
 t_v3	*ref_obj_col(t_object *o);
 t_v3	*ref_obj_dir(t_object *o);
 float	*ref_obj_p1(t_object *o);
 float	*ref_obj_p2(t_object *o);
+float	*ref_obj_p3(t_object *o);
 
 #endif /* MINIRT_GETTERS_H */

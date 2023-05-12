@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 17:51:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:10:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_v3	get_obj_col(t_object *o)
 		return (o->object.pl.colour);
 	else if (o->type == e_light)
 		return (o->object.l.colour);
+	else if (o->type == e_cone)
+		return (o->object.co.colour);
 	return ((t_v3){0,0,42});
 }
 
@@ -33,6 +35,8 @@ t_v3	get_obj_dir(t_object *o)
 		return (o->object.cy.orientation);
 	else if (o->type == e_plane)
 		return (o->object.pl.orientation);
+	else if (o->type == e_cone)
+		return (o->object.co.orientation);
 	return ((t_v3){0,0,42});
 }
 
@@ -46,6 +50,8 @@ float	get_obj_p1(t_object *o)
 		return (o->object.cy.radius);
 	else if (o->type == e_light)
 		return (o->object.l.ratio);
+	else if (o->type == e_cone)
+		return (o->object.co.radius);
 	return (NAN);
 }
 
@@ -53,5 +59,14 @@ float	get_obj_p2(t_object *o)
 {
 	if (o->type == e_cylinder)
 		return (o->object.cy.height);
+	if (o->type == e_cone)
+		return (o->object.co.height);
+	return (NAN);
+}
+
+float	get_obj_p3(t_object *o)
+{
+	if (o->type == e_cone)
+		return (o->object.co.angle);
 	return (NAN);
 }
