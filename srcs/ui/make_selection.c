@@ -6,12 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 22:39:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:14:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void	scroll_value(t_app *a, float *p, float inc);
 
 int	screen_select(t_app *a)
 {
@@ -35,6 +36,7 @@ void	modify_v3(t_app *a, t_v3 *p, int key)
 		return ;
 	scale_property(a, &p->x, "kx", key, 0.05f);
 	scale_property(a, &p->y, "ky", key, 0.05f);
+	scroll_value(a, &p->z, 5.0f);
 }
 
 void	modify_v3_unitvec(t_app *a, t_v3 *p, int key)
@@ -62,4 +64,12 @@ void	mofify_float(t_app *a, float *p, int key)
 	if (!p)
 		return ;
 	scale_property(a, p, "ky", key, 0.05f);
+}
+
+static void	scroll_value(t_app *a, float *p, float inc)
+{
+	if (a->mouse_key_click[e_mouse_scroll_up])
+		*p += inc;
+	if (a->mouse_key_click[e_mouse_scroll_down])
+		*p -= inc;
 }

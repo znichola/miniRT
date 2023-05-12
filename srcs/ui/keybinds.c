@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:12:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:03:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:26:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ int	assign_keybinds(t_app *a)
 	mofify_float(a, ref_obj_p2(a->selected), e_key_h);
 	mofify_float(a, ref_obj_p3(a->selected), e_key_n);
 	// mofify_float(a, ref_obj_p3(a->selected), e_key_n); /* for future cone */
+
+	if (a->keyboard_press[e_key_tab])
+	{
+		static t_list	*last_light;
+
+		if (a->s.lights_list)
+		{
+			if (!last_light || !last_light->next)
+				last_light = a->s.lights_list;
+			else
+				last_light = last_light->next;
+			a->selected = last_light->content;
+		}
+	}
 
 	chagne = 0;
 	if (/*scale_property(a, &a->s.camera.fov, "ky", e_key_f, 0.1)
