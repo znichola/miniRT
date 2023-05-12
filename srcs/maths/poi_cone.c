@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   poi_cylinder.c                                     :+:      :+:    :+:   */
+/*   poi_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 12:09:43 by znichola         ###   ########.fr       */
+/*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
+/*   Updated: 2023/05/12 13:45:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i);
-static void		calc_normal(t_terms *t, t_cylinder *me, t_intersection *i);
+static void		calc_normal(t_terms *t, t_cone *me, t_intersection *i);
 static int		count_and_set_intersection(t_terms *t);
 
 /*
@@ -21,9 +21,12 @@ static int		count_and_set_intersection(t_terms *t);
 	https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm
 
 */
-float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
+float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_terms	t;
+
+	t.k = tanf(me->angle/2);
+	t.kk = t.k * t.k;
 
 	t.x = v3_subtract(source, me->position);
 	t.dd = v3_dot(ray, ray);
@@ -31,9 +34,10 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.dx = v3_dot(ray, t.x);
 	t.xv = v3_dot(t.x, me->orientation);
 	t.xx = v3_dot(t.x, t.x);
-	t.a = t.dd - t.dv * t.dv;
-	t.b = (t.dx - t.dv * t.xv) * 2;
-	t.c = t.xx - t.xv * t.xv - me->radius * me->radius;
+
+	t.a = t.dd - (1 + t.kk) * t.dv * t.dv;
+	t.b = (t.dx - (1 + t.kk) * t.dv * t.xv) * 2;
+	t.c = t.xx - (1 + t.kk) * t.xv * t.xv;
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
 
 	if (t.discrimant < FLT_EPSILON)
@@ -79,14 +83,14 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 	return (FLT_MAX);
 }
 
-static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
+static void	calc_normal(t_terms *t, t_cone *me, t_intersection *i)
 {
 	//   N = nrm( P-C-V*m )
 
 	// if (t->message == 'b')
 	// {
 		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
-			v3_multiply(me->orientation, t->m));
+			v3_multiply(me->orientation, t->m * (1 + t->kk)));
 		i->poi_normal = v3_unitvec(i->poi_normal);
 		return ;
 	// }

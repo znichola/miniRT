@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 15:46:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:30:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int		parse_light(t_token **lst, t_object *obj);
 int		parse_sphere(t_token **lst, t_object *obj);
 int		parse_plane(t_token **lst, t_object *obj);
 int		parse_cylinder(t_token **lst, t_object *obj);
+int		parse_cone(t_token **tokens, t_object *obj);
 
 /* scene */
 

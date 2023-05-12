@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/10 16:27:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 13:38:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ typedef struct	s_terms
 	float	m1;
 	float	m2;
 	float	m;
+	float	k;
+	float	kk;
 	float	height;
 	int		message;
 	t_v3	x;
@@ -161,6 +163,19 @@ typedef struct	s_cylinder
 	t_img_data	normal;
 }	t_cylinder;
 
+typedef struct	s_cone
+{
+	t_v3	position;
+	t_v3	orientation;
+	float	radius;
+	float	height;
+	float	angle;
+	t_v3	colour;
+	t_img_data	texture;
+	t_img_data	bump;
+	t_img_data	normal;
+}	t_cone;
+
 union	u_object
 {
 	t_ambiant	a;
@@ -169,6 +184,7 @@ union	u_object
 	t_sphere	sp;
 	t_plane		pl;
 	t_cylinder	cy;
+	t_cone		co;
 };
 
 typedef struct s_object

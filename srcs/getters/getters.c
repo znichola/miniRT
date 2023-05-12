@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:01:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 17:51:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:53:12 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_v3	get_obj_emmision(t_object *obj, t_intersection *i)
 		get_emmision_passthrough,
 		get_sp_emmision,
 		get_pl_emmision,
-		get_cy_emmision};
+		get_cy_emmision,
+		get_co_emmision};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
 		return (get_emmision_passthrough(obj, i));
@@ -85,7 +86,8 @@ t_v3	get_obj_pos(t_object *obj)
 		get_light_pos,
 		get_sp_position,
 		get_pl_position,
-		get_cy_position};
+		get_cy_position,
+		get_co_position};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
 		return (get_pos_passthrough(obj));
@@ -113,7 +115,8 @@ float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_intersection *i)
 		get_poi_passthrough,
 		get_sp_poi,
 		get_pl_poi,
-		get_cy_poi};
+		get_cy_poi,
+		get_co_poi};
 
 	if (obj->type < 0 || obj->type  >= MRT_NUM_OBJ_TYPES)
 		return (get_poi_passthrough(obj, ray, source, i));
@@ -138,7 +141,8 @@ t_v3	get_poi_norm(t_object* obj, t_intersection *i)
 		get_poi_norm_passthrough,
 		get_sp_poi_norm,
 		get_pl_poi_norm,
-		get_cy_poi_norm
+		get_cy_poi_norm,
+		get_co_poi_norm
 	};
 
 	if (obj->type < 0 || obj->type >= MRT_NUM_OBJ_TYPES)

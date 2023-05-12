@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 13:04:14 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 14:24:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:30:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ static int	parse_object(t_token **tokens, t_object *obj)
 		return (parse_sphere(tokens, obj));
 	else if (i == e_plane)
 		return (parse_plane(tokens, obj));
-	else if (i == 5)
+	else if (i == e_cylinder)
 		return (parse_cylinder(tokens, obj));
+	else if (i == e_cone)
+		return (parse_cone(tokens, obj));
 	else
 		return (e_invalid_id);
 }

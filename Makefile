@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/11 21:39:35 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/12 13:16:20 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,11 @@ UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui select
 RENDER_FILES	:=  put_pixel \
 					lerp_colour the_moon multithread render_world \
 					pix_shader
-MATHS_FILES		:= vector matrix poi_sphere poi_plane colour poi_cylinder
+MATHS_FILES		:= vector matrix poi_sphere poi_plane colour poi_cylinder poi_cone
 UTILS_FILES		:= debug_prints singletons trgb
-PRIMITIVES_FILES	:= sphere plane cylinder
+PRIMITIVES_FILES	:= sphere plane cylinder cone
 
-PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check
+PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check parse_obj_cone
 GETTERS_FILES	:= getters getters2 getters3
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils

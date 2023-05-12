@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 11:28:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:09:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 /* poi_cylinder.c */
 float		poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i);
+
+/* poi_cone.c */
+float		poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 #endif /* MINIRT_VECTOR_H */

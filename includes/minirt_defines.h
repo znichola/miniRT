@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 14:04:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:10:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define MRT_PRT_TO_FILE 8U
 
 
-# define MRT_NUM_OBJ_TYPES 6
+# define MRT_NUM_OBJ_TYPES 7
 
 /*
 	This order cannot be change at all!!
@@ -49,7 +49,8 @@ typedef enum e_obj_type
 	e_light,
 	e_sphere,
 	e_plane,
-	e_cylinder
+	e_cylinder,
+	e_cone
 }	t_obj_type;
 
 #endif

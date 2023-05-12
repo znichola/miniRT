@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:22:08 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 15:18:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:31:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ void	trim(const char **str)
 
 const char	*ret_obj_string(t_object *o)
 {
-	const char	*types[6] = {
+	const char	*types[MRT_NUM_OBJ_TYPES] = {
 		"ambiant",
 		"camera",
 		"light",
 		"sphere",
 		"plane",
-		"cylinder"
+		"cylinder",
+		"cone"
 		};
-	if (o->type < 0 || o->type >= 6)
+	if (o->type < 0 || o->type >= MRT_NUM_OBJ_TYPES)
 	{
 		printf("%d not a valid object type enum somehow !?\n", o->type);
 		// exit(42);

@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:07:56 by znichola         ###   ########.fr       */
+/*   Created: 2023/05/12 12:47:50 by znichola          #+#    #+#             */
+/*   Updated: 2023/05/12 13:05:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_v3	get_cy_emmision(t_object *me, t_intersection *i)
+t_v3	get_co_emmision(t_object *me, t_intersection *i)
 {
-	t_cylinder	cy;
+	t_cone	co;
 
-	cy = me->object.cy;
+	co = me->object.co;
 	(void)i;
-	return (cy.colour);
+	return (co.colour);
 }
 
-t_v3	get_cy_position(t_object *me)
+t_v3	get_co_position(t_object *me)
 {
-	t_cylinder	cy;
+	t_cone	co;
 
-	cy = me->object.cy;
-	return (cy.position);
+	co = me->object.co;
+	return (co.position);
 }
 
-float	get_cy_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
+float	get_co_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
-	t_cylinder	cy;
+	t_cone	co;
 
-	cy = me->object.cy;
-	return (poi_cylinder(&cy, ray, source, i));
+	co = me->object.co;
+	return (poi_cone(&co, ray, source, i));
 }
 
 /* not implemented yet */
-t_v3	get_cy_poi_norm(t_object *obj, t_intersection *i)
+t_v3	get_co_poi_norm(t_object *obj, t_intersection *i)
 {
-	t_cylinder cy;
+	t_cone co;
 
-	cy = obj->object.cy;
+	co = obj->object.co;
 	return (i->poi_normal);
 }
