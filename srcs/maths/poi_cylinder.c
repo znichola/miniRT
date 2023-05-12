@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 12:22:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 09:21:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
 
 	if (t.discrimant < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
 		return (FLT_MAX);
+	}
 
 	t.height = me->height;
 	i->poi_disance = calc_poi(&t, source, ray, i);
@@ -73,7 +76,7 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 		i->poi = v3_add(source, v3_multiply(ray, t->d2));
 		return (t->d2);
 	}
-	return (i->poi_disance);
+	return (FLT_MAX);
 }
 
 static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
@@ -81,12 +84,12 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 	//   N = nrm( P-C-V*m )
 
 	// if (t->message == 'b')
-	{
+	// {
 		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
 			v3_multiply(me->orientation, t->m));
 		i->poi_normal = v3_unitvec(i->poi_normal);
 		return ;
-	}
+	// }
 	// else if (t->message == '1')
 	// {
 	// 	i->poi_normal = v3_multiply(me->orientation, -1);

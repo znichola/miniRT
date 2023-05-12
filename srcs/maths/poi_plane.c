@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:26:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 11:36:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:12:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ float	poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i)
 */
 	t_terms	t;
 
+	me->orientation = v3_unitvec(me->orientation);
+
 	t.x = v3_subtract(source, me->position);
 	// t.x = v3_multiply(t.x, -1);
 	t.xv = v3_dot(t.x, me->orientation);
@@ -38,11 +40,15 @@ float	poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i)
 	if (t.dv == FLT_EPSILON || (t.xv > 0 && t.dv > 0) || (t.xv < 0 && t.dv < 0))
 		return (FLT_MAX);
 
-	t.d1 = - t.xv / t.dv;
-	i->poi = v3_add(source, v3_multiply(ray, -t.d1));
-	if (t.dv < FLT_EPSILON)
-		i->poi_normal = v3_multiply(me->orientation, -1);
-	else
+	// t.d1 = t.xv / t.dv;
+	i->poi_disance = - t.xv / t.dv;
+	// i->poi = v3_add(source, v3_multiply(ray, i->poi_disance));
+	i->poi = v3_multiply(ray, i->poi_disance);
+	if (t.dv <= FLT_EPSILON)
 		i->poi_normal = me->orientation;
-	return (t.d1);
+	else
+		i->poi_normal = v3_multiply(me->orientation, -1);
+	return (i->poi_disance);
 }
+
+// (D*t+X)|V = 0
