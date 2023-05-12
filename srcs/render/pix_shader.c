@@ -6,16 +6,16 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/09 22:01:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:43:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_v3		get_light_diffuse(t_scene *s, int l_num, t_v3 poi, t_v3 norm);
+static t_v3		get_light_diffuse(t_scene *s, int l_num, t_intersection *i);
 static t_v3		get_light_colour(t_scene *s, int l_num);
 static t_v3		reflection(t_v3 incident, t_v3 surface_normal);
-static t_v3		get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm);
+static t_v3	get_light_specular(t_scene *s, int n, t_intersection *i);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
 
 //static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
@@ -30,12 +30,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	t_v3	ambiant;
 	t_v3	diffuse;
 	t_v3	specular;
-	t_v3	poi_norm;
 
-	t_v3	poi = in->poi; /* tmp compatability shit */
-
-	// poi_norm = bmp_offset(s, me, poi_norm, 1.0);
-	poi_norm = get_poi_norm(me, in);
 	obj_col = get_obj_emmision(me, in);
 	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
 	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
@@ -44,10 +39,10 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	int i = ft_lstsize(s->lights_list);
 	while (--i >= 0)
 	{
-		if (!is_in_shadow(s, me, poi, i))
+		if (!is_in_shadow(s, me, in->poi, i))
 		{
-			diffuse = col_add(get_light_diffuse(s, i, poi, poi_norm), diffuse);
-			specular = col_add(col_scale(get_light_specular(s, i, poi, poi_norm), get_light(s, i)->ratio), specular);
+			diffuse = col_add(get_light_diffuse(s, i, in), diffuse);
+			specular = col_add(col_scale(get_light_specular(s, i, in), get_light(s, i)->ratio), specular);
 		}
 	}
 
@@ -59,13 +54,13 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	Compute diffuse color of i-th light at a certain point, given a point
 	and the normal of the surface at that point.
 */
-static t_v3	get_light_diffuse(t_scene *s, int l_num, t_v3 point, t_v3 norm)
+static t_v3	get_light_diffuse(t_scene *s, int l_num, t_intersection *i)
 {
 	t_v3	light_dir;
 
-	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, point));
+	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, i->poi));
 	return (v3_multiply(get_light_colour(s, l_num),
-				fmaxf(v3_dot(norm, light_dir), 0.0)));
+				fmaxf(v3_dot(i->poi_normal, light_dir), 0.0)));
 }
 
 /*
@@ -92,7 +87,7 @@ static t_v3	reflection(t_v3 incident, t_v3 surface_normal)
 
 	poi: is the point of intersection
 */
-static t_v3	get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm)
+static t_v3	get_light_specular(t_scene *s, int n, t_intersection *i)
 {
 	static float	strength = 0.3;
 	static float	exp = 128;
@@ -101,11 +96,11 @@ static t_v3	get_light_specular(t_scene *s, int i, t_v3 poi, t_v3 poi_norm)
 	t_v3			light_norm_dir;
 	t_v3			reflection_dir;
 
-	view_norm_dir = v3_unitvec(v3_subtract(s->camera.position, poi));
-	light_norm_dir = v3_unitvec(v3_subtract(poi, get_light(s, i)->position));
-	reflection_dir = reflection(light_norm_dir, poi_norm);
+	view_norm_dir = v3_unitvec(v3_subtract(s->camera.position, i->poi));
+	light_norm_dir = v3_unitvec(v3_subtract(i->poi, get_light(s, n)->position));
+	reflection_dir = reflection(light_norm_dir, i->poi_normal);
 	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), exp);
-	return (col_scale(get_light(s, i)->colour, strength * spec));
+	return (col_scale(get_light(s, n)->colour, strength * spec));
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/10 11:07:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:28:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_v2f		bound(t_v2f v, float min, float max);
 int			left_ofline(t_v2f s1, t_v2f s2, t_v2f cur);
 
 /* poi_sphere.c */
-float		poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_v3 *poi);
+float		poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 /* poi_plane.c */
 float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i);

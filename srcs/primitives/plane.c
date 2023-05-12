@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/10 11:08:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 09:10:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_v3	get_pl_emmision(t_object *me, t_intersection *i)
 	(void)i;
 	return (pl.colour);
 }
-
 
 t_v3	get_pl_position(t_object *me)
 {

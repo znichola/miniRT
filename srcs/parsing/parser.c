@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 13:04:14 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 11:05:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/11 14:24:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	parser2(t_token *tokens, t_scene *scene)
 
 static int	parse_object(t_token **tokens, t_object *obj)
 {
-	const char	*obj_ids[6] = {"C", "L", "A", "cy", "pl", "sp"};
+	const char	*obj_ids[6] = {"A", "C", "L", "sp", "pl", "cy"};
 	int			i;
 
 	if (!*tokens)
@@ -74,18 +74,18 @@ static int	parse_object(t_token **tokens, t_object *obj)
 		if (ft_strcmp((*tokens)->value.str, obj_ids[i]) == 0)
 			break ;
 	}
-	if (i == 0)
-		return (parse_camera(tokens, obj));
-	else if (i == 1)
-		return (parse_light(tokens, obj));
-	else if (i == 2)
+	if (i == e_ambiant)
 		return (parse_ambiant(tokens, obj));
-	else if (i == 3)
-		return (parse_cylinder(tokens, obj));
-	else if (i == 4)
+	else if (i == e_camera)
+		return (parse_camera(tokens, obj));
+	else if (i == e_light)
+		return (parse_light(tokens, obj));
+	else if (i == e_sphere)
+		return (parse_sphere(tokens, obj));
+	else if (i == e_plane)
 		return (parse_plane(tokens, obj));
 	else if (i == 5)
-		return (parse_sphere(tokens, obj));
+		return (parse_cylinder(tokens, obj));
 	else
 		return (e_invalid_id);
 }

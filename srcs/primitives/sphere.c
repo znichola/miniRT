@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 12:31:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 12:34:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ float	get_sp_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t_sphere	sp;
 
 	sp = me->object.sp;
-	return (poi_sphere(&sp, ray, source, &i->poi));
+	return (poi_sphere(&sp, ray, source, i));
 }
 
 t_v3	get_sp_poi_norm(t_object *obj, t_intersection *i)
