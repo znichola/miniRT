@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/10 16:27:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:30:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct	s_intersection
 	t_v3	poi;
 	t_v3	poi_normal;
 	float	poi_disance;
+	float	m;
 }	t_intersection;
 
 /* objects */
