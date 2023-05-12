@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:02:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 09:00:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:00:43 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	render_selection_ui(t_app *a, t_v2int pos)
 	pos.y += 10;
 	sprintf(txt, "%s[%p]", ret_obj_string(a->selected), a->selected);
 	ui_put_string(a, txt, &pos);
-	ui_put_v3(a, &pos, "pos", get_obj_pos(a->selected));
-	ui_put_v3(a, &pos, "dir", get_obj_dir(a->selected));
-	ui_put_v3(a, &pos, "col", get_obj_col(a->selected));
-	sprintf(txt, "%s(%.2f)", ret_p1_str(a->selected), get_obj_p1(a->selected));
+	ui_put_v3(a, &pos, "[g] pos", get_obj_pos(a->selected));
+	ui_put_v3(a, &pos, "[t] dir", get_obj_dir(a->selected));
+	ui_put_v3(a, &pos, "[y] col", get_obj_col(a->selected));
+	sprintf(txt, "[b] %s(%.2f)", ret_p1_str(a->selected), get_obj_p1(a->selected));
 	ui_put_string(a, txt, &pos);
-	sprintf(txt, "%s(%.2f)", ret_p2_str(a->selected), get_obj_p2(a->selected));
+	sprintf(txt, "[h] %s(%.2f)", ret_p2_str(a->selected), get_obj_p2(a->selected));
 	ui_put_string(a, txt, &pos);
 }
 
