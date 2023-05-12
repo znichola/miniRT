@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:02:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/18 16:11:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 01:31:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@
 */
 void	multithread_render(t_app *a)
 {
-	get_or_release_locks(a, 1);
+	static int	count = 0;
+
+	printf(">>>>>>>>>>>>> starting rendering threads frame_count:%d\n", count);
+	release_render_lock(a);
+	usleep(1000);
+	get_start_lock(a);
 	/*
 		code to add the diffrent chunks of the image together and display them
 		with a pixle put. Simples
 	*/
-	get_or_release_locks(a, 0);
+	get_render_lock(a);
+	release_start_lock(a);
+
+	printf(">>>>>>>>>>>> finished rendering threads\n");
+	count++;
 }
 
 void	start_threads(t_app *a)
 {
 	int	i;
 
-	i = 0;
-	while (i < MRT_THREAD_COUNT)
+	i = -1;
+	printf("starting %d threads\n", MRT_THREAD_COUNT);
+	while (++i < MRT_THREAD_COUNT)
 	{
 		a->thread_img[i].img = mlx_new_image(a->mlx_instance,
 									a->img.width, a->img.height);
@@ -40,21 +50,29 @@ void	start_threads(t_app *a)
 									&a->thread_img[i].bits_per_pixel,
 									&a->thread_img[i].line_length,
 									&a->thread_img[i].endian);
-		if (pthread_mutex_init(&a->thread_lock[i], NULL))
-			exit(1);
-		pthread_mutex_lock(&a->thread_lock[i]);
-		a->thread_info[i].id = 0;
+		if (pthread_mutex_init(&a->render_lock[i], NULL) || pthread_mutex_init(&a->start_lock[i], NULL))
+		{
+			perror("failed to make mutex!?");
+			exit(13);
+		}
+		pthread_mutex_lock(&a->render_lock[i]);
+		// pthread_mutex_lock(&a->start_lock[i]);
+		a->thread_info[i].id = i;
 		a->thread_info[i].app = a;
 		if (pthread_create(&a->thread_instance[i], NULL, &thread_routine, &a->thread_info[i]))
-			exit(1);
+		{
+			perror("failed to start threads!?");
+			exit(13);
+		}
+		printf("starting thread %d\n", i);
 	}
 }
 
 void	*thread_routine(void *info_struct)
 {
-	static int		me = 0;
-	static t_ptinfo	*info;
-	static t_app	*a = NULL;
+	int			me = 0;
+	t_ptinfo	*info;
+	t_app		*a = NULL;
 
 	if (!a)
 	{
@@ -64,7 +82,15 @@ void	*thread_routine(void *info_struct)
 	}
 	while(1)
 	{
-		pthread_mutex_lock(&a->thread_lock[me]);
+		// printf("thread %d is trying to unlock\n", me);
+		pthread_mutex_lock(&a->start_lock[me]);
+		usleep(100);
+		pthread_mutex_lock(&a->render_lock[me]);
+		usleep(100);
+		pthread_mutex_unlock(&a->start_lock[me]);
+		// printf("thread %d got the unlock\n", me);
+		// usleep(50000);
+		usleep(1000 * (5 - me) + 100);
 		/*
 			code to calculate the rendering for the portion of the image
 			assigned to this thread. it's width is a.img.width and
@@ -79,30 +105,10 @@ void	*thread_routine(void *info_struct)
 			the image is the same dimentions as the screen
 			but only this poriton get's calculated;
 		*/
-		pthread_mutex_unlock(&a->thread_lock[me]);
+		pthread_mutex_unlock(&a->render_lock[me]);
+		printf("thread %d reporting in with a finished render!\n", me);
 		usleep(1000);
+		// break ;
 	}
-}
-
-void	get_or_release_locks(t_app *a, int action)
-{
-	int	i;
-
-	i = 0;
-	if (action)
-	{
-		while (i < MRT_THREAD_COUNT)
-		{
-			pthread_mutex_lock(&a->thread_lock[i]);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < MRT_THREAD_COUNT)
-		{
-			pthread_mutex_unlock(&a->thread_lock[i]);
-			i++;
-		}
-	}
+	return (NULL);
 }

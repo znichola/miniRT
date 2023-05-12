@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:10:14 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 01:29:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define IN (t_v3){0, 0, 1}
 
 // rendering settings
-# define MRT_THREAD_COUNT 4
+# define MRT_THREAD_COUNT 7
 
 // math constants // TODO: should be useing the ones form math.h
 # define PI 		3.1415926

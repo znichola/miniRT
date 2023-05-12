@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 18:19:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:54:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	render_world(t_app *a)
 	int		v;
 	t_v3	ray;
 	t_v3	clr;
+
+	multithread_render(a);
 
 	if (!assign_keybinds(a))
 		return (0);

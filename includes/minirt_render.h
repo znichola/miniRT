@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 18:19:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:51:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ int		moon_texture(t_app *app, int x, int y);
 int		earth_texture(t_app *app, int x, int y);
 int		earth_bmp_texture(t_app *app, int x, int y);
 int		earth_nightlight_texture(t_app *app, int x, int y);
-
-/* multithread.c */
-
-void	*thread_routine(void *info_struct);
-void	start_threads(t_app *a);
-void	get_or_release_locks(t_app *a, int action);
 
 /* render_world.c */
 
