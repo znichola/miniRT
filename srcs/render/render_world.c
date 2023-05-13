@@ -6,13 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 21:54:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 15:49:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static t_v3		draw_ray(t_app *a, t_v3 ray);
 
 /*
 	For each pixel in our image, compute it's color by computing a ray that goes
@@ -20,30 +18,46 @@ static t_v3		draw_ray(t_app *a, t_v3 ray);
 */
 int	render_world(t_app *a)
 {
-	int		u;
-	int		v;
-	t_v3	ray;
-	t_v3	clr;
+	// int		u;
+	// int		v;
+	// t_v3	ray;
+	// t_v3	clr;
 
 	multithread_render(a);
 
 	if (!assign_keybinds(a))
 		return (0);
 
-	u = 0;
-	while (u < a->img.width)
-	{
-		v = 0;
-		while (v < a->img.height)
-		{
-			ray = pixel_to_ray(a, u, v);
-			clr = draw_ray(a, ray);
-			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
-			v++;
-		}
-		u++;
-	}
+	// u = 0;
+	// while (u < a->img.width)
+	// {
+	// 	v = 0;
+	// 	while (v < a->img.height)
+	// 	{
+	// 		ray = pixel_to_ray(a, u, v);
+	// 		clr = draw_ray(a, ray);
+	// 		wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
+	// 		v++;
+	// 	}
+	// 	u++;
+	// }
+	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+
+
+
+	// put_circle_fast(&a->thread_img[0], 10, (t_v2int){300, 40 + 0 * 40}, MRT_GREEN);
+	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[0].img, 0, 0);
+
+	// put_circle_fast(&a->img, 10, (t_v2int){300, 40 + 1 * 40}, MRT_BRICK);
+	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+
+	// put_circle_fast(&(a->thread_img[0]), 10, (t_v2int){300, 40 + 3 * 40}, MRT_CYAN);
+	// my_mlx_pixel_put(&a->thread_img[1], 400, 10, MRT_PINK);
+	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[1].img, 0, 0);
+
+	// my_mlx_pixel_put(&a->img, 400, 10, MRT_PINK);
 	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+
 	render_ui(a);
 	return (0);
 }
@@ -77,7 +91,7 @@ t_v3	pixel_to_ray(t_app *a, int u, int v)
 /*
 	Compute the color of a ray.
 */
-static t_v3	draw_ray(t_app *a, t_v3 ray)
+t_v3	draw_ray(t_app *a, t_v3 ray)
 {
 	t_object		*closest;
 	t_intersection	i;

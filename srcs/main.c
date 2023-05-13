@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 22:10:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 14:26:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,12 @@ static int	init_mlx_window(t_app *a)
 	a->img.height = HEIGHT;
 	a->window = mlx_new_window(a->mlx_instance, WIDTH, HEIGHT, "vecTHOR");
 	a->img.img = mlx_new_image(a->mlx_instance, WIDTH, HEIGHT);
+	if (!a->img.img)
+		perror("couldn't make mxl image");
 	a->img.addr = mlx_get_data_addr(a->img.img, &a->img.bits_per_pixel,
 		&a->img.line_length, &a->img.endian);
+	if (!a->img.addr)
+			perror("couldn't get mxl addr");
+
 	return (0);
 }

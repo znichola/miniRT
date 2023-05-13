@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:39:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 12:17:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:04:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,10 @@ int		try_reserve_thread(pthread_mutex_t *m, int *lock, int *finished);
 int		try_return_thread(pthread_mutex_t *m, int *lock, int *finished);
 
 // int		get_mutex_state(pthread_mutex_t *m, int *lock);
+
+/* partial_render.c */
+
+void	partial_render(t_app *a, t_img_data *img, int v_start, int v_stop);
+
 
 #endif /* minirt */
