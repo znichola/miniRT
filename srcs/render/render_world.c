@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/13 15:49:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:52:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	render_world(t_app *a)
 	// int		v;
 	// t_v3	ray;
 	// t_v3	clr;
+
+	int	i;
 
 	multithread_render(a);
 
@@ -44,19 +46,19 @@ int	render_world(t_app *a)
 	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 
 
-
-	// put_circle_fast(&a->thread_img[0], 10, (t_v2int){300, 40 + 0 * 40}, MRT_GREEN);
-	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[0].img, 0, 0);
-
 	// put_circle_fast(&a->img, 10, (t_v2int){300, 40 + 1 * 40}, MRT_BRICK);
 	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 
-	// put_circle_fast(&(a->thread_img[0]), 10, (t_v2int){300, 40 + 3 * 40}, MRT_CYAN);
-	// my_mlx_pixel_put(&a->thread_img[1], 400, 10, MRT_PINK);
-	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[1].img, 0, 0);
+	// put_circle_fast(&a->thread_img[0], 10, (t_v2int){300, 40 + 3 * 40}, MRT_CYAN);
+	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[0].img, 0, 0);
 
-	// my_mlx_pixel_put(&a->img, 400, 10, MRT_PINK);
-	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
+	// fill_screen(&a->thread_img[1], MRT_TRANS);
+
+	// put_circle_fast(&a->thread_img[1], 10, (t_v2int){300, 40 + 6 * 40}, MRT_RED);
+
+	i = -1;
+	while (++i < MRT_THREAD_COUNT)
+		mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[i].img, 0, 0);
 
 	render_ui(a);
 	return (0);

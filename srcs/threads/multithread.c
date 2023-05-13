@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:02:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 15:50:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:53:00 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	multithread_render(t_app *a)
 	i = -1;
 	while (++i < MRT_THREAD_COUNT)
 	{
-		put_circle_fast(&a->thread_img[i], 10, (t_v2int){300, 40 + i * 40}, MRT_BLUE);
-		mlx_put_image_to_window(a->mlx_instance,
-			a->window, a->thread_img[i].img, 0, 0);
+		// put_circle_fast(&a->thread_img[i], 10, (t_v2int){300, 40 + i * 40}, MRT_BLUE);
+		// mlx_put_image_to_window(a->mlx_instance,
+		// 	a->window, a->thread_img[i].img, 0, 0);
 		break ;
 	}
 
@@ -54,6 +54,8 @@ void	start_threads(t_app *a)
 	printf("starting %d threads\n", MRT_THREAD_COUNT);
 	while (++i < MRT_THREAD_COUNT)
 	{
+		a->thread_img[i].width = a->img.width;
+		a->thread_img[i].height = a->img.height;
 		a->thread_img[i].img = mlx_new_image(a->mlx_instance,
 									a->img.width, a->img.height);
 		if (!a->thread_img[i].img)
@@ -64,6 +66,8 @@ void	start_threads(t_app *a)
 									&a->thread_img[i].endian);
 		if (!a->thread_img[i].addr)
 			perror("couldn't get mxl addr");
+		// fill_screen(&a->thread_img[i], MRT_RED);
+		fill_screen(&a->thread_img[i], MRT_TRANS);
 		if (pthread_mutex_init(&a->render_lock[i], NULL) || pthread_mutex_init(&a->start_lock[i], NULL))
 		{
 			perror("failed to make mutex!?");
@@ -119,9 +123,9 @@ void	*thread_routine(void *info_struct)
 			the image is the same dimentions as the screen
 			but only this poriton get's calculated;
 		*/
-		if (me == 2)
-			partial_render(a, &a->img, v_start, v_stop);
-		// partial_render(a, &a->thread_img[me], v_start, v_stop);
+		// if (me == 2)
+		// 	partial_render(a, &a->img, v_start, v_stop);
+		partial_render(a, &a->thread_img[me], v_start, v_stop);
 		info->status = 1;
 		printf("thread %d reporting in with a finished render!\n", me);
 		if (try_return_thread(&a->render_lock[me], &info->lock, &info->status))
