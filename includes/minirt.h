@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 21:53:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:17:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 # include <math.h>
 # include <float.h>
 
+/* threads! */
+# include <pthread.h>
+
 # include "mlx.h"
 # include "libft.h"
 
 # include "minirt_control_enums.h"
 # include "minirt_defines.h"
-# include "minirt_render.h"
 # include "minirt_structs.h"
 # include "minirt_render.h"
 # include "minirt_ui.h"

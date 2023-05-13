@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 23:59:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:41:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,6 @@ typedef struct	s_img_data
 	int		height;
 	char	*filepath;
 }				t_img_data;
-
-
-/*
-	used to pass process number to
-	launch threads for rendering
-*/
-typedef struct	s_ptinfo
-{
-	int		id;
-	void	*app;
-}	t_ptinfo;
 
 /*
 	use to pass information between maths functions.
@@ -203,6 +192,18 @@ typedef struct	s_scene
 	t_list		*lights_list;
 	t_list		*objects_list;
 }	t_scene;
+
+/*
+	used to pass process number to
+	launch threads for rendering
+*/
+typedef struct	s_ptinfo
+{
+	int		id;
+	void	*app;
+	int		lock;
+	int		status;
+}	t_ptinfo;
 
 /*
 	structure to hold all application information

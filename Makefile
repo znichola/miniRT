@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/13 01:07:32 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/13 10:06:36 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ PRIMITIVES_FILES	:= sphere plane cylinder cone
 
 PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check parse_obj_cone
 GETTERS_FILES	:= getters getters2 getters3
-THREADS_FILES	:= multithread give_and_release
+THREADS_FILES	:= multithread give_and_release mutexes
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
@@ -52,6 +52,9 @@ OBJS_PATH = objs/
 SRCS_PATH = srcs/
 LIBS_PATH = -Lmlx -Llibft -Lgnl
 LIBS      = -lmlx -lft -lgnl
+# with threads
+LIBS     += -pthread
+
 HEADR_PATH	= includes/
 INCS_PATH = -I$(HEADR_PATH). -Imlx -Ilibft/includes -Ignl
 FRAMEWORK = -framework OpenGL -framework AppKit

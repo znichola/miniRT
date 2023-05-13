@@ -6,88 +6,60 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:58:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 01:23:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:03:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	get_render_lock(t_app *a)
-{
-	int	i;
-
-	i = 0;
-	// printf("trying to get render locks\n");
-	while (i < MRT_THREAD_COUNT)
-	{
-		if (pthread_mutex_lock(&a->render_lock[i]))
-		{
-			char s[100];
-			sprintf(s, "mutex error wih :%d ", i);
-			perror(s);
-		}
-		// printf(" -------------------- got render lock %d\n", i);
-		i++;
-	}
-	// printf("got render locks\n");
-}
-
 void	release_render_lock(t_app *a)
 {
-	int	i;
+	int					i;
+	unsigned int		mask;
+	const unsigned int	full_mask = (1U << MRT_THREAD_COUNT) - 1;
 
+	mask = 0;
 	i = 0;
-	// printf("trying to release render locks\n");
+	printf("trying to release render locks\n");
 	while (i < MRT_THREAD_COUNT)
 	{
-		if (pthread_mutex_unlock(&a->render_lock[i]))
+		// if (!(mask & (1U << i)) &&
+		if (
+			 try_return_main(&a->render_lock[i], &a->thread_info[i].lock, &a->thread_info[i].status))
 		{
-			char s[100];
-			sprintf(s, "mutex error wih :%d ", i);
-			perror(s);
+			mask |= (1U << i);
+			printf(" -------------------- released render lock %d\n", i);
 		}
-		// printf(" --------------- released render lock %d\n", i);
 		i++;
+		if (i == MRT_THREAD_COUNT && (mask & full_mask) != full_mask)
+			i = 0;
+		usleep(1000);
 	}
-	// printf("released render locks\n");
+	printf("released render locks\n");
 }
 
-void	get_start_lock(t_app *a)
+void	get_render_lock(t_app *a)
 {
-	int	i;
+	int					i;
+	unsigned int		mask;
+	const unsigned int	full_mask = (1U << MRT_THREAD_COUNT) - 1;
 
+	mask = 0;
 	i = 0;
-	// printf("trying to get start locks\n");
+	printf("trying to get render locks\n");
 	while (i < MRT_THREAD_COUNT)
 	{
-		if (pthread_mutex_lock(&a->start_lock[i]))
+		// if (!(mask & (1U << i)) &&
+		if (
+			try_reserve_main(&a->render_lock[i], &a->thread_info[i].lock, &a->thread_info[i].status))
 		{
-			char s[100];
-			sprintf(s, "mutex error wih :%d ", i);
-			perror(s);
+			mask |= (1U << i);
+			printf(" -------------------- got render lock %d\n", i);
 		}
-		// printf(" -------------------- got start lock %d\n", i);
 		i++;
+		if (i == MRT_THREAD_COUNT && (mask & full_mask) != full_mask)
+			i = 0;
+		usleep(100);
 	}
-	// printf("got start locks\n");
-}
-
-void	release_start_lock(t_app *a)
-{
-	int	i;
-
-	i = 0;
-	// printf("trying to release start locks\n");
-	while (i < MRT_THREAD_COUNT)
-	{
-		if (pthread_mutex_unlock(&a->start_lock[i]))
-		{
-			char s[100];
-			sprintf(s, "mutex error wih :%d ", i);
-			perror(s);
-		}
-		// printf(" --------------- released start lock %d\n", i);
-		i++;
-	}
-	// printf("released start locks\n");
+	printf("got render locks\n");
 }
