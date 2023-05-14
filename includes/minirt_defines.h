@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:10:14 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:11:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINIRT_DEFINES_H
 
 // window settings
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1200
+# define HEIGHT 1200
 
 # define ORIGIN (t_v3){0, 0, 0}
 # define UP (t_v3){0, 1, 0}
@@ -23,7 +23,8 @@
 # define IN (t_v3){0, 0, 1}
 
 // rendering settings
-# define MRT_THREAD_COUNT 4
+# define MRT_THREAD_COUNT 6
+# define MRT_CHUNK_HEIGHT (HEIGHT / MRT_THREAD_COUNT)
 
 // math constants // TODO: should be useing the ones form math.h
 # define PI 		3.1415926

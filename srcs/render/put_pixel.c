@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:05:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/28 00:54:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:45:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,27 @@ void	put_circle_fast(t_img_data *img, int r, t_v2int center, int colour)
 
 void	fill_screen(t_img_data *img, int colour)
 {
-	int		i;
+	int		y;
+	int 	x;
+	char	*dst;
 
-	i = 0;
-	while (i < img->width * img->height * 4)
-		img->addr[i++] = (unsigned int)colour;
+// 	while (i < img->width * img->height * 4)
+// 		img->addr[i++] = (unsigned int)colour;
+
+	y = 0;
+	while (y < img->height)
+	{
+
+		x = 0;
+		while (x < img->width)
+		{
+			dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+			*(unsigned int *)dst = colour;
+			x++;
+		}
+		y++;
+	}
+
 }
 
 // https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C

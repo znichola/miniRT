@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:38:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:41:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,9 @@ typedef struct	s_img_data
 	char	*filepath;
 }				t_img_data;
 
-
 /*
-	used to pass process number to
-	launch threads for rendering
+	use to pass information between maths functions.
 */
-typedef struct	s_ptinfo
-{
-	int		id;
-	void	*app;
-}	t_ptinfo;
-
 typedef struct	s_terms
 {
 	float	a;
@@ -202,6 +194,18 @@ typedef struct	s_scene
 }	t_scene;
 
 /*
+	used to pass process number to
+	launch threads for rendering
+*/
+typedef struct	s_ptinfo
+{
+	int		id;
+	void	*app;
+	int		lock;
+	int		status;
+}	t_ptinfo;
+
+/*
 	structure to hold all application information
 	all in one big ugly struct.
 */
@@ -212,7 +216,8 @@ typedef	struct s_app
 	void		*window;
 
 	t_img_data		thread_img[MRT_THREAD_COUNT];
-	pthread_mutex_t	thread_lock[MRT_THREAD_COUNT];
+	pthread_mutex_t	render_lock[MRT_THREAD_COUNT];
+	pthread_mutex_t	start_lock[MRT_THREAD_COUNT];
 	pthread_t		thread_instance[MRT_THREAD_COUNT];
 	t_ptinfo		thread_info[MRT_THREAD_COUNT];
 

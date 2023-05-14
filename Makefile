@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/12 13:16:20 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/14 13:17:02 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,14 @@ ifdef SYMB
 CFLAGS += -g3
 else
 ifdef DEBUG
-CFLAGS	+= -g3 -fsanitize=address
+CFLAGS	+= -Og -g1 -fsanitize=address
 endif
 endif
 endif
 
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection
 RENDER_FILES	:=  put_pixel \
-					lerp_colour the_moon multithread render_world \
+					lerp_colour the_moon render_world \
 					pix_shader
 MATHS_FILES		:= vector matrix poi_sphere poi_plane colour poi_cylinder poi_cone
 UTILS_FILES		:= debug_prints singletons trgb
@@ -37,19 +37,24 @@ PRIMITIVES_FILES	:= sphere plane cylinder cone
 
 PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check parse_obj_cone
 GETTERS_FILES	:= getters getters2 getters3
+THREADS_FILES	:= multithread give_and_release mutexes
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
 FILES			:= main texture $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
 					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))\
-					$(addprefix getters/, $(GETTERS_FILES))
+					$(addprefix getters/, $(GETTERS_FILES))\
+					$(addprefix threads/, $(THREADS_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
 
 OBJS_PATH = objs/
 SRCS_PATH = srcs/
 LIBS_PATH = -Lmlx -Llibft -Lgnl
 LIBS      = -lmlx -lft -lgnl
+# with threads
+LIBS     += -pthread
+
 HEADR_PATH	= includes/
 INCS_PATH = -I$(HEADR_PATH). -Imlx -Ilibft/includes -Ignl
 FRAMEWORK = -framework OpenGL -framework AppKit

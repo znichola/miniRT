@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 12:24:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/13 10:17:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 # include <math.h>
 # include <float.h>
 
+/* threads! */
+# include <pthread.h>
+
 # include "mlx.h"
 # include "libft.h"
 
 # include "minirt_control_enums.h"
 # include "minirt_defines.h"
-# include "minirt_render.h"
 # include "minirt_structs.h"
 # include "minirt_render.h"
 # include "minirt_ui.h"
@@ -32,6 +34,7 @@
 # include "minirt_primitives.h"
 # include "minirt_getters.h"
 # include "parsing.h"
+# include "minirt_threads.h"
 
 void	load_texture(t_app	*app, t_img_data *texture);
 t_v3	get_pix_from_checkerboard(t_v2f point);
