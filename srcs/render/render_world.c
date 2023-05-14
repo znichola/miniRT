@@ -6,11 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/13 20:52:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:29:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void	single_thread_render(t_app *a);
 
 /*
 	For each pixel in our image, compute it's color by computing a ray that goes
@@ -18,48 +20,12 @@
 */
 int	render_world(t_app *a)
 {
-	// int		u;
-	// int		v;
-	// t_v3	ray;
-	// t_v3	clr;
-
-	int	i;
-
-	multithread_render(a);
-
 	if (!assign_keybinds(a))
 		return (0);
-
-	// u = 0;
-	// while (u < a->img.width)
-	// {
-	// 	v = 0;
-	// 	while (v < a->img.height)
-	// 	{
-	// 		ray = pixel_to_ray(a, u, v);
-	// 		clr = draw_ray(a, ray);
-	// 		wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
-	// 		v++;
-	// 	}
-	// 	u++;
-	// }
-	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
-
-
-	// put_circle_fast(&a->img, 10, (t_v2int){300, 40 + 1 * 40}, MRT_BRICK);
-	// mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
-
-	// put_circle_fast(&a->thread_img[0], 10, (t_v2int){300, 40 + 3 * 40}, MRT_CYAN);
-	// mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[0].img, 0, 0);
-
-	// fill_screen(&a->thread_img[1], MRT_TRANS);
-
-	// put_circle_fast(&a->thread_img[1], 10, (t_v2int){300, 40 + 6 * 40}, MRT_RED);
-
-	i = -1;
-	while (++i < MRT_THREAD_COUNT)
-		mlx_put_image_to_window(a->mlx_instance, a->window, a->thread_img[i].img, 0, 0);
-
+	if (MRT_THREAD_COUNT > 1)
+		multithread_render(a);
+	else
+		single_thread_render(a);
 	render_ui(a);
 	return (0);
 }
@@ -137,4 +103,27 @@ t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i)
 	}
 	*i = closest_i;
 	return (closest);
+}
+
+static void	single_thread_render(t_app *a)
+{
+	int		u;
+	int		v;
+	t_v3	ray;
+	t_v3	clr;
+
+	u = 0;
+	while (u < a->img.width)
+	{
+		v = 0;
+		while (v < a->img.height)
+		{
+			ray = pixel_to_ray(a, u, v);
+			clr = draw_ray(a, ray);
+			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
+			v++;
+		}
+		u++;
+	}
+	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/13 20:04:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:52:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	main(int ac, char **av)
 	print_scene(&a);
 	// exit(42);
 
-	start_threads(&a);
+	if (MRT_THREAD_COUNT > 1)
+		start_threads(&a);
 
 	mlx_hook(a.window, e_on_destroy, 0, destroy_window, &a);
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 21:19:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:11:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINIRT_DEFINES_H
 
 // window settings
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1200
+# define HEIGHT 1200
 
 # define ORIGIN (t_v3){0, 0, 0}
 # define UP (t_v3){0, 1, 0}
