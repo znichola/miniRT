@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:45:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 10:41:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/16 13:31:43 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	free_tokens(t_token *tok)
 		next = current->next;
 		if (current->type == e_string)
 			free((void *)current->value.str);
+		else if (current->type == e_optional)
+			free((void *)current->value.opt.filepath);
 		free(current);
 		current = next;
 	}
@@ -75,6 +77,7 @@ static void	tokenize_line(t_token **lst, const char *line, int line_number)
 			break;
 		}
 		tok = tokenize_word(word);
+		free(word);
 		tok->line = line_number;
 		*current = tok;
 		current = &(*current)->next;
@@ -99,7 +102,7 @@ static t_token *tokenize_word(const char *word)
 		return (token_factory(e_optional, value, -1));
 	else
 	{
-		value.str = word;
+		value.str = ft_strdup(word);
 		return (token_factory(e_string, value, -1));
 	}
 }
