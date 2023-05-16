@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 18:14:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:09:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	modify_v3(t_app *a, t_v3 *p, int key)
 		return ;
 	scale_property(a, &p->x, "kx", key, 0.05f);
 	scale_property(a, &p->y, "ky", key, 0.05f);
-	scroll_value(a, &p->z, 5.0f);
+	if (a->keyboard_held[key])
+		scroll_value(a, &p->z, 5.0f);
 }
 
 void	modify_v3_unitvec(t_app *a, t_v3 *p, int key)
@@ -45,6 +46,8 @@ void	modify_v3_unitvec(t_app *a, t_v3 *p, int key)
 		return ;
 	scale_property(a, &p->x, "kx", key, 0.001f);
 	scale_property(a, &p->y, "ky", key, 0.001f);
+	if (a->keyboard_held[key])
+		scroll_value(a, &p->z, .1f);
 	*p = v3_unitvec(*p);
 }
 

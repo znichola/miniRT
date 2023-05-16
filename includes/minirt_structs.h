@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 10:41:27 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:15:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_intersection
 	t_v3	poi;
 	t_v3	poi_normal;
 	float	poi_disance;
+	int		is_marked;
 }	t_intersection;
 
 /* objects */

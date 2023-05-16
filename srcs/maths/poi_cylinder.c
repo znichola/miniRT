@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 12:09:43 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:26:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	return (i->poi_disance);
 }
 
+static int	isplus(float i)
+{
+	return (i > FLT_EPSILON);
+}
+
 static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 {
 	t->discrimant = sqrtf(t->discrimant);
@@ -60,6 +65,27 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
+
+	if ((!isplus(t->m1) && t->m2 > t->height))
+	{
+		i->is_marked = 42; //green
+		return (MARKER);
+	}
+	if (!isplus(t->m2) && t->m1 > t->height)
+	{
+		i->is_marked = 43; //cyan
+		return (MARKER);
+	}
+	if ((t->m1 > t->height || !isplus(t->m1)) && (t->m2 <= t->height && isplus(t->m2)))
+	{
+		i->is_marked = 44; //fuschia
+		return (MARKER);
+	}
+	if ((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1)))
+	{
+		i->is_marked = 45; //indigo
+		return (MARKER);
+	}
 	if (t->d1 < t->d2 && t->d1 > FLT_EPSILON)
 	{
 		/* why do we never use this part of the equation !? */
@@ -83,23 +109,40 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	//   N = nrm( P-C-V*m )
 
-	// if (t->message == 'b')
-	// {
+	if (t->message == 'b')
+	{
 		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
 			v3_multiply(me->orientation, t->m));
 		i->poi_normal = v3_unitvec(i->poi_normal);
 		return ;
-	// }
-	// else if (t->message == '1')
-	// {
-	// 	i->poi_normal = v3_multiply(me->orientation, -1);
-	// }
-	// else if (t->message == '1')
-	// {
-	// 	i->poi_normal = me->orientation;
-	// }
+	}
+	else if (t->message == '1')
+	{
+		// i->is_marked = 42;
+		i->poi_normal = v3_multiply(me->orientation, -1);
+	}
+	else if (t->message == '2')
+	{
+		i->poi_normal = me->orientation;
+	}
 
 }
+
+// static float	dist_to_camera(t_terms *t)
+// {
+// 	if (t->d1 < t->d2)
+// 	{
+// 		t->message = '1';
+// 		t->m = t->m1;
+// 		return (t->d1);
+// 	}
+// 	else
+// 	{
+// 		t->message = '2';
+// 		t->m = t->m2;
+// 		return (t->d2);
+// 	}
+// }
 
 /*
 	When trying to calculate the point of intersection the cylinder extends to
@@ -120,6 +163,47 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 
 
 */
+// static int	count_and_set_intersection(t_terms *t)
+// {
+// 	dist_to_camera(t);
+
+// 	return (ret);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 static int	count_and_set_intersection(t_terms *t)
 {
 	int ret;
