@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 13:17:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:19:17 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static float	center(t_terms *t, t_cylinder *me, t_intersection *i);
 
 static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i);
 static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i);
+
+static void	wasteland(t_terms *t);
 
 /*
 	calculate the point at which a cylinder is intersected
@@ -67,6 +69,8 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
 
+	wasteland(t);
+	// (void)wasteland;0
 	/*
 		t->dv > FLT_EPSILON
 		When true the ray and orientation
@@ -103,6 +107,11 @@ static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 
 	/* point of intersection*/
 	i->poi_disance = - t->xv / t->dv;
+	if (i->poi_disance < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
 	i->poi = v3_multiply(t->ray, i->poi_disance);
 
 	/* normal at intersection */
@@ -115,12 +124,20 @@ static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 */
 static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	/* recompute some of the terms */
-	t->x = v3_add(t->x, v3_multiply(me->orientation, me->height));
+	t->x = v3_subtract(t->source,
+		v3_add(me->position, v3_multiply(me->orientation, me->height)));
 	t->xv = v3_dot(t->x, me->orientation);
 
+	if (t->dv == FLT_EPSILON || (t->xv > 0 && t->dv > 0) || (t->xv < 0 && t->dv < 0))
+		return (FLT_MAX);
+
 	/* point of intersection*/
-	i->poi_disance = - t->xv / t->dv;
+	i->poi_disance = -t->xv / t->dv;
+	if (i->poi_disance < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
 	i->poi = v3_multiply(t->ray, i->poi_disance);
 
 	/* normal at intersection */
@@ -133,9 +150,33 @@ static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 */
 static float	center(t_terms *t, t_cylinder *me, t_intersection *i)
 {
+	if (t->d2 < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
 	i->poi = v3_add(t->source, v3_multiply(t->ray, t->d2));
 	i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position), v3_multiply(me->orientation, t->m2));
 	i->poi_normal = v3_unitvec(i->poi_normal);
 	i->poi_disance = t->d2;
 	return (t->d2);
+}
+
+
+/*
+	sets the terms so the closest poi is d2 and m2
+*/
+static void	wasteland(t_terms *t)
+{
+	float	tmp;
+
+	if (t->d2 > t->d1)
+	{
+		tmp = t->d1;
+		t->d1 = t->d2;
+		t->d2 = tmp;
+		tmp = t->m1;
+		t->m1 = t->m2;
+		t->m2 = tmp;
+	}
 }
