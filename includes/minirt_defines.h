@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/14 12:11:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:53:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 # define MRT_MULTI_THRED 4U
 # define MRT_PRT_TO_FILE 8U
 
+# define MARKER 0x424242
+
+enum {
+	e_not_marked,
+	e_green,
+	e_cyan,
+	e_fuschia,
+	e_indigo
+};
 
 # define MRT_NUM_OBJ_TYPES 7
 

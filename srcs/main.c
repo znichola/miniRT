@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/14 11:52:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:20:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int	main(int ac, char **av)
 
 	mlx_loop(a.mlx_instance);
 
-	//free the objects lists from our scene
-	cleanup_scene(&a.s);
+
 
 	return (0);
 }

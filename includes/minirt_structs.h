@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 15:50:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 16:00:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct	s_terms
 	float	height;
 	int		message;
 	t_v3	x;
+	t_v3	source;
+	t_v3	ray;
 }	t_terms;
 
 /* used in the return to help transfer this data to avoid duplication*/
@@ -100,6 +102,7 @@ typedef struct	s_intersection
 	t_v3	poi_normal;
 	float	poi_disance;
 	float	m;
+	int		is_marked;
 }	t_intersection;
 
 /* objects */
