@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 12:34:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:00:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	{
 		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
 		{
-			i->is_marked = e_fuschia;
+			//i->is_marked = e_fuschia;
 			return (start_cap(t, me, i));
 		}
 	}
@@ -89,7 +89,7 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	{
 		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
 		{
-			i->is_marked = e_indigo;
+			//i->is_marked = e_indigo;
 			return (end_cap(t, me, i));
 		}
 	}
@@ -106,10 +106,17 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 */
 static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	(void)me;
-	(void)t;
-	(void)i;
-	return (MARKER);
+	/* recompute some of the terms */
+	t->xv = v3_dot(t->x, v3_multiply(me->orientation, -1));
+	t->dv = v3_dot(t->ray, v3_multiply(me->orientation, -1));
+
+	/* point of intersection*/
+	i->poi_disance = - t->xv / t->dv;
+	i->poi = v3_multiply(t->ray, i->poi_disance);
+
+	/* normal at intersection */
+	i->poi_normal = v3_multiply(me->orientation, -1);
+	return (i->poi_disance);
 }
 
 /*
@@ -117,10 +124,17 @@ static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 */
 static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	(void)me;
-	(void)t;
-	(void)i;
-	return (MARKER);
+	/* recompute some of the terms */
+	t->x = v3_add(t->x, v3_multiply(me->orientation, me->height));
+	t->xv = v3_dot(t->x, me->orientation);
+
+	/* point of intersection*/
+	i->poi_disance = - t->xv / t->dv;
+	i->poi = v3_multiply(t->ray, i->poi_disance);
+
+	/* normal at intersection */
+	i->poi_normal = me->orientation;
+	return (i->poi_disance);
 }
 
 static float	center(t_terms *t, t_cylinder *me, t_intersection *i)
