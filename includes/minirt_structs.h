@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/16 15:15:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:16:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct	s_terms
 	float	height;
 	int		message;
 	t_v3	x;
+	t_v3	source;
+	t_v3	ray;
 }	t_terms;
 
 /* used in the return to help transfer this data to avoid duplication*/

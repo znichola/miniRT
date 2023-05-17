@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/16 16:14:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:01:00 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ t_v3	draw_ray(t_app *a, t_v3 ray)
 
 	i.is_marked = 0;
 	closest = find_poi(&a->s, ray, a->s.camera.position, &i);
-	if (i.is_marked == 42)
+	if (i.is_marked == e_green)
 		col = (t_v3){0.2,1.0,0.0};
-	else if (i.is_marked == 43)
+	else if (i.is_marked == e_cyan)
 		col = (t_v3){0, 0.9, 0.9};
-	else if (i.is_marked == 44)
+	else if (i.is_marked == e_fuschia)
 		col = (t_v3){1,0,0.2};
-	else if (i.is_marked == 45)
+	else if (i.is_marked == e_indigo)
 		col = (t_v3){0.5, 0, 1};
 	else if (closest)
 		col = pix_shader(&a->s, closest, &i);
