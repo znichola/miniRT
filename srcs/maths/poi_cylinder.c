@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/16 16:26:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:29:55 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	return (i->poi_disance);
 }
 
-static int	isplus(float i)
+int	isplus(float i)
 {
 	return (i > FLT_EPSILON);
 }
@@ -66,30 +66,78 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
 
-	if ((!isplus(t->m1) && t->m2 > t->height))
+	// if ((!isplus(t->m1) && t->m2 > t->height))
+	// {
+	// 	i->is_marked = e_green; //green
+	// 	return (MARKER);
+	// }
+	// if (!isplus(t->m2) && t->m1 > t->height)
+	// {
+	// 	i->is_marked = e_cyan; //cyan
+	// 	return (MARKER);
+	// }
+	// if ((t->m1 > t->height || !isplus(t->m1)) && (t->m2 <= t->height && isplus(t->m2)))
+	// {
+	// 	i->is_marked = e_fuschia; //fuschia
+	// 	return (MARKER);
+	// }
+	// if ((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1)))
+	// {
+	// 	i->is_marked = e_indigo; //indigo
+	// 	return (MARKER);
+	// }
+	/*
+		in a cap!
+	*/
+	// if (((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1))) || (!isplus(t->m2) && t->m1 > t->height))
+	// {
+	// 	i->is_marked = e_fuchia; //green
+	// 	return (MARKER);
+	// }
+
+	// if (t->m2 > t->height)
+
+	/*
+		t->dv > FLT_EPSILON
+		When true the ray and orientation
+		are both pointing in the same direction
+		If true we are in a top cap situation,
+		if false it's a bottom cap!
+	*/
+	if (t->dv > FLT_EPSILON)
 	{
-		i->is_marked = 42; //green
-		return (MARKER);
+		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
+		{
+			i->is_marked = e_fuschia;
+			return (MARKER);
+		}
 	}
-	if (!isplus(t->m2) && t->m1 > t->height)
+	/*
+		The orientation and dir are opposed!
+	*/
+	else if (t->dv < FLT_EPSILON)
 	{
-		i->is_marked = 43; //cyan
-		return (MARKER);
+		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
+		{
+			i->is_marked = e_indigo;
+			return (MARKER);
+		}
 	}
-	if ((t->m1 > t->height || !isplus(t->m1)) && (t->m2 <= t->height && isplus(t->m2)))
-	{
-		i->is_marked = 44; //fuschia
-		return (MARKER);
-	}
-	if ((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1)))
-	{
-		i->is_marked = 45; //indigo
-		return (MARKER);
-	}
+	/*
+		t->dv == FLT_EPSILON
+		We are perfectly perpendicular!
+	*/
+	// else
+		// i->is_marked = e_cyan;
+
+
 	if (t->d1 < t->d2 && t->d1 > FLT_EPSILON)
 	{
-		/* why do we never use this part of the equation !? */
-		// printf("boo, we got here in the unsed wastland...\n");
+		/*
+			d1 is closer to the camera, m1 is the vertical
+			distance to the closer poi.
+		*/
+		i->is_marked = e_green;
 		if (count_and_set_intersection(t) == 0)
 			return (FLT_MAX);
 		i->poi = v3_add(source, v3_multiply(ray, t->d1));
@@ -97,7 +145,18 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 	}
 	else if (t->d2 > FLT_EPSILON)
 	{
-		if (count_and_set_intersection(t) == 0)
+		// if (t->m2 < t->height)
+		// 	i->is_marked = e_fuschia; //fuschia
+		/*
+			d2 is the closer poi, m2 is the vert distance.
+		*/
+		// if (t->d2 > t->height)
+		// 	i->is_marked = e_fuchia;
+
+		// if (count_and_set_intersection(t) == 0)
+		// 	return (FLT_MAX);
+		t->m = t->m2;
+		if (t->m2 > t->height || t->m2 < FLT_EPSILON)
 			return (FLT_MAX);
 		i->poi = v3_add(source, v3_multiply(ray, t->d2));
 		return (t->d2);
@@ -109,40 +168,24 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	//   N = nrm( P-C-V*m )
 
-	if (t->message == 'b')
-	{
+	// if (t->message == 'b')
+	// {
 		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
 			v3_multiply(me->orientation, t->m));
 		i->poi_normal = v3_unitvec(i->poi_normal);
 		return ;
-	}
-	else if (t->message == '1')
-	{
-		// i->is_marked = 42;
-		i->poi_normal = v3_multiply(me->orientation, -1);
-	}
-	else if (t->message == '2')
-	{
-		i->poi_normal = me->orientation;
-	}
+	// }
+	// else if (t->message == '1')
+	// {
+	// 	// i->is_marked = 42;
+	// 	i->poi_normal = v3_multiply(me->orientation, -1);
+	// }
+	// else if (t->message == '2')
+	// {
+	// 	i->poi_normal = me->orientation;
+	// }
 
 }
-
-// static float	dist_to_camera(t_terms *t)
-// {
-// 	if (t->d1 < t->d2)
-// 	{
-// 		t->message = '1';
-// 		t->m = t->m1;
-// 		return (t->d1);
-// 	}
-// 	else
-// 	{
-// 		t->message = '2';
-// 		t->m = t->m2;
-// 		return (t->d2);
-// 	}
-// }
 
 /*
 	When trying to calculate the point of intersection the cylinder extends to
@@ -169,40 +212,6 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 
 // 	return (ret);
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 static int	count_and_set_intersection(t_terms *t)
 {
