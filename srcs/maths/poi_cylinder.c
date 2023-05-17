@@ -6,15 +6,18 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 10:29:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:34:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i);
-static void		calc_normal(t_terms *t, t_cylinder *me, t_intersection *i);
-static int		count_and_set_intersection(t_terms *t);
+static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i);
+static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i);
+static float	center(t_terms *t, t_cylinder *me, t_intersection *i);
+
+static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i);
+static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i);
 
 /*
 	calculate the point at which a cylinder is intersected
@@ -36,6 +39,8 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.c = t.xx - t.xv * t.xv - me->radius * me->radius;
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
 
+	t.ray = ray;
+	t.source = source;
 	if (t.discrimant < FLT_EPSILON)
 	{
 		i->poi_disance = FLT_MAX;
@@ -43,11 +48,7 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	}
 
 	t.height = me->height;
-	i->poi_disance = calc_poi(&t, source, ray, i);
-
-	if (i->poi_disance != FLT_EPSILON)
-		calc_normal(&t, me, i);
-
+	i->poi_disance = calc_poi(&t, me, i);
 	return (i->poi_disance);
 }
 
@@ -56,7 +57,7 @@ int	isplus(float i)
 	return (i > FLT_EPSILON);
 }
 
-static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
+static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	t->discrimant = sqrtf(t->discrimant);
 	t->a = t->a * 2;
@@ -65,37 +66,6 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
-
-	// if ((!isplus(t->m1) && t->m2 > t->height))
-	// {
-	// 	i->is_marked = e_green; //green
-	// 	return (MARKER);
-	// }
-	// if (!isplus(t->m2) && t->m1 > t->height)
-	// {
-	// 	i->is_marked = e_cyan; //cyan
-	// 	return (MARKER);
-	// }
-	// if ((t->m1 > t->height || !isplus(t->m1)) && (t->m2 <= t->height && isplus(t->m2)))
-	// {
-	// 	i->is_marked = e_fuschia; //fuschia
-	// 	return (MARKER);
-	// }
-	// if ((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1)))
-	// {
-	// 	i->is_marked = e_indigo; //indigo
-	// 	return (MARKER);
-	// }
-	/*
-		in a cap!
-	*/
-	// if (((t->m2 > t->height || !isplus(t->m2)) && (t->m1 <= t->height && isplus(t->m1))) || (!isplus(t->m2) && t->m1 > t->height))
-	// {
-	// 	i->is_marked = e_fuchia; //green
-	// 	return (MARKER);
-	// }
-
-	// if (t->m2 > t->height)
 
 	/*
 		t->dv > FLT_EPSILON
@@ -109,7 +79,7 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
 		{
 			i->is_marked = e_fuschia;
-			return (MARKER);
+			return (start_cap(t, me, i));
 		}
 	}
 	/*
@@ -120,124 +90,43 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
 		{
 			i->is_marked = e_indigo;
-			return (MARKER);
+			return (end_cap(t, me, i));
 		}
 	}
-	/*
-		t->dv == FLT_EPSILON
-		We are perfectly perpendicular!
-	*/
-	// else
-		// i->is_marked = e_cyan;
-
-
-	if (t->d1 < t->d2 && t->d1 > FLT_EPSILON)
+	if (!(t->m2 > t->height || t->m2 < FLT_EPSILON)/*something */)
 	{
-		/*
-			d1 is closer to the camera, m1 is the vertical
-			distance to the closer poi.
-		*/
 		i->is_marked = e_green;
-		if (count_and_set_intersection(t) == 0)
-			return (FLT_MAX);
-		i->poi = v3_add(source, v3_multiply(ray, t->d1));
-		return (t->d1);
-	}
-	else if (t->d2 > FLT_EPSILON)
-	{
-		// if (t->m2 < t->height)
-		// 	i->is_marked = e_fuschia; //fuschia
-		/*
-			d2 is the closer poi, m2 is the vert distance.
-		*/
-		// if (t->d2 > t->height)
-		// 	i->is_marked = e_fuchia;
-
-		// if (count_and_set_intersection(t) == 0)
-		// 	return (FLT_MAX);
-		t->m = t->m2;
-		if (t->m2 > t->height || t->m2 < FLT_EPSILON)
-			return (FLT_MAX);
-		i->poi = v3_add(source, v3_multiply(ray, t->d2));
-		return (t->d2);
+		return (center(t, me, i));
 	}
 	return (FLT_MAX);
 }
 
-static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
+/*
+	return dist, set i.poi, i.pon_normal i.poi_dist
+*/
+static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	//   N = nrm( P-C-V*m )
-
-	// if (t->message == 'b')
-	// {
-		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
-			v3_multiply(me->orientation, t->m));
-		i->poi_normal = v3_unitvec(i->poi_normal);
-		return ;
-	// }
-	// else if (t->message == '1')
-	// {
-	// 	// i->is_marked = 42;
-	// 	i->poi_normal = v3_multiply(me->orientation, -1);
-	// }
-	// else if (t->message == '2')
-	// {
-	// 	i->poi_normal = me->orientation;
-	// }
-
+	(void)me;
+	(void)t;
+	(void)i;
+	return (MARKER);
 }
 
 /*
-	When trying to calculate the point of intersection the cylinder extends to
-	infinity, so we must use the m value and compare it against [0, height]
-
-	If one of the two results is outside the range, we want to take the samller
-	of the two to ensure it's normal will point the right way.
-	This is for an uncapped cylinder.
-
-	To cap the cylinder to need to know which of the caps it is;
-	start_cap or end_cap, to know what direction the normal should be.
-
-	We use the message variable to communicate which cap it is to calc_normal
-
-	'1' means it's m1 that is the closer point
-	'2' means it's m2 that's closer
-	'b' means both were in range so m was set to the closer one
-
-
+	return dist, set i.poi, i.pon_normal i.poi_dist
 */
-// static int	count_and_set_intersection(t_terms *t)
-// {
-// 	dist_to_camera(t);
-
-// 	return (ret);
-// }
-
-static int	count_and_set_intersection(t_terms *t)
+static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	int ret;
+	(void)me;
+	(void)t;
+	(void)i;
+	return (MARKER);
+}
 
-	ret = 0;
-	t->message = 'n';
-	if (t->m1 > FLT_EPSILON && t->m1 < t->height)
-	{
-		t->m = t->m1;
-		t->message = '1';
-		ret += 1;
-	}
-	if (t->m2 > FLT_EPSILON && t->m2 < t->height)
-	{
-		if (ret == 0)
-		{
-			t->m = t->m2;
-			t->message = '2';
-		}
-		else if (t->m2 < t->m1)
-		{
-			t->m = t->m2;
-			t->message = 'b';
-		}
-		ret += 1;
-	}
-	return (ret);
+static float	center(t_terms *t, t_cylinder *me, t_intersection *i)
+{
+	(void)me;
+	(void)t;
+	(void)i;
+	return (MARKER);
 }
