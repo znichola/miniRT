@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 13:00:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 13:17:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	if (t->dv > FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
-		{
-			//i->is_marked = e_fuschia;
 			return (start_cap(t, me, i));
-		}
 	}
 	/*
 		The orientation and dir are opposed!
@@ -88,16 +85,10 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	else if (t->dv < FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
-		{
-			//i->is_marked = e_indigo;
 			return (end_cap(t, me, i));
-		}
 	}
-	if (!(t->m2 > t->height || t->m2 < FLT_EPSILON)/*something */)
-	{
-		i->is_marked = e_green;
+	if (t->m2 < t->height && t->m2 > FLT_EPSILON)
 		return (center(t, me, i));
-	}
 	return (FLT_MAX);
 }
 
@@ -137,10 +128,14 @@ static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 	return (i->poi_disance);
 }
 
+/*
+	center or body option of the cylinder
+*/
 static float	center(t_terms *t, t_cylinder *me, t_intersection *i)
 {
-	(void)me;
-	(void)t;
-	(void)i;
-	return (MARKER);
+	i->poi = v3_add(t->source, v3_multiply(t->ray, t->d2));
+	i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position), v3_multiply(me->orientation, t->m2));
+	i->poi_normal = v3_unitvec(i->poi_normal);
+	i->poi_disance = t->d2;
+	return (t->d2);
 }
