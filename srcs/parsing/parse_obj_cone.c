@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_cone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:15:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:46:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void consume_optional_cone(t_token **tokens, t_cone *co)
 	co->texture.filepath = NULL;
 	co->bump.filepath = NULL;
 	co->normal.filepath = NULL;
+	co->checker = 0;
 	while (*tokens && (*tokens)->type == e_optional)
 	{
 		if ((*tokens)->value.opt.type == e_texture)
@@ -73,6 +74,8 @@ static void consume_optional_cone(t_token **tokens, t_cone *co)
 			co->bump.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_normal)
 			co->normal.filepath = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_checker)
+			co->checker = ft_strcmp((*tokens)->value.opt.filepath, "true") == 0;
 		*tokens = (*tokens)->next;
 	}
 }

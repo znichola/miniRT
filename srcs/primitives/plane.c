@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:12:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:54:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ t_v3	get_pl_emmision(t_object *me, t_intersection *i)
 	t_plane	pl;
 
 	pl = me->object.pl;
+	if (pl.checker)
+	{
+		if (get_pix_from_checkerboard(planar_map(&pl, i->poi)) == 0)
+			return ((t_v3){0,0,0});
+	}
 	if (pl.texture.img != NULL)
 	{
-		return (get_pix_from_checkerboard(planar_map(&pl, i->poi)));
-		//return (get_pix_from_texture(&pl.texture, planar_map(&pl, i->poi)));
+		return (get_pix_from_texture(&pl.texture, planar_map(&pl, i->poi)));
 	}
 	return (pl.colour);
 }

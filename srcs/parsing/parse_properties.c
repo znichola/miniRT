@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:00:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/10 10:41:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:20:32 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	parse_ratio(const char **line, float *ratio)
 
 int	parse_optional(const char **line, t_optional *opt)
 {
-	const char	*tokens[] = {"texture", "bump", "normal"};
+	const char	*tokens[] = {"texture", "bump", "normal", "checker"};
 
 	int i = 0;
-	while (i < 3)
+	while (i < 4)
 	{
 		if (ft_strncmp(tokens[i], *line, ft_strlen(tokens[i])) == 0)
 		{
@@ -96,7 +96,7 @@ int	parse_optional(const char **line, t_optional *opt)
 		}
 		i++;
 	}
-	if (i == 3)
+	if (i == 4)
 		return (-1);
 	opt->type = i;
 	if (**line != ':')

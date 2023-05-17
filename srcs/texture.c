@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 17:40:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 18:18:56 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,12 @@ void	load_texture(t_app	*app, t_img_data *texture)
 		&texture->line_length, &texture->endian);
 }
 
-t_v3	get_pix_from_checkerboard(t_v2f point)
+int	get_pix_from_checkerboard(t_v2f point)
 {
-	if (point.x < 0)
-		point.x -= 1;
-	if (point.y < 0)
-		point.y -= 1;
-	if ((int)(floor(point.x * 25) + floor(point.y * 25)) % 2)
-		return ((t_v3){0,0,0});
+	if (((int)(point.x / (1.0/26)) % 2) == ((int)(point.y / (1.0/26)) % 2))
+		return (1);
 	else
-		return ((t_v3){255,255,255});
+		return (0);
 }
 
 t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)

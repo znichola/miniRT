@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:16:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:51:38 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 	t_sphere	sp;
 
 	sp = me->object.sp;
+	if (sp.checker)
+	{
+		if (get_pix_from_checkerboard(spherical_map(&sp, i->poi)) == 0)
+			return ((t_v3){0,0,0});
+	}
 	if (sp.texture.img != NULL)
 	{
-		return (get_pix_from_checkerboard(spherical_map(&sp, i->poi)));
-		//return (get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
+		return (get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
 	}
 	return (sp.colour);
 }

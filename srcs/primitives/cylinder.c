@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 15:49:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 18:20:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ t_v3	get_cy_emmision(t_object *me, t_intersection *i)
 	t_cylinder	cy;
 
 	cy = me->object.cy;
+	if (cy.checker)
+	{
+		if (get_pix_from_checkerboard(cylindrical_map(&cy, i)) == 0)
+			return ((t_v3){1,1,1});
+	}
 	if (cy.texture.img != NULL)
 	{
-		return (get_pix_from_checkerboard(cylindrical_map(&cy, i)));
-		//return (get_pix_from_texture(&cy.texture, cylindrical_map(&cy, i)));
+		return (get_pix_from_texture(&cy.texture, cylindrical_map(&cy, i)));
 	}
 	return (cy.colour);
 }
@@ -52,53 +56,23 @@ t_v3	get_cy_poi_norm(t_object *obj, t_intersection *i)
 /* map a 3d point on a cylinder to a 2d point on a map */
 t_v2f	cylindrical_map(t_cylinder *cy, t_intersection *in)
 {
-	//t_v3	vec;
 	t_v2f	map;
 
-	//vec = v3_subtract(v3_subtract(in->poi, cy->position), v3_multiply(cy->orientation, in->m));
-/*
-	t_v3 c = v3_cross(cy->orientation, UP);
-	t_v3 new_up = v3_cross(c, cy->orientation);
-	t_v3 right_o = v3_cross(new_up, cy->orientation);
+	if (in->is_cap)
+		return ((t_v2f){0,0});
 
-	// c = v3_cross(in->poi_normal, UP);
-	// new_up = v3_cross(c, in->poi_normal);
-	// t_v3 right_poi = v3_cross(new_up, in->poi_normal);
-
-	// vec = v3_cross(in->poi_normal, cy->orientation);
-	vec = v3_cross(right_o, right_poi);
-*/
-/*
-	vec = (t_v3){
-		v3_dot(in->poi_normal, v3_cross(cy->orientation, RIGHT)),
-		v3_dot(in->poi_normal, cy->orientation),
-		v3_dot(in->poi_normal, v3_cross(cy->orientation, IN))
-	};
-*/
-	t_v3 up = cy->orientation;
-	t_v3 right = v3_cross(cy->orientation, UP);
-	t_v3 into = v3_cross(right, cy->orientation);
-
-	// t_v3 foo = v3_subtract(in->poi, cy->position);
+	t_v3 new_x = v3_cross(cy->orientation, UP);
+	t_v3 new_z = v3_cross(new_x, cy->orientation);
 
 	t_v3 new = (t_v3)
 	{
-		v3_dot(up, in->poi_normal),
-		v3_dot(right, in->poi_normal),
-		v3_dot(into, in->poi_normal),
+		v3_dot(new_x, in->poi_normal),
+		v3_dot(cy->orientation, in->poi_normal),
+		v3_dot(new_z, in->poi_normal)
 	};
 
-	// t_v3 right_poi = v3_cross(new_up, cy->orientation);
-
-	// float	theta = atan2f(
-	// 	v3_dot(in->poi_normal, v3_cross(cy->orientation, IN)),
-	// 	v3_dot(in->poi_normal, cy->orientation)
-	// );
-
-	float	theta = v3_dot(UP, new) / (v3_mag(new));
-
+	float	theta = atan2(new.x, new.z);
 	float	raw_u = theta / (2 * M_PI);
-
 	map.x = 1 - (raw_u + 0.5);
 	map.y = in->m / cy->height;
 	return (map);

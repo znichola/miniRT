@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/13 10:17:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:32:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # include "minirt_threads.h"
 
 void	load_texture(t_app	*app, t_img_data *texture);
-t_v3	get_pix_from_checkerboard(t_v2f point);
 t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point);
+int		get_pix_from_checkerboard(t_v2f point);
 void	load_all_textures(t_app *a);
 
 #endif
