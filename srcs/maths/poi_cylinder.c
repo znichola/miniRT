@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 12:09:43 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:50:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void	calc_normal(t_terms *t, t_cylinder *me, t_intersection *i)
 
 	// if (t->message == 'b')
 	// {
+		i->m = t->m;
 		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
 			v3_multiply(me->orientation, t->m));
 		i->poi_normal = v3_unitvec(i->poi_normal);
