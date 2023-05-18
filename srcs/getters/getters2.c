@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:10:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:49:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ float	get_obj_p1(t_object *o)
 	else if (o->type == e_light)
 		return (o->object.l.ratio);
 	else if (o->type == e_cone)
-		return (o->object.co.radius);
+		return (o->object.co.height_start);
 	return (NAN);
 }
 
