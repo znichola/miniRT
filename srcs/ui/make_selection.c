@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 13:02:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:31:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	modify_v3_unitvec(t_app *a, t_v3 *p, int key)
 	scale_property(a, &p->x, "kx", key, 0.001f);
 	scale_property(a, &p->y, "ky", key, 0.001f);
 	if (a->keyboard_held[key])
-		scroll_value(a, &p->z, .5f);
+		scroll_value(a, &p->z, .1f);
 	*p = v3_unitvec(*p);
 }
 
