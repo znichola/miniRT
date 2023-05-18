@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:51:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:24:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 	return (i->poi_disance);
 }
 
+#include <assert.h>
+
 static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 {
 	t->discrimant = sqrtf(t->discrimant);
@@ -69,7 +71,7 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 	wasteland(t);
 	i->m = t->m2;
 	i->is_cap = 0;
-	// (void)wasteland;0
+
 	/*
 		t->dv > FLT_EPSILON
 		When true the ray and orientation
@@ -79,8 +81,9 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 	*/
 	if (t->dv > FLT_EPSILON)
 	{
-		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
+		if (t->m2 > FLT_EPSILON && t->m2 < me->height_start && t->m1 > me->height_start)
 		{
+			//i->is_marked = e_fuschia;
 			i->is_cap = 1;
 			return (start_cap(t, me, i));
 		}
@@ -90,13 +93,13 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 	*/
 	else if (t->dv < FLT_EPSILON)
 	{
-		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
+		if (t->m2 > t->height && t->m1 < t->height && t->m1 > FLT_EPSILON)
 		{
 			i->is_cap = 1;
 			return (end_cap(t, me, i));
 		}
 	}
-	if (t->m2 < t->height && t->m2 > FLT_EPSILON)
+	if (t->m2 < t->height && t->m2 > me->height_start)
 	{
 		return (center(t, me, i));
 	}
@@ -109,6 +112,8 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 static float	start_cap(t_terms *t, t_cone *me, t_intersection *i)
 {
 	/* recompute some of the terms */
+	t->x = v3_subtract(t->source,
+		v3_add(me->position, v3_multiply(me->orientation, me->height_start)));
 	t->xv = v3_dot(t->x, v3_multiply(me->orientation, -1));
 	t->dv = v3_dot(t->ray, v3_multiply(me->orientation, -1));
 
@@ -135,7 +140,6 @@ static float	end_cap(t_terms *t, t_cone *me, t_intersection *i)
 		v3_add(me->position, v3_multiply(me->orientation, me->height)));
 	t->xv = v3_dot(t->x, me->orientation);
 
-
 	if (t->dv == FLT_EPSILON || (t->xv > 0 && t->dv > 0) || (t->xv < 0 && t->dv < 0))
 		return (FLT_MAX);
 
@@ -155,7 +159,7 @@ static float	end_cap(t_terms *t, t_cone *me, t_intersection *i)
 }
 
 /*
-	center or body option of the cylinder
+	center or body option of the cone
 */
 static float	center(t_terms *t, t_cone *me, t_intersection *i)
 {
@@ -179,7 +183,7 @@ static void	wasteland(t_terms *t)
 {
 	float	tmp;
 
-	if (t->d2 > t->d1)
+	if ((t->d2 - t->d1) > FLT_EPSILON)
 	{
 		tmp = t->d1;
 		t->d1 = t->d2;
@@ -187,5 +191,6 @@ static void	wasteland(t_terms *t)
 		tmp = t->m1;
 		t->m1 = t->m2;
 		t->m2 = tmp;
+		assert(t->d2 - t->d1 <= FLT_EPSILON);
 	}
 }
