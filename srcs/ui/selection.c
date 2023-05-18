@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:02:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:50:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:52:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	ui_put_v3(t_app *a, t_v2int *p, const char *s, t_v3 v)
 
 static const char	*ret_p1_str(t_object *o)
 {
-	const char	*s[6] = {"ratio", "fov", "ratio", "radius", "none", "height1"};
+	const char	*s[6] = {"ratio", "fov", "ratio", "radius", "none", "hight_start"};
 	if (o->type == e_ambiant)
 		return (s[0]);
 	else if (o->type == e_sphere)
