@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 00:00:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:27:17 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,22 @@ t_v3	get_pl_poi_norm(t_object *obj, t_intersection *i)
 	return (i->poi_normal);
 }
 
-#define DIV 50.0f
-
 /* map a 3d point on a plane to a 2d point on a map */
 t_v2f	planar_map(t_plane *pl, t_intersection *i)
 {
-	t_v3 new_x = v3_cross(pl->orientation, UP);
-	t_v3 new_z = v3_cross(new_x, pl->orientation);
+	t_v3	vec;
+	t_v3	new_z;
+	t_v3	new_x;
+	t_v3	local;
 
-	t_v3 pos = v3_subtract(i->poi, pl->position);
-	float d = v3_mag(pos);
-	pos = v3_unitvec(pos);
-	t_v3 new = (t_v3)
-	{
-		v3_dot(new_x, pos),
-		v3_dot(pl->orientation, pos),
-		v3_dot(new_z, pos)
+	vec = v3_subtract(i->poi, pl->position);
+	new_z = v3_cross(pl->orientation, RIGHT);
+	new_x = v3_cross(pl->orientation, new_z);
+	local = (t_v3){
+		v3_dot(new_x, vec),
+		v3_dot(pl->orientation, vec),
+		v3_dot(new_z, vec)
 	};
-	new = v3_multiply(new, d);
-	// float	v = ((new.x / DIV) - roundf(new.x / DIV));
-	// float	u = ((new.z / DIV) - roundf(new.z / DIV));
-	// float		u = fmodf(new.x, DIV);
-	// float		v = fmodf(new.z, DIV);
-	// printf("u:%.1f\n", u);
-	(void)pl;
-	(void)new;
-	float	u = ((i->poi.z / DIV) - roundf(i->poi.z / DIV));
-	float	v = ((i->poi.x / DIV) - roundf(i->poi.x / DIV));
-	// u = fabsf(u);
-	// v = fabsf(v);
-	return ((t_v2f){u, v});
+	return ((t_v2f){fmodf(100 - (local.x / 100), 1),
+		fmodf(100 - (local.z / 100), 1)});
 }
