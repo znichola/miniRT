@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/16 13:20:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:39:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,129 @@
 
 static int	init_mlx_window(t_app *a);
 
+static void	tests(void)
+{
+	{
+	printf("testing the determinant\n");
+
+	t_t2 td;
+
+	td.m[0][0] = 1;
+	td.m[0][1] = 5;
+	td.m[1][0] = -3;
+	td.m[1][1] = 2;
+	printf("determinant 17 : %.1f\n", t2_determinant(td));
+	}
+	{
+	printf("testing the sub t_t3\n");
+
+	t_t3 t3;
+
+	t3.m[0][0] = 1;
+	t3.m[0][1] = 5;
+	t3.m[0][2] = 0;
+
+	t3.m[1][0] = -3;
+	t3.m[1][1] = 2;
+	t3.m[1][2] = 7;
+
+	t3.m[2][0] = 0;
+	t3.m[2][1] = 6;
+	t3.m[2][2] = 3;
+
+	t_t2 r3 = t3_submatrix(t3, 0, 2);
+
+	for (int i = 0; i < 2; i++)
+		printf("|%.1f %.1f|\n", r3.m[i][0], r3.m[i][1]);
+	}
+	{
+	printf("testing the sub t_t3\n");
+
+	t_t4 t4;
+
+	t4.m[0][0] = 6;
+	t4.m[0][1] = 1;
+	t4.m[0][2] = 1;
+	t4.m[0][3] = 6;
+
+	t4.m[1][0] = -8;
+	t4.m[1][1] = 5;
+	t4.m[1][2] = 8;
+	t4.m[1][3] = 6;
+
+	t4.m[2][0] = -1;
+	t4.m[2][1] = 0;
+	t4.m[2][2] = 8;
+	t4.m[2][3] = 2;
+
+	t4.m[3][0] = -7;
+	t4.m[3][1] = 1;
+	t4.m[3][2] = -1;
+	t4.m[3][3] = 1;
+
+	t_t3 r4 = t4_submatrix(t4, 2, 1);
+
+	for (int i = 0; i < 3; i++)
+		printf("|%.1f %.1f %.1f|\n", r4.m[i][0], r4.m[i][1], r4.m[i][2]);
+	}
+	{
+	printf("testing the minor\n");
+
+	t_t3 tm;
+
+	tm.m[0][0] = 3;
+	tm.m[0][1] = 5;
+	tm.m[0][2] = 0;
+
+	tm.m[1][0] = 5;
+	tm.m[1][1] = -1;
+	tm.m[1][2] = -7;
+
+	tm.m[2][0] = 6;
+	tm.m[2][1] = -1;
+	tm.m[2][2] = 5;
+
+	printf("minor 25 : %.1f\n", t3_minor(tm, 1, 0));
+
+	printf("testing the cofactor\n");
+
+	printf("minor -12 : %.1f\n", t3_minor(tm, 0, 0));
+	printf("cofactor -12 : %.1f\n", t3_cofactor(tm, 0, 0));
+	printf("minor 25 : %.1f\n", t3_minor(tm, 1, 0));
+	printf("cofactor -25 : %.1f\n", t3_cofactor(tm, 1, 0));
+	}
+	{
+	printf("testing 3x3 and 4x4 determinant\n");
+	t_t3 t;
+
+	t.m[0][0] = 1;
+	t.m[0][1] = 2;
+	t.m[0][2] = 6;
+
+	t.m[1][0] = -5;
+	t.m[1][1] = 8;
+	t.m[1][2] = -4;
+
+	t.m[2][0] = 2;
+	t.m[2][1] = 6;
+	t.m[2][2] = 4;
+
+	printf("cofactor 56 : %.1f\n", t3_cofactor(t, 0, 0));
+	printf("cofactor 12 : %.1f\n", t3_cofactor(t, 0, 1));
+	printf("cofactor -46 : %.1f\n", t3_cofactor(t, 0, 2));
+	printf("determiant -196 : %.1f\n", t3_determinant(t));
+
+	}
+
+
+
+
+	exit(-42);
+}
+
 int	main(int ac, char **av)
 {
+	tests();
 	t_app	a;
 
 	if (ac != 2)

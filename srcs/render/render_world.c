@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/16 19:01:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/19 11:53:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ t_v3	pixel_to_ray(t_app *a, int u, int v)
 		the camera is fixed at (0, 0, 0) and looking at (0,0,1)
 	*/
 	ray = (t_v3){get_ratio(a, 'w', u), get_ratio(a, 'h', v), 1};
+	// float xoffset = (u + 0.5) * a->s.camera.pixel_size;
+	// float yoffset = (v + 0.5) * a->s.camera.pixel_size;
+
+	// float world_x = a->s.camera.half_width - xoffset;
+	// float world_y = a->s.camera.half_height - yoffset;
 
 	/*
 		now we should have a transformation matrix that translates this

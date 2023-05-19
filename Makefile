@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/18 15:00:55 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/21 00:36:26 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,14 @@ UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui select
 RENDER_FILES	:=  put_pixel \
 					lerp_colour the_moon render_world \
 					pix_shader
-MATHS_FILES		:= vector matrix poi_sphere poi_plane colour poi_cylinder poi_cone
+MATHS_FILES		:= vector poi_sphere poi_plane colour poi_cylinder poi_cone
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder cone
 
 PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check parse_obj_cone
 GETTERS_FILES	:= getters getters2 getters3
 THREADS_FILES	:= multithread give_and_release mutexes
+MATRIX_FILES	:= view_transformation matrix t3_determinant t4_determinant helper
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
@@ -49,7 +50,8 @@ FILES			:= main texture $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(REN
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
 					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))\
 					$(addprefix getters/, $(GETTERS_FILES))\
-					$(addprefix threads/, $(THREADS_FILES))
+					$(addprefix threads/, $(THREADS_FILES))\
+					$(addprefix matrix/, $(MATRIX_FILES))
 HEADER_FILES	:= minirt $(addprefix minirt_, $(HEADER_FILES)) $(addprefix libft/includes, $(LIBFT_HEADERS))
 
 OBJS_PATH = objs/
