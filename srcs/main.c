@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/19 21:39:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:22:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	tests(void)
 	printf("cofactor -25 : %.1f\n", t3_cofactor(tm, 1, 0));
 	}
 	{
-	printf("testing 3x3 and 4x4 determinant\n");
+	printf("testing 3x3 determinant\n");
 	t_t3 t;
 
 	t.m[0][0] = 1;
@@ -121,16 +121,122 @@ static void	tests(void)
 	t.m[2][1] = 6;
 	t.m[2][2] = 4;
 
-	printf("cofactor 56 : %.1f\n", t3_cofactor(t, 0, 0));
-	printf("cofactor 12 : %.1f\n", t3_cofactor(t, 0, 1));
-	printf("cofactor -46 : %.1f\n", t3_cofactor(t, 0, 2));
+	printf("cofactor    56  : %.1f\n", t3_cofactor(t, 0, 0));
+	printf("cofactor    12  : %.1f\n", t3_cofactor(t, 0, 1));
+	printf("cofactor   -46  : %.1f\n", t3_cofactor(t, 0, 2));
 	printf("determiant -196 : %.1f\n", t3_determinant(t));
-
 	}
+	{
+	printf("testing 4x4 determinant\n");
+	t_t4 t;
 
+	t.m[0][0] = -2;
+	t.m[0][1] = -8;
+	t.m[0][2] = 3;
+	t.m[0][3] = 5;
 
+	t.m[1][0] = -3;
+	t.m[1][1] = 1;
+	t.m[1][2] = 7;
+	t.m[1][3] = 3;
 
+	t.m[2][0] = 1;
+	t.m[2][1] = 2;
+	t.m[2][2] = -9;
+	t.m[2][3] = 6;
 
+	t.m[3][0] = -6;
+	t.m[3][1] = 7;
+	t.m[3][2] = 7;
+	t.m[3][3] = -9;
+
+	printf("cofactor    690  : %.1f\n", t4_cofactor(t, 0, 0));
+	printf("cofactor    447  : %.1f\n", t4_cofactor(t, 0, 1));
+	printf("cofactor    210  : %.1f\n", t4_cofactor(t, 0, 2));
+	printf("cofactor    51   : %.1f\n", t4_cofactor(t, 0, 3));
+	printf("determiant -4071 : %.1f\n", t4_determinant(t));
+	}
+	{
+	printf("testing 4x4 determinant\n");
+	t_t4 t;
+
+	t.m[0][0] = -2;
+	t.m[0][1] = -8;
+	t.m[0][2] = 3;
+	t.m[0][3] = 5;
+
+	t.m[1][0] = -3;
+	t.m[1][1] = 1;
+	t.m[1][2] = 7;
+	t.m[1][3] = 3;
+
+	t.m[2][0] = 1;
+	t.m[2][1] = 2;
+	t.m[2][2] = -9;
+	t.m[2][3] = 6;
+
+	t.m[3][0] = -6;
+	t.m[3][1] = 7;
+	t.m[3][2] = 7;
+	t.m[3][3] = -9;
+
+	printf("cofactor    690  : %.1f\n", t4_cofactor(t, 0, 0));
+	printf("cofactor    447  : %.1f\n", t4_cofactor(t, 0, 1));
+	printf("cofactor    210  : %.1f\n", t4_cofactor(t, 0, 2));
+	printf("cofactor    51   : %.1f\n", t4_cofactor(t, 0, 3));
+	printf("determiant -4071 : %.1f\n", t4_determinant(t));
+	}
+	{
+	printf("testing 4x4 invertability\n");
+	t_t4 t;
+
+	t.m[0][0] = 6;
+	t.m[0][1] = 4;
+	t.m[0][2] = 4;
+	t.m[0][3] = 4;
+
+	t.m[1][0] = 5;
+	t.m[1][1] = 5;
+	t.m[1][2] = 7;
+	t.m[1][3] = 6;
+
+	t.m[2][0] = 4;
+	t.m[2][1] = -9;
+	t.m[2][2] = 3;
+	t.m[2][3] = -7;
+
+	t.m[3][0] = 9;
+	t.m[3][1] = 1;
+	t.m[3][2] = 7;
+	t.m[3][3] = -6;
+
+	printf("invertability 1 : %d\n", m4_is_invertable(t));
+	}
+	{
+	t_t4 t;
+
+	t.m[0][0] = -4;
+	t.m[0][1] = 2;
+	t.m[0][2] = -2;
+	t.m[0][3] = -3;
+
+	t.m[1][0] = 9;
+	t.m[1][1] = 6;
+	t.m[1][2] = 2;
+	t.m[1][3] = 6;
+
+	t.m[2][0] = 0;
+	t.m[2][1] = -5;
+	t.m[2][2] = 1;
+	t.m[2][3] = -5;
+
+	t.m[3][0] = 0;
+	t.m[3][1] = 0;
+	t.m[3][2] = 0;
+	t.m[3][3] = 0;
+
+	printf("invertability 0 : %d\n", m4_is_invertable(t));
+	}
 	exit(-42);
 }
 
