@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:15:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 23:44:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:09:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_m4	view_transform(t_v3 from, t_v3 to, t_v3 up)
 	return (m4_x_m4(orientation, translation(-from.x, -from.y, -from.z)));
 }
 
+/*
+	sets reusable values to the camera object, called during parsing and while
+	the camera is selected.
+*/
 void	calculate_viewport(t_camera *c)
 {
 	float	half_view;

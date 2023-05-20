@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:46:45 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 14:46:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:10:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,4 +269,39 @@ static void	tests(void)
 	// check the book to compare results, but looks good to me!!!
 	}
 	exit(-42);
+}
+
+void	tests(t_app *a)
+{
+	{
+		printf("Camera transformation\n");
+		// 200 * 125 at pi/2
+		t_camera *c = &a->s.camera;
+		printf("fov         %.4f\n", c->fov);
+		printf("half_width  %.1f\n", c->half_width);
+		printf("half_height %.1f\n", c->half_height);
+		printf("pix size 0.01 : %.4f\n", c->pixel_size);
+	}
+	{
+		t_v3	from = (t_v3){0, 0, 8};
+		t_v3	to = (t_v3){0, 0, 0};
+		t_v3	up = (t_v3){0, 1, 0};
+		t_m4	m = view_transform(from, to, up);
+		t_m4	t = translation(0, 0, -8);
+
+		printf("View Transformation\n");
+		print_m4(m);
+		printf("\n");
+		print_m4(t);
+	}
+	{
+		t_v3	from = (t_v3){1, 3, 2};
+		t_v3	to = (t_v3){4, -2, 8};
+		t_v3	up = (t_v3){1, 1, 0};
+		t_m4	m = view_transform(from, to, up);
+
+		printf("View Transformation\n");
+		print_m4(m);
+	}
+	exit(42);
 }

@@ -6,48 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 23:53:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:10:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static int	init_mlx_window(t_app *a);
-
-void	tests(t_app *a)
-{
-	{
-		printf("Camera transformation\n");
-		// 200 * 125 at pi/2
-		t_camera *c = &a->s.camera;
-		printf("fov         %.4f\n", c->fov);
-		printf("half_width  %.1f\n", c->half_width);
-		printf("half_height %.1f\n", c->half_height);
-		printf("pix size 0.01 : %.4f\n", c->pixel_size);
-	}
-	{
-		t_v3	from = (t_v3){0, 0, 8};
-		t_v3	to = (t_v3){0, 0, 0};
-		t_v3	up = (t_v3){0, 1, 0};
-		t_m4	m = view_transform(from, to, up);
-		t_m4	t = translation(0, 0, -8);
-
-		printf("View Transformation\n");
-		print_m4(m);
-		printf("\n");
-		print_m4(t);
-	}
-	{
-		t_v3	from = (t_v3){1, 3, 2};
-		t_v3	to = (t_v3){4, -2, 8};
-		t_v3	up = (t_v3){1, 1, 0};
-		t_m4	m = view_transform(from, to, up);
-
-		printf("View Transformation\n");
-		print_m4(m);
-	}
-	exit(42);
-}
 
 int	main(int ac, char **av)
 {
@@ -72,8 +37,6 @@ int	main(int ac, char **av)
 	//some settings!
 	getset_settings(MRT_LOADING_PRINT | MRT_MULTI_THRED);
 
-	// tests(&a);
-
 	init_mlx_window(&a);
 
 	load_all_textures(&a);
@@ -84,9 +47,6 @@ int	main(int ac, char **av)
 	a.selected = &a.cam_passthrough;
 
 	print_scene(&a);
-
-
-	// exit(42);
 
 	if (MRT_THREAD_COUNT > 1)
 		start_threads(&a);
