@@ -70,8 +70,6 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	t->m2 = t->dv * t->d2 + t->xv;
 
 	wasteland(t);
-	i->m = t->m2;
-	i->is_cap = 0;
 	// (void)wasteland;0
 	/*
 		t->dv > FLT_EPSILON
@@ -83,10 +81,7 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	if (t->dv > FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
-		{
-			i->is_cap = 1;
 			return (start_cap(t, me, i));
-		}
 	}
 	/*
 		The orientation and dir are opposed!
@@ -94,15 +89,10 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	else if (t->dv < FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
-		{
-			i->is_cap = 1;
 			return (end_cap(t, me, i));
-		}
 	}
 	if (t->m2 < t->height && t->m2 > FLT_EPSILON)
-	{
 		return (center(t, me, i));
-	}
 	return (FLT_MAX);
 }
 
