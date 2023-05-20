@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:59:58 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 21:10:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:25:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 	this while mess of a file is for calculating the inverse of a 4x4 matrix
 */
 
-
+/*
+	calculate the determinat of a 2x2 this formes the base
+	for the rest of the calculations
+*/
 float	t2_determinant(t_t2 t)
 {
 	return (t.m[0][0] * t.m[1][1] - t.m[0][1] * t.m[1][0]);

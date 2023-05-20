@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:51:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 21:06:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:25:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float	t3_cofactor(t_t3 t, int i, int j)
 	float	minor;
 
 	minor = t3_minor(t, i, j);
-	if ((i + j) % 2 )
+	if ((i + j) % 2)
 		return (-minor);
 	return (minor);
 }
@@ -37,7 +37,6 @@ float	t3_minor(t_t3 t, float i, float j)
 	sub = t3_submatrix(t, i, j);
 	return (t2_determinant(sub));
 }
-
 
 static void	s3(float *ret, float *t, int index_to_remove)
 {

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:03:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 21:43:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:25:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ float	t4_cofactor(t_t4 t, int i, int j)
 	float	minor;
 
 	minor = t4_minor(t, i, j);
-	if ((i + j) % 2 )
+	if ((i + j) % 2)
 		return (-minor);
 	return (minor);
 }
