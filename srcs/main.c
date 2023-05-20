@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 10:19:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:50:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,9 @@ static void	tests(void)
 
 int	main(int ac, char **av)
 {
-	tests();
+	// tests();
+	(void)tests;
+
 	t_app	a;
 
 	if (ac != 2)
@@ -300,8 +302,11 @@ int	main(int ac, char **av)
 
 	load_all_textures(&a);
 
+	a.cam_passthrough.type = e_camera;
+	a.cam_passthrough.object.c = a.s.camera;
 
-	a.selected = a.s.objects_list->content;
+	a.selected = &a.cam_passthrough;
+
 	print_scene(&a);
 	// exit(42);
 

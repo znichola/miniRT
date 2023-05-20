@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:15:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 22:14:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:00:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 	translate a vector to a new coordinate space
+	produces a transformation matrix
 */
 t_m4	view_transform(t_v3 from, t_v3 to, t_v3 up)
 {

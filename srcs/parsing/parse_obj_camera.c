@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/19 11:32:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:35:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_grammar_camera(t_token *tokens);
 static void	consume_camera(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_camera(t_object *obj);
+static void	calculate_viewport(t_camera *c);
 
 int	parse_camera(t_token **tokens, t_object *obj)
 {
@@ -55,14 +56,21 @@ static void	consume_camera(t_token **tokens, t_object *obj)
 static int	validate_and_reformat_camera(t_object *obj)
 {
 	t_camera	*c;
-	float		half_view;
-	float		aspect_ratio;
 
 	c = &obj->object.c;
 	if (validate_orientation(&c->orientation) != 0)
 		return (-1);
 	if (c->fov <= 0 || c->fov > 180)
 		return (-1);
+	calculate_viewport(c);
+	return (0);
+}
+
+static void	calculate_viewport(t_camera *c)
+{
+	float		half_view;
+	float		aspect_ratio;
+
 	half_view = tan(c->fov / 2);
 	aspect_ratio = HEIGHT / WIDTH;
 	if (aspect_ratio >= 1)
@@ -77,5 +85,5 @@ static int	validate_and_reformat_camera(t_object *obj)
 	}
 	c->pixel_size = (c->half_width * 2) / HEIGHT;
 	c->transform = view_transform(c->position, ORIGIN, c->orientation);
-	return (0);
+	c->inverse_transform = m4_inverse(c->transform);
 }

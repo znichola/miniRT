@@ -6,11 +6,16 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:43:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 10:27:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:08:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_m4	m4_inverse(t_m4 m)
+{
+	return (t4_to_m(t4_inverse(m4_to_t(&m))));
+}
 
 /*
 	find the inverse of a matrix
@@ -54,6 +59,18 @@ t_m4	translation(float x, float y, float z)
 }
 
 /*
+	multiply the matricies together as points, we set the extra w to 1
+*/
+t_v3	m4_x_v3(t_m4 m, t_v3 v)
+{
+	return ((t_v3){
+		 v.x * m.t00 + v.y * m.t01 + v.z * m.t02 + m.t03,
+		 v.x * m.t10 + v.y * m.t11 + v.z * m.t12 + m.t13,
+		 v.x * m.t20 + v.y * m.t21 + v.z * m.t22 + m.t23,
+	});
+}
+
+/*
 	a.ti0 * b.t0j + a.ti1 * b.t1j + a.ti2 * b.tj2 + a.ti3 * b.tj3, //cij
 */
 t_m4	m4_x_m4(t_m4 a, t_m4 b)
@@ -76,12 +93,4 @@ t_m4	m4_x_m4(t_m4 a, t_m4 b)
 		a.t30 * b.t02 + a.t31 * b.t12 + a.t32 * b.t22 + a.t33 * b.t23,
 		a.t30 * b.t03 + a.t31 * b.t13 + a.t32 * b.t32 + a.t33 * b.t33
 	});
-}
-
-/*
-	check if a matrix is invertable
-*/
-int	t4_is_invertable(t_t4 m)
-{
-	return (!!t4_determinant(m));
 }

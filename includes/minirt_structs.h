@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 00:36:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:37:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct s_v3
 	float	y;
 	float	z;
 }	t_v3;
+
+typedef struct s_ray
+{
+	t_v3	direction;
+	t_v3	origin;
+}	t_ray;
 
 /*
 	matrix used for vector transformations
@@ -297,6 +303,7 @@ typedef	struct s_app
 	int			keyboard_held[KEYBOARD_KEY_COUNT];
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
+	t_object	cam_passthrough;
 	t_object	*selected;
 
 	// world

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:03:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 10:25:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:05:03 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ float	t4_determinant(t_t4 t)
 		t.m[0][1] * t4_cofactor(t, 0, 1) +
 		t.m[0][2] * t4_cofactor(t, 0, 2) +
 		t.m[0][3] * t4_cofactor(t, 0, 3));
+}
+
+/*
+	check if a matrix is invertable
+*/
+int	t4_is_invertable(t_t4 m)
+{
+	return (!!t4_determinant(m));
 }
 
 float	t4_cofactor(t_t4 t, int i, int j)

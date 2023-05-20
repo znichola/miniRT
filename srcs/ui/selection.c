@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:02:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:52:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:38:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static const char	*ret_p1_str(t_object *o)
 		return (s[2]);
 	else if (o->type == e_cone)
 		return (s[5]);
+	else if (o->type == e_camera)
+		return (s[1]);
 	return (s[4]);
 }
 

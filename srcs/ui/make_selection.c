@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 23:31:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:14:43 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	scroll_value(t_app *a, float *p, float inc);
 
 int	screen_select(t_app *a)
 {
-	t_v3			ray;
+	t_ray			ray;
 	t_object		*obj;
 	t_intersection	i;
 
 	ray = pixel_to_ray(a, a->mouse_pos.x, a->mouse_pos.y);
-	obj = find_poi(&a->s, ray, a->s.camera.position, &i);
+	obj = find_poi(&a->s, ray.direction, ray.origin, &i);
 	if (obj)
 	{
 		a->selected = obj;
