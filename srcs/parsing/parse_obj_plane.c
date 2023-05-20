@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 12:20:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:46:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void consume_optional_plane(t_token **tokens, t_plane *pl)
 	pl->texture.filepath = NULL;
 	pl->bump.filepath = NULL;
 	pl->normal.filepath = NULL;
+	pl->checker = 0;
 	while (*tokens && (*tokens)->type == e_optional)
 	{
 		if ((*tokens)->value.opt.type == e_texture)
@@ -69,6 +70,8 @@ static void consume_optional_plane(t_token **tokens, t_plane *pl)
 			pl->bump.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_normal)
 			pl->normal.filepath = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_checker)
+			pl->checker = ft_strcmp((*tokens)->value.opt.filepath, "true") == 0;
 		*tokens = (*tokens)->next;
 	}
 }

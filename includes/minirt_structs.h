@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 12:16:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:49:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct	s_intersection
 	t_v3	poi;
 	t_v3	poi_normal;
 	float	poi_disance;
+	float	m;
+	int		is_cap;
 	int		is_marked;
 }	t_intersection;
 
@@ -134,6 +136,7 @@ typedef struct	s_sphere
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
+	int			checker;
 }	t_sphere;
 
 typedef struct	s_plane
@@ -144,6 +147,7 @@ typedef struct	s_plane
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
+	int			checker;
 }	t_plane;
 
 typedef struct	s_cylinder
@@ -156,19 +160,21 @@ typedef struct	s_cylinder
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
+	int			checker;
 }	t_cylinder;
 
 typedef struct	s_cone
 {
 	t_v3	position;
 	t_v3	orientation;
-	float	radius;
+	float	height_start;
 	float	height;
 	float	angle;
 	t_v3	colour;
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
+	int			checker;
 }	t_cone;
 
 union	u_object

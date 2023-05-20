@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:45:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:24:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i);
-static void		calc_normal(t_terms *t, t_cone *me, t_intersection *i);
-static int		count_and_set_intersection(t_terms *t);
+static float	start_cap(t_terms *t, t_cone *me, t_intersection *i);
+static float	end_cap(t_terms *t, t_cone *me, t_intersection *i);
+static float	center(t_terms *t, t_cone *me, t_intersection *i);
+
+static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i);
+static void		wasteland(t_terms *t);
 
 /*
 	calculate the point at which a cylinder is intersected
@@ -47,15 +50,15 @@ float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 	}
 
 	t.height = me->height;
-	i->poi_disance = calc_poi(&t, source, ray, i);
-
-	if (i->poi_disance != FLT_EPSILON)
-		calc_normal(&t, me, i);
-
+	t.ray = ray;
+	t.source = source;
+	i->poi_disance = calc_poi(&t, me, i);
 	return (i->poi_disance);
 }
 
-static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
+#include <assert.h>
+
+static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 {
 	t->discrimant = sqrtf(t->discrimant);
 	t->a = t->a * 2;
@@ -64,91 +67,130 @@ static float	calc_poi(t_terms *t, t_v3 source, t_v3 ray, t_intersection *i)
 
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
-	if (t->d1 < t->d2 && t->d1 > FLT_EPSILON)
+
+	wasteland(t);
+	i->m = t->m2;
+	i->is_cap = 0;
+
+	/*
+		t->dv > FLT_EPSILON
+		When true the ray and orientation
+		are both pointing in the same direction
+		If true we are in a top cap situation,
+		if false it's a bottom cap!
+	*/
+	if (t->dv > FLT_EPSILON)
 	{
-		/* why do we never use this part of the equation !? */
-		// printf("boo, we got here in the unsed wastland...\n");
-		if (count_and_set_intersection(t) == 0)
-			return (FLT_MAX);
-		i->poi = v3_add(source, v3_multiply(ray, t->d1));
-		return (t->d1);
+		if (t->m2 > FLT_EPSILON && t->m2 < me->height_start && t->m1 > me->height_start)
+		{
+			//i->is_marked = e_fuschia;
+			i->is_cap = 1;
+			return (start_cap(t, me, i));
+		}
 	}
-	else if (t->d2 > FLT_EPSILON)
+	/*
+		The orientation and dir are opposed!
+	*/
+	else if (t->dv < FLT_EPSILON)
 	{
-		if (count_and_set_intersection(t) == 0)
-			return (FLT_MAX);
-		i->poi = v3_add(source, v3_multiply(ray, t->d2));
-		return (t->d2);
+		if (t->m2 > t->height && t->m1 < t->height && t->m1 > FLT_EPSILON)
+		{
+			i->is_cap = 1;
+			return (end_cap(t, me, i));
+		}
+	}
+	if (t->m2 < t->height && t->m2 > me->height_start)
+	{
+		return (center(t, me, i));
 	}
 	return (FLT_MAX);
 }
 
-static void	calc_normal(t_terms *t, t_cone *me, t_intersection *i)
+/*
+	return dist, set i.poi, i.pon_normal i.poi_dist
+*/
+static float	start_cap(t_terms *t, t_cone *me, t_intersection *i)
 {
-	//   N = nrm( P-C-V*m )
+	/* recompute some of the terms */
+	t->x = v3_subtract(t->source,
+		v3_add(me->position, v3_multiply(me->orientation, me->height_start)));
+	t->xv = v3_dot(t->x, v3_multiply(me->orientation, -1));
+	t->dv = v3_dot(t->ray, v3_multiply(me->orientation, -1));
 
-	// if (t->message == 'b')
-	// {
-		i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position),
-			v3_multiply(me->orientation, t->m * (1 + t->kk)));
-		i->poi_normal = v3_unitvec(i->poi_normal);
-		return ;
-	// }
-	// else if (t->message == '1')
-	// {
-	// 	i->poi_normal = v3_multiply(me->orientation, -1);
-	// }
-	// else if (t->message == '1')
-	// {
-	// 	i->poi_normal = me->orientation;
-	// }
+	/* point of intersection*/
+	i->poi_disance = - t->xv / t->dv;
+	if (i->poi_disance < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
+	i->poi = v3_multiply(t->ray, i->poi_disance);
 
+	/* normal at intersection */
+	i->poi_normal = v3_multiply(me->orientation, -1);
+	return (i->poi_disance);
 }
 
 /*
-	When trying to calculate the point of intersection the cylinder extends to
-	infinity, so we must use the m value and compare it against [0, height]
-
-	If one of the two results is outside the range, we want to take the samller
-	of the two to ensure it's normal will point the right way.
-	This is for an uncapped cylinder.
-
-	To cap the cylinder to need to know which of the caps it is;
-	start_cap or end_cap, to know what direction the normal should be.
-
-	We use the message variable to communicate which cap it is to calc_normal
-
-	'1' means it's m1 that is the closer point
-	'2' means it's m2 that's closer
-	'b' means both were in range so m was set to the closer one
-
-
+	return dist, set i.poi, i.pon_normal i.poi_dist
 */
-static int	count_and_set_intersection(t_terms *t)
+static float	end_cap(t_terms *t, t_cone *me, t_intersection *i)
 {
-	int ret;
+	t->x = v3_subtract(t->source,
+		v3_add(me->position, v3_multiply(me->orientation, me->height)));
+	t->xv = v3_dot(t->x, me->orientation);
 
-	ret = 0;
-	t->message = 'n';
-	if (t->m1 > FLT_EPSILON && t->m1 < t->height)
+	if (t->dv == FLT_EPSILON || (t->xv > 0 && t->dv > 0) || (t->xv < 0 && t->dv < 0))
+		return (FLT_MAX);
+
+	/* point of intersection*/
+	i->poi_disance = -t->xv / t->dv;
+	if (i->poi_disance < FLT_EPSILON)
 	{
-		t->m = t->m1;
-		t->message = '1';
-		ret += 1;
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
 	}
-	if (t->m2 > FLT_EPSILON && t->m2 < t->height)
+
+	i->poi = v3_multiply(t->ray, i->poi_disance);
+
+	/* normal at intersection */
+	i->poi_normal = me->orientation;
+	return (i->poi_disance);
+}
+
+/*
+	center or body option of the cone
+*/
+static float	center(t_terms *t, t_cone *me, t_intersection *i)
+{
+	if (t->d2 < FLT_EPSILON)
 	{
-		if (ret == 0)
-		{
-			t->m = t->m2;
-			t->message = '2';
-		}
-		else if (t->m2 < t->m1)
-		{
-			t->m = t->m2;
-			t->message = 'b';
-		}
-		ret += 1;
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
 	}
-	return (ret);
+	i->poi = v3_add(t->source, v3_multiply(t->ray, t->d2));
+	i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position), v3_multiply(me->orientation, t->m2));
+	i->poi_normal = v3_unitvec(i->poi_normal);
+	i->poi_disance = t->d2;
+	return (t->d2);
+}
+
+
+/*
+	sets the terms so the closest poi is d2 and m2
+*/
+static void	wasteland(t_terms *t)
+{
+	float	tmp;
+
+	if ((t->d2 - t->d1) > FLT_EPSILON)
+	{
+		tmp = t->d1;
+		t->d1 = t->d2;
+		t->d2 = tmp;
+		tmp = t->m1;
+		t->m1 = t->m2;
+		t->m2 = tmp;
+		assert(t->d2 - t->d1 <= FLT_EPSILON);
+	}
 }

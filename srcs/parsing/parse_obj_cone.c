@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:15:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:49:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	consume_cone(t_token **tokens, t_object *obj)
 	*tokens = (*tokens)->next;
 	obj->object.co.orientation = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-	obj->object.co.radius = (*tokens)->value.scalar;
+	obj->object.co.height_start = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
 	obj->object.co.height = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
@@ -65,6 +65,7 @@ static void consume_optional_cone(t_token **tokens, t_cone *co)
 	co->texture.filepath = NULL;
 	co->bump.filepath = NULL;
 	co->normal.filepath = NULL;
+	co->checker = 0;
 	while (*tokens && (*tokens)->type == e_optional)
 	{
 		if ((*tokens)->value.opt.type == e_texture)
@@ -73,6 +74,8 @@ static void consume_optional_cone(t_token **tokens, t_cone *co)
 			co->bump.filepath = ft_strdup((*tokens)->value.opt.filepath);
 		else if ((*tokens)->value.opt.type == e_normal)
 			co->normal.filepath = ft_strdup((*tokens)->value.opt.filepath);
+		else if ((*tokens)->value.opt.type == e_checker)
+			co->checker = ft_strcmp((*tokens)->value.opt.filepath, "true") == 0;
 		*tokens = (*tokens)->next;
 	}
 }
@@ -85,9 +88,9 @@ static int	validate_and_reformat_cone(t_object *obj)
 	co = &obj->object.co;
 	if (validate_orientation(&co->orientation) != 0)
 		return (-1);
-	if (co->radius < 0)
+	if (co->height_start < 0)
 		return (-1);
-	co->radius /= 2;
+	co->height_start /= 2;
 	if (co->height < 0)
 		return (-1);
 	if (validate_colour(&co->colour) != 0)

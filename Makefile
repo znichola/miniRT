@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/14 13:17:02 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/18 15:00:55 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,10 @@ CFLAGS += -g3
 else
 ifdef DEBUG
 CFLAGS	+= -Og -g1 -fsanitize=address
+else
+ifdef THREAD
+CFLAGS += -fsanitize=thread
+endif
 endif
 endif
 endif
