@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 19:19:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:53:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	tests(t_app *a)
 		t_v3	to = (t_v3){0, 0, 0};
 		t_v3	up = (t_v3){0, 1, 0};
 		t_m4	m = view_transform(from, to, up);
+		t_m4	t = translation(0, 0, -8);
 
 		printf("View Transformation\n");
 		print_m4(m);
+		printf("\n");
+		print_m4(t);
 	}
 	{
 		t_v3	from = (t_v3){1, 3, 2};

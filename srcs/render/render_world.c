@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 23:00:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:52:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	render_world(t_app *a)
 t_ray	pixel_to_ray(t_app *a, int u, int v)
 {
 	t_ray	ray;
-	// t_v3	pixel;
+	t_v3	pixel;
 
 	float	xoffset;
 	float	yoffset;
@@ -49,13 +49,13 @@ t_ray	pixel_to_ray(t_app *a, int u, int v)
 	world_y = a->s.camera.half_height - yoffset;
 
 	/* wikipedia ray tracing attempt*/
-	t_v3	t = a->s.camera.orientation;
-	t_v3	b = v3_cross(t, UP);
-	b = v3_unitvec(b);
-	t_v3	v = v3_cross(t, b);
+	// t_v3	t = a->s.camera.orientation;
+	// t_v3	b = v3_cross(t, UP);
+	// b = v3_unitvec(b);
+	// t_v3	v = v3_cross(t, b);
 
-	t_v3	qx = (t_v3){world_x, 0, 0};
-	t_v3	qy = (t_v3){0, world_y, 0};
+	// t_v3	qx = (t_v3){world_x, 0, 0};
+	// t_v3	qy = (t_v3){0, world_y, 0};
 
 	/* my halfbaked attempt */
 	// ray.direction = v3_unitvec((t_v3){-world_x, world_y, 1});
@@ -64,9 +64,9 @@ t_ray	pixel_to_ray(t_app *a, int u, int v)
 	// ray.origin = a->s.camera.position;
 
 	/* attempt with the book */
-	// pixel = m4_x_v3(a->s.camera.inverse_transform, (t_v3){world_x, world_y, -1});
-	// ray.origin = m4_x_v3(a->s.camera.inverse_transform, ORIGIN);
-	// ray.direction = v3_unitvec(v3_subtract(pixel, ray.origin));
+	pixel = m4_x_v3(a->s.camera.inverse_transform, (t_v3){world_x, world_y, -1});
+	ray.origin = m4_x_v3(a->s.camera.inverse_transform, ORIGIN);
+	ray.direction = v3_unitvec(v3_subtract(pixel, ray.origin));
 
 	// if (u == 100 && v == 50)
 	// {

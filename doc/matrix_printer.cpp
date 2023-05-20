@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:05:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 12:54:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:33:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ typedef struct	s_m4
 
 int main(void)
 {
-	// std::string s("a.ti0 * b.t0j + a.ti1 * b.t1j + a.ti2 * b.tj2 + a.ti3 * b.tj3, // cij");
+	std::string s("a.ti0 * b.t0j + a.ti1 * b.t1j + a.ti2 * b.t2j + a.ti3 * b.t3j, //cij");
 	// std::string s("t.m[i][j] = m->tij;");
-	std::string s("m.tij = t.m[i][j];");
+	// std::string s("m.tij = t.m[i][j];");
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)

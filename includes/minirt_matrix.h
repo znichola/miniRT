@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:50:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 12:05:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:44:43 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 /* view_transformation.c */
 
 t_m4	view_transform(t_v3 from, t_v3 to, t_v3 up);
+void	calculate_viewport(t_camera *c);
 
 /* matrix.c */
 

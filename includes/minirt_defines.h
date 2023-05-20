@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 19:04:03 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:54:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // window settings
 # define WIDTH 1200
-# define HEIGHT 1200
+# define HEIGHT 900
 // uncomment to go back after testing
 
 // # define WIDTH  201

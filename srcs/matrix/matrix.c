@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:43:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 12:08:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:50:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,33 @@ t_m4	translation(float x, float y, float z)
 t_v3	m4_x_v3(t_m4 m, t_v3 v)
 {
 	return ((t_v3){
-		 v.x * m.t00 + v.y * m.t01 + v.z * m.t02 + m.t03,
-		 v.x * m.t10 + v.y * m.t11 + v.z * m.t12 + m.t13,
-		 v.x * m.t20 + v.y * m.t21 + v.z * m.t22 + m.t23,
+		v.x * m.t00 + v.y * m.t01 + v.z * m.t02 + m.t03,
+		v.x * m.t10 + v.y * m.t11 + v.z * m.t12 + m.t13,
+		v.x * m.t20 + v.y * m.t21 + v.z * m.t22 + m.t23,
 	});
 }
 
 /*
-	a.ti0 * b.t0j + a.ti1 * b.t1j + a.ti2 * b.tj2 + a.ti3 * b.tj3, //cij
+	a.ti0 * b.t0j + a.ti1 * b.t1j + a.ti2 * b.t2j + a.ti3 * b.t3j, //cij
 */
 t_m4	m4_x_m4(t_m4 a, t_m4 b)
 {
 	return ((t_m4){
-		a.t00 * b.t00 + a.t01 * b.t10 + a.t02 * b.t02 + a.t03 * b.t03,
-		a.t00 * b.t01 + a.t01 * b.t11 + a.t02 * b.t12 + a.t03 * b.t13,
-		a.t00 * b.t02 + a.t01 * b.t12 + a.t02 * b.t22 + a.t03 * b.t23,
-		a.t00 * b.t03 + a.t01 * b.t13 + a.t02 * b.t32 + a.t03 * b.t33,
-		a.t10 * b.t00 + a.t11 * b.t10 + a.t12 * b.t02 + a.t13 * b.t03,
-		a.t10 * b.t01 + a.t11 * b.t11 + a.t12 * b.t12 + a.t13 * b.t13,
-		a.t10 * b.t02 + a.t11 * b.t12 + a.t12 * b.t22 + a.t13 * b.t23,
-		a.t10 * b.t03 + a.t11 * b.t13 + a.t12 * b.t32 + a.t13 * b.t33,
-		a.t20 * b.t00 + a.t21 * b.t10 + a.t22 * b.t02 + a.t23 * b.t03,
-		a.t20 * b.t01 + a.t21 * b.t11 + a.t22 * b.t12 + a.t23 * b.t13,
-		a.t20 * b.t02 + a.t21 * b.t12 + a.t22 * b.t22 + a.t23 * b.t23,
-		a.t20 * b.t03 + a.t21 * b.t13 + a.t22 * b.t32 + a.t23 * b.t33,
-		a.t30 * b.t00 + a.t31 * b.t10 + a.t32 * b.t02 + a.t33 * b.t03,
-		a.t30 * b.t01 + a.t31 * b.t11 + a.t32 * b.t12 + a.t33 * b.t13,
-		a.t30 * b.t02 + a.t31 * b.t12 + a.t32 * b.t22 + a.t33 * b.t23,
-		a.t30 * b.t03 + a.t31 * b.t13 + a.t32 * b.t32 + a.t33 * b.t33
+		a.t00 * b.t00 + a.t01 * b.t10 + a.t02 * b.t20 + a.t03 * b.t30,
+		a.t00 * b.t01 + a.t01 * b.t11 + a.t02 * b.t21 + a.t03 * b.t31,
+		a.t00 * b.t02 + a.t01 * b.t12 + a.t02 * b.t22 + a.t03 * b.t32,
+		a.t00 * b.t03 + a.t01 * b.t13 + a.t02 * b.t23 + a.t03 * b.t33,
+		a.t10 * b.t00 + a.t11 * b.t10 + a.t12 * b.t20 + a.t13 * b.t30,
+		a.t10 * b.t01 + a.t11 * b.t11 + a.t12 * b.t21 + a.t13 * b.t31,
+		a.t10 * b.t02 + a.t11 * b.t12 + a.t12 * b.t22 + a.t13 * b.t32,
+		a.t10 * b.t03 + a.t11 * b.t13 + a.t12 * b.t23 + a.t13 * b.t33,
+		a.t20 * b.t00 + a.t21 * b.t10 + a.t22 * b.t20 + a.t23 * b.t30,
+		a.t20 * b.t01 + a.t21 * b.t11 + a.t22 * b.t21 + a.t23 * b.t31,
+		a.t20 * b.t02 + a.t21 * b.t12 + a.t22 * b.t22 + a.t23 * b.t32,
+		a.t20 * b.t03 + a.t21 * b.t13 + a.t22 * b.t23 + a.t23 * b.t33,
+		a.t30 * b.t00 + a.t31 * b.t10 + a.t32 * b.t20 + a.t33 * b.t30,
+		a.t30 * b.t01 + a.t31 * b.t11 + a.t32 * b.t21 + a.t33 * b.t31,
+		a.t30 * b.t02 + a.t31 * b.t12 + a.t32 * b.t22 + a.t33 * b.t32,
+		a.t30 * b.t03 + a.t31 * b.t13 + a.t32 * b.t23 + a.t33 * b.t33,
 	});
 }
