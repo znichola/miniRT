@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 18:18:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/21 01:35:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,16 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 		If true we are in a top cap situation,
 		if false it's a bottom cap!
 	*/
+	i->m = t->m2;
+	i->is_cap = 0;
+
 	if (t->dv > FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 < FLT_EPSILON && t->m1 > FLT_EPSILON)
+		{
+			i->is_cap = 1;
 			return (start_cap(t, me, i));
+		}
 	}
 	/*
 		The orientation and dir are opposed!
@@ -89,7 +95,10 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	else if (t->dv < FLT_EPSILON)
 	{
 		if (t->d1 > t->d2 && t->m2 > t->height && t->m1 < t->height)
+		{
+			i->is_cap = 1;
 			return (end_cap(t, me, i));
+		}
 	}
 	if (t->m2 < t->height && t->m2 > FLT_EPSILON)
 		return (center(t, me, i));

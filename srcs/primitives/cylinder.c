@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 18:20:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/21 01:39:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

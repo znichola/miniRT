@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 09:53:57 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/11 12:19:46 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/21 01:01:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
