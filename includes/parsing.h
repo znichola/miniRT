@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:23:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/20 20:14:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,8 @@ int	validate_colour(t_v3 *vec);
 
 /* grammar check */
 int	check_line_grammar(t_token *tokens);
+
+void	calculate_viewport(t_camera *c);
+
 
 #endif

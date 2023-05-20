@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:43:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 15:34:40 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:01:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,26 @@ void	print_scene(t_app *a)
 	printf("\nlights\n");
 	print_lights_list(a->s.lights_list);
 
+}
+
+void	print_m4(t_m4 m)
+{
+	t_t4	t;
+	int		i;
+	int		j;
+
+	t = m4_to_t(&m);
+	i = 0;
+	while (i < 4)
+	{
+		printf("| ");
+		j = 0;
+		while (j < 4)
+		{
+			printf("%8.5f ", t.m[i][j]);
+			j++;
+		}
+		printf("|\n");
+		i++;
+	}
 }

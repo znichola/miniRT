@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 00:37:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:39:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ float	get_obj_p1(t_object *o)
 		return (o->object.l.ratio);
 	else if (o->type == e_cone)
 		return (o->object.co.height_start);
+	else if (o->type == e_camera)
+		return (o->object.c.fov);
 	return (NAN);
 }
 
