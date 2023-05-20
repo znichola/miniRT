@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:49:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:39:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct s_v3
 	float	z;
 }	t_v3;
 
+typedef struct s_ray
+{
+	t_v3	direction;
+	t_v3	origin;
+}	t_ray;
+
 /*
 	matrix used for vector transformations
 */
@@ -51,6 +57,58 @@ typedef struct s_mat4x4
 {
 	float	m[4][4];
 }	t_mat4x4;
+
+
+/*
+	new, easier matrix definition
+
+	00 01 02 03
+	10 11 12 13
+	20 21 22 23
+	30 31 32 33
+
+*/
+typedef struct	s_m4
+{
+	float t00;
+	float t01;
+	float t02;
+	float t03;
+
+	float t10;
+	float t11;
+	float t12;
+	float t13;
+
+	float t20;
+	float t21;
+	float t22;
+	float t23;
+
+	float t30;
+	float t31;
+	float t32;
+	float t33;
+}	t_m4;
+
+/*
+	this mess is needed for the inverse matrix
+*/
+
+typedef struct	s_t4
+{
+	float	m[4][4];
+}	t_t4;
+
+typedef struct	s_t3
+{
+	float	m[3][3];
+}	t_t3;
+
+typedef struct	s_t2
+{
+	float	m[2][2];
+}	t_t2;
 
 /*
 	data structure for holding image data
@@ -119,6 +177,11 @@ typedef struct	s_camera
 	t_v3	position;
 	t_v3	orientation;
 	float	fov;
+	float	half_width;
+	float	half_height;
+	float	pixel_size;
+	t_m4	transform;
+	t_m4	inverse_transform;
 }	t_camera;
 
 typedef struct	s_light
@@ -240,6 +303,7 @@ typedef	struct s_app
 	int			keyboard_held[KEYBOARD_KEY_COUNT];
 	int			keyboard_release[KEYBOARD_KEY_COUNT];
 
+	t_object	cam_passthrough;
 	t_object	*selected;
 
 	// world

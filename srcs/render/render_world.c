@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/16 19:01:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:08:55 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	single_thread_render(t_app *a);
 
 /*
-	For each pixel in our image, compute it's color by computing a ray that goes
-	from the camera origin into the scene.
+	For each pixel in our image, compute it's color by computing
+	a ray that goes	from the camera origin into the scene.
 */
 int	render_world(t_app *a)
 {
@@ -33,25 +33,20 @@ int	render_world(t_app *a)
 /*
 	Compute direction vector of the given pixel.
 */
-t_v3	pixel_to_ray(t_app *a, int u, int v)
+t_ray	pixel_to_ray(t_app *a, int u, int v)
 {
-	t_v3	ray;
+	t_ray	ray;
+	t_v3	pixel;
+	float	world_x;
+	float	world_y;
 
-	/*
-		create a ray from the origin through the pixel in question. Assuming
-		the camera is fixed at (0, 0, 0) and looking at (0,0,1)
-	*/
-	ray = (t_v3){get_ratio(a, 'w', u), get_ratio(a, 'h', v), 1};
+	world_x = a->s.camera.half_width - ((u + 0.5) * a->s.camera.pixel_size);
+	world_y = a->s.camera.half_height - ((v + 0.5) * a->s.camera.pixel_size);
 
-	/*
-		now we should have a transformation matrix that translates this
-		calculated ray to the camera position, then orients it.
-	*/
-
-	/*
-		translate the pixel/ray to the correct posisiton.
-	*/
-	ray = v3_add(ray, a->s.camera.position);
+	pixel = m4_x_v3(a->s.camera.inverse_transform,
+		(t_v3){world_x, world_y, -1});
+	ray.origin = m4_x_v3(a->s.camera.inverse_transform, ORIGIN);
+	ray.direction = v3_unitvec(v3_subtract(pixel, ray.origin));
 
 	return (ray);
 }
@@ -59,14 +54,14 @@ t_v3	pixel_to_ray(t_app *a, int u, int v)
 /*
 	Compute the color of a ray.
 */
-t_v3	draw_ray(t_app *a, t_v3 ray)
+t_v3	draw_ray(t_app *a, t_ray ray)
 {
 	t_object		*closest;
 	t_intersection	i;
 	t_v3			col;
 
 	i.is_marked = 0;
-	closest = find_poi(&a->s, ray, a->s.camera.position, &i);
+	closest = find_poi(&a->s, ray.direction, ray.origin, &i);
 	if (i.is_marked == e_green)
 		col = (t_v3){0.2,1.0,0.0};
 	else if (i.is_marked == e_cyan)
@@ -118,7 +113,7 @@ static void	single_thread_render(t_app *a)
 {
 	int		u;
 	int		v;
-	t_v3	ray;
+	t_ray	ray;
 	t_v3	clr;
 
 	u = 0;

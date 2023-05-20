@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 14:06:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:30:17 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		imin(int a, int b);
 int		imax(int a, int b);
 void	print_image(t_app *a);
 void	print_scene(t_app *a);
+void	print_m4(t_m4 m);
 
 
 /* trgb.c */

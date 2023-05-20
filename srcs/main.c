@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/16 13:20:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:10:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	init_mlx_window(t_app *a);
 
 int	main(int ac, char **av)
 {
+
 	t_app	a;
 
 	if (ac != 2)
@@ -40,10 +41,12 @@ int	main(int ac, char **av)
 
 	load_all_textures(&a);
 
+	a.cam_passthrough.type = e_camera;
+	a.cam_passthrough.object.c = a.s.camera;
 
-	a.selected = a.s.objects_list->content;
+	a.selected = &a.cam_passthrough;
+
 	print_scene(&a);
-	// exit(42);
 
 	if (MRT_THREAD_COUNT > 1)
 		start_threads(&a);

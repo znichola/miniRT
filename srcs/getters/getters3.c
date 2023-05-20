@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:49:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:37:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_v3	*ref_obj_pos(t_object *o)
 		return (&o->object.l.position);
 	else if (o->type == e_cone)
 		return (&o->object.co.position);
+	else if (o->type == e_camera)
+		return (&o->object.c.position);
 	return (NULL);
 }
 
@@ -52,6 +54,8 @@ t_v3	*ref_obj_dir(t_object *o)
 		return (&o->object.pl.orientation);
 	else if (o->type == e_cone)
 		return (&o->object.co.orientation);
+	else if (o->type == e_camera)
+		return (&o->object.c.orientation);
 	return (NULL);
 }
 
@@ -67,6 +71,8 @@ float	*ref_obj_p1(t_object *o)
 		return (&o->object.l.ratio);
 	else if (o->type == e_cone)
 		return (&o->object.co.height_start);
+	else if (o->type == e_camera)
+		return (&o->object.c.fov);
 	return (NULL);
 }
 

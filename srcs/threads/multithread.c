@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:02:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/14 13:40:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:17:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	partial_render(t_app *a, t_img_data *img, int v_start, int v_stop)
 {
 	int		u;
 	int		v;
-	t_v3	ray;
+	t_ray	ray;
 	t_v3	clr;
 
 	u = 0;

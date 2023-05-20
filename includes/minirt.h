@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:32:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/19 21:40:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "minirt_getters.h"
 # include "parsing.h"
 # include "minirt_threads.h"
+# include "minirt_matrix.h"
 
 void	load_texture(t_app	*app, t_img_data *texture);
 t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point);

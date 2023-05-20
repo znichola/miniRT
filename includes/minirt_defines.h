@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_defines.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 16:06:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/20 23:54:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 
 // window settings
 # define WIDTH 1200
-# define HEIGHT 1200
+# define HEIGHT 900
+// uncomment to go back after testing
+
+// # define WIDTH  201
+// # define HEIGHT 101
+// remove after testing is finished!
 
 # define ORIGIN (t_v3){0, 0, 0}
 # define UP (t_v3){0, 1, 0}

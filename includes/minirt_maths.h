@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 13:09:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:09:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ t_v3		v3_subtract(t_v3 a, t_v3 b);
 t_v3		v3_multiply(t_v3 v, float s);
 t_v3		v3_divide(t_v3 v, float s);
 
-/* matrix.c */
-
-t_v3 		v3_multiply_matrix(t_v3 i, t_mat4x4 t);
-t_mat4x4	direction_mat(t_v3 dir);
-
 /* colour.c */
 
 int			v3_to_col(t_v3 v);
@@ -58,6 +53,7 @@ float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i);
 float		poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 /* poi_cone.c */
+
 float		poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 #endif /* MINIRT_VECTOR_H */

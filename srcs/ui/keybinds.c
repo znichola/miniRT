@@ -6,26 +6,44 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:12:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 23:32:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 20:15:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void	camera_re_calc(t_app *a);
+static void	obj_selection(t_app *a);
+
 int	assign_keybinds(t_app *a)
 {
-	int	chagne;
+	obj_selection(a);
 
-	modify_v3(a, ref_obj_pos(a->selected), e_key_g);
-	// modify_v3(a, ref_obj_dir(a->selected), e_key_y);
-	modify_v3_unitvec(a, ref_obj_dir(a->selected), e_key_t);
-	modify_v3_colour(a, ref_obj_col(a->selected), e_key_y);
-	mofify_float(a, ref_obj_p1(a->selected), e_key_b);
-	mofify_float(a, ref_obj_p2(a->selected), e_key_h);
-	mofify_float(a, ref_obj_p3(a->selected), e_key_n);
-	// mofify_float(a, ref_obj_p3(a->selected), e_key_n); /* for future cone */
+	if (a->selected->type == e_camera)
+		camera_re_calc(a);
+	else
+	{
+		modify_v3(a, ref_obj_pos(a->selected), e_key_g);
+		modify_v3_unitvec(a, ref_obj_dir(a->selected), e_key_t);
+		modify_v3_colour(a, ref_obj_col(a->selected), e_key_y);
+		mofify_float(a, ref_obj_p1(a->selected), e_key_b);
+		mofify_float(a, ref_obj_p2(a->selected), e_key_h);
+		mofify_float(a, ref_obj_p3(a->selected), e_key_n);
 
-	if (a->keyboard_press[e_key_tab])
+	}
+
+
+	a->mouse_pos_old = a->mouse_pos;
+	return (1);
+}
+
+static void	obj_selection(t_app *a)
+{
+	if (a->mouse_key_click[e_mouse_left] && screen_select(a))
+		printf("selecting new shape!\n");
+	else if (a->keyboard_press[e_key_c])
+		a->selected = &a->cam_passthrough;
+	else if (a->keyboard_press[e_key_tab])
 	{
 		static t_list	*last_light;
 
@@ -38,26 +56,21 @@ int	assign_keybinds(t_app *a)
 			a->selected = last_light->content;
 		}
 	}
+}
 
-	chagne = 0;
-	if (/*scale_property(a, &a->s.camera.fov, "ky", e_key_f, 0.1)
-		& scale_property(a, &a->s.camera.position.x, "kx-", e_key_c, 0.1)
-		& scale_property(a, &a->s.camera.position.y, "ky-", e_key_c, 0.1)*/
-		scale_property(a, &get_light(&a->s, 0)->position.z, "ky", e_key_k, 0.1)
-		& scale_property(a, &get_light(&a->s, 0)->position.x, "kx", e_key_l, 0.1)
-		& scale_property(a, &get_light(&a->s, 0)->position.y, "ky", e_key_l, 0.1)
-		& scale_property(a, &a->s.camera.fov, "kx", e_key_f, 0.001)
-		& scale_property(a, &a->s.camera.position.z, "ky-", e_key_x, 0.001)
-		& scale_property(a, &a->s.camera.position.x, "kx-", e_key_c, 0.001)
-		& scale_property(a, &a->s.camera.position.y, "ky-", e_key_c, 0.001))
-		// & scale_property(a, &a->s.ambiant.ratio, "ky", e_key_a, 0.01))
-	{
-		// print_v3("camera", a->s.camera.position);
-		chagne = 1;
-		a->c_normal = v3_unitvec(a->c_normal);
-	}
-	if (a->mouse_key_click[e_mouse_left] && screen_select(a))
-		printf("selecting new shape!\n");
-	a->mouse_pos_old = a->mouse_pos;
-	return (chagne);
+static void	camera_re_calc(t_app *a)
+{
+	t_camera	*c;
+
+	c = &a->s.camera;
+	modify_v3(a, &c->position, e_key_g);
+	modify_v3_unitvec(a, &c->orientation, e_key_t);
+	mofify_float(a, &c->fov, e_key_b);
+
+	if (a->s.camera.fov < 0.1f)
+		a->s.camera.fov = 0.1f;
+	else if (a->s.camera.fov > M_PI_2)
+		a->s.camera.fov = M_PI_2;
+
+	calculate_viewport(c);
 }
