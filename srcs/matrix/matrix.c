@@ -6,11 +6,38 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:43:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 22:24:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:09:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+	find the inverse of a matrix
+*/
+t_t4	t4_inverse(t_t4 t)
+{
+	int		i;
+	int		j;
+	float	c;
+	float	determinant;
+	t_t4	ret;
+
+	determinant = t4_determinant(t);
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			c = t4_cofactor(t, j, i); // swap the two to get a free tranpose
+			ret.m[i][j] = c / determinant;
+			j++;
+		}
+		i++;
+	}
+	return (ret);
+}
 
 /*
 	creat the transformation matrix to move to the spesified point
@@ -50,12 +77,10 @@ t_m4	m4_x_m4(t_m4 a, t_m4 b)
 		});
 }
 
-// t_m4	m4_inverse(t_m4 m)
-// {
-// 	return ((t_m4){});
-// }
-
-int	m4_is_invertable(t_t4 m)
+/*
+	check if a matrix is invertable
+*/
+int	t4_is_invertable(t_t4 m)
 {
 	return (!!t4_determinant(m));
 }

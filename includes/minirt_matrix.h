@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:50:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 22:22:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:05:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_m4	view_transform(t_v3 from, t_v3 to, t_v3 up);
 
 t_m4	m4_x_m4(t_m4 a, t_m4 b);
 t_m4	translation(float x, float y, float z);
-int		m4_is_invertable(t_t4 m);
-t_m4	m4_inverse(t_m4 m);
+int		t4_is_invertable(t_t4 m);
+t_t4	t4_inverse(t_t4 t);
 
 /* t3_determinant.c */
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/19 22:22:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:19:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	tests(void)
 	td.m[0][1] = 5;
 	td.m[1][0] = -3;
 	td.m[1][1] = 2;
-	printf("determinant 17 : %.1f\n", t2_determinant(td));
+	printf("determinant 17    : %.1f\n", t2_determinant(td));
 	}
 	{
 	printf("testing the sub t_t3\n");
@@ -96,14 +96,14 @@ static void	tests(void)
 	tm.m[2][1] = -1;
 	tm.m[2][2] = 5;
 
-	printf("minor 25 : %.1f\n", t3_minor(tm, 1, 0));
+	printf("minor 25      : %.1f\n", t3_minor(tm, 1, 0));
 
 	printf("testing the cofactor\n");
 
-	printf("minor -12 : %.1f\n", t3_minor(tm, 0, 0));
-	printf("cofactor -12 : %.1f\n", t3_cofactor(tm, 0, 0));
-	printf("minor 25 : %.1f\n", t3_minor(tm, 1, 0));
-	printf("cofactor -25 : %.1f\n", t3_cofactor(tm, 1, 0));
+	printf("minor -12     : %.1f\n", t3_minor(tm, 0, 0));
+	printf("cofactor -12  : %.1f\n", t3_cofactor(tm, 0, 0));
+	printf("minor 25      : %.1f\n", t3_minor(tm, 1, 0));
+	printf("cofactor -25  : %.1f\n", t3_cofactor(tm, 1, 0));
 	}
 	{
 	printf("testing 3x3 determinant\n");
@@ -210,7 +210,7 @@ static void	tests(void)
 	t.m[3][2] = 7;
 	t.m[3][3] = -6;
 
-	printf("invertability 1 : %d\n", m4_is_invertable(t));
+	printf("invertability 1 : %d\n", t4_is_invertable(t));
 	}
 	{
 	t_t4 t;
@@ -235,7 +235,40 @@ static void	tests(void)
 	t.m[3][2] = 0;
 	t.m[3][3] = 0;
 
-	printf("invertability 0 : %d\n", m4_is_invertable(t));
+	printf("invertability 0 : %d\n", t4_is_invertable(t));
+	}
+	{
+	t_t4 t;
+
+	t.m[0][0] = -5;
+	t.m[0][1] = 2;
+	t.m[0][2] = 6;
+	t.m[0][3] = -8;
+
+	t.m[1][0] = 1;
+	t.m[1][1] = -5;
+	t.m[1][2] = 1;
+	t.m[1][3] = 8;
+
+	t.m[2][0] = 7;
+	t.m[2][1] = 7;
+	t.m[2][2] = -6;
+	t.m[2][3] = -7;
+
+	t.m[3][0] = 1;
+	t.m[3][1] = -3;
+	t.m[3][2] = 7;
+	t.m[3][3] = 4;
+
+	t_t4 inverse = t4_inverse(t);
+	printf("determinant 532 : %.1f\n", t4_determinant(t));
+	printf("cofactor   -160 : %.1f\n", t4_cofactor(t, 2, 3));
+	printf("inverse    %.1f : %.1f\n", -160/532.0f, inverse.m[3][2]);
+	printf("cofactor    105 : %.1f\n", t4_cofactor(t, 3, 2));
+	printf("inverse    %4.1f : %.1f\n", 105/532.0f, inverse.m[2][3]);
+	for (int i = 0; i < 4; i++)
+		printf("|%6.3f %6.3f %6.3f %6.3f|\n", inverse.m[i][0], inverse.m[i][1], inverse.m[i][2], inverse.m[i][3]);
+	// check the book to compare results, but looks good to me!!!
 	}
 	exit(-42);
 }
