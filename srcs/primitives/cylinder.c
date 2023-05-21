@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 01:39:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:19:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_v2f	cylindrical_map(t_cylinder *cy, t_intersection *in)
 
 	float	theta = atan2(new.x, new.z);
 	float	raw_u = theta / (2 * M_PI);
-	map.x = 1 - (raw_u + 0.5);
+	map.x = (raw_u + 0.5);
 	map.y = in->m / cy->height;
 	return (map);
 }

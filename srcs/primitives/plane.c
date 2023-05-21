@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 11:27:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:48:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ t_v2f	planar_map(t_plane *pl, t_intersection *i)
 		v3_dot(new_z, vec)
 	};
 	return ((t_v2f){fmodf(100 - (local.x / 100), 1),
-		fmodf(100 - (local.z / 100), 1)});
+		fmodf(100 - (-local.z / 100), 1)});
 }

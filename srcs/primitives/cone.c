@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:47:50 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 17:17:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:47:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_v3	get_co_emmision(t_object *me, t_intersection *i)
 		for some reason we enter this even though
 		no texture map was added so it's been bypassed.
 	*/
-	if (0 && co.texture.img != NULL)
+	if (co.texture.img != NULL)
 	{
 		return (get_pix_from_texture(&co.texture, cone_map(&co, i)));
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/17 15:51:38 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:18:26 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 	}
 	if (sp.texture.img != NULL)
 	{
+		// print_v3("col: ", get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
 		return (get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
 	}
 	return (sp.colour);
@@ -64,5 +65,5 @@ t_v2f	spherical_map(t_sphere *sp, t_v3 p)
 	float	raw_u = theta / (2 * M_PI);
 	float	u = 1 - (raw_u + 0.5);
 	float	v = 1 - (phi / M_PI);
-	return ((t_v2f){u, v});
+	return ((t_v2f){u, -v});
 }

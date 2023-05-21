@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 21:17:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:43:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	load_all_textures(t_app *a)
 			load_texture(a, &((t_object *)(objects->content))->object.pl.normal);
 		}
 		else if (((t_object *)(objects->content))->type == e_cylinder)
+		{
+			load_texture(a, &((t_object *)(objects->content))->object.cy.texture);
+			load_texture(a, &((t_object *)(objects->content))->object.cy.bump);
+			load_texture(a, &((t_object *)(objects->content))->object.cy.normal);
+		}
+		else if (((t_object *)(objects->content))->type == e_cone)
 		{
 			load_texture(a, &((t_object *)(objects->content))->object.cy.texture);
 			load_texture(a, &((t_object *)(objects->content))->object.cy.bump);
@@ -79,8 +85,8 @@ t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)
 	y = texture->height * point.y;
 	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
 		x *(texture->bits_per_pixel / 8)));
-	clr.x = get_r(pix);
-	clr.y = get_g(pix);
-	clr.z = get_b(pix);
+	clr.x = (float)get_r(pix) / 255.0f;
+	clr.y = (float)get_g(pix) / 255.0f;
+	clr.z = (float)get_b(pix) / 255.0f;
 	return (clr);
 }
