@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:47:50 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 09:58:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 10:25:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ t_v3	get_co_emmision(t_object *me, t_intersection *i)
 	t_cone	co;
 
 	co = me->object.co;
+	if (co.checker || co.texture.img != NULL
+		|| co.bump.img != NULL || co.normal.img != NULL)
+		i->map = cone_map(&co, i);
 	if (co.checker)
 	{
-		if (get_pix_from_checkerboard(cone_map(&co, i)) == 0)
+		if (get_pix_from_checkerboard(i->map) == 0)
 			return (CEHCKER_COLOR);
 	}
 	/*
@@ -28,7 +31,7 @@ t_v3	get_co_emmision(t_object *me, t_intersection *i)
 	*/
 	if (co.texture.img != NULL)
 	{
-		return (get_pix_from_texture(&co.texture, cone_map(&co, i)));
+		return (get_pix_from_texture(&co.texture, i->map));
 	}
 	return (co.colour);
 }
@@ -79,6 +82,6 @@ t_v2f	cone_map(t_cone *co, t_intersection *in)
 	float	theta = atan2(new.x, new.z);
 	float	raw_u = theta / (2 * M_PI);
 	map.x = (raw_u + 0.5) + 0.6;
-	map.y = in->m / co->height;
+	map.y = (in->m - co->height_start) / (co->height - co->height_start);
 	return (map);
 }

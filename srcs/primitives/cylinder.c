@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 09:58:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 10:11:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ t_v3	get_cy_emmision(t_object *me, t_intersection *i)
 	t_cylinder	cy;
 
 	cy = me->object.cy;
+	if (cy.checker || cy.texture.img != NULL
+		|| cy.bump.img != NULL || cy.normal.img != NULL)
+		i->map = cylindrical_map(&cy, i);
 	if (cy.checker)
 	{
 		if (get_pix_from_checkerboard(i->map) == 0)
@@ -40,15 +43,9 @@ t_v3	get_cy_position(t_object *me)
 float	get_cy_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_cylinder	cy;
-	float		distance_to_poi;
 
 	cy = me->object.cy;
-	distance_to_poi = poi_cylinder(&cy, ray, source, i);
-	if (distance_to_poi < FLT_MAX
-		&& (cy.checker || cy.texture.img != NULL
-		|| cy.bump.img != NULL || cy.normal.img != NULL))
-		i->map = cylindrical_map(&cy, i);
-	return (distance_to_poi);
+	return (poi_cylinder(&cy, ray, source, i));
 }
 
 t_v3	get_cy_poi_norm(t_object *obj, t_intersection *i)

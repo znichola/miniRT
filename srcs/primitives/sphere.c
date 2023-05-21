@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 09:58:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 10:16:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 	t_sphere	sp;
 
 	sp = me->object.sp;
+	if (sp.checker || sp.texture.img != NULL
+		|| sp.bump.img != NULL || sp.normal.img != NULL)
+		i->map = spherical_map(&sp, i);
 	if (sp.checker)
 	{
-		if (get_pix_from_checkerboard(spherical_map(&sp, i->poi)) == 0)
+		if (get_pix_from_checkerboard(i->map) == 0)
 			return (CEHCKER_COLOR);
 	}
 	if (sp.texture.img != NULL)
 	{
-		// print_v3("col: ", get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
-		return (get_pix_from_texture(&sp.texture, spherical_map(&sp, i->poi)));
+		return (get_pix_from_texture(&sp.texture, i->map));
 	}
 	return (sp.colour);
 }
@@ -55,11 +57,11 @@ t_v3	get_sp_poi_norm(t_object *obj, t_intersection *i)
 }
 
 /* map a 3d point on a sphere to a 2d point on a map */
-t_v2f	spherical_map(t_sphere *sp, t_v3 p)
+t_v2f	spherical_map(t_sphere *sp, t_intersection *i)
 {
 	t_v3	vec;
 
-	vec = v3_subtract(p, sp->position);
+	vec = v3_subtract(i->poi, sp->position);
 	float	theta = atan2(vec.x, vec.z);
 	float	phi = acos(vec.y / sp->radius);
 	float	raw_u = theta / (2 * M_PI);
