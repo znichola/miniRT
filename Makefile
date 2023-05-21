@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/21 00:36:26 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/21 09:30:17 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ endif
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection
 RENDER_FILES	:=  put_pixel \
 					lerp_colour the_moon render_world \
-					pix_shader
+					pix_shader texture
 MATHS_FILES		:= vector poi_sphere poi_plane colour poi_cylinder poi_cone
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder cone
@@ -46,7 +46,7 @@ MATRIX_FILES	:= view_transformation matrix t3_determinant t4_determinant helper
 
 HEADER_FILES	:= colour_defs control_enums defines maths render structs ui utils
 
-FILES			:= main texture $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
+FILES			:= main $(addprefix ui/, $(UI_FILES)) $(addprefix render/, $(RENDER_FILES)) \
 					$(addprefix maths/, $(MATHS_FILES)) $(addprefix utils/, $(UTILS_FILES))\
 					$(addprefix parsing/, $(PARSING_FILES)) $(addprefix primitives/, $(PRIMITIVES_FILES))\
 					$(addprefix getters/, $(GETTERS_FILES))\

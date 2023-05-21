@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 02:18:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:58:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 	if (sp.checker)
 	{
 		if (get_pix_from_checkerboard(spherical_map(&sp, i->poi)) == 0)
-			return ((t_v3){0,0,0});
+			return (CEHCKER_COLOR);
 	}
 	if (sp.texture.img != NULL)
 	{
@@ -64,6 +64,6 @@ t_v2f	spherical_map(t_sphere *sp, t_v3 p)
 	float	phi = acos(vec.y / sp->radius);
 	float	raw_u = theta / (2 * M_PI);
 	float	u = 1 - (raw_u + 0.5);
-	float	v = 1 - (phi / M_PI);
-	return ((t_v2f){u, -v});
+	float	v = (phi / M_PI);
+	return ((t_v2f){u + 0.5, v});
 }

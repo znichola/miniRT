@@ -1,8 +1,8 @@
 A	0.01									255,255,255
 C	0,0,-100 		0,0,1		35
 L	-100,40,-30					0.8			255,255,255
-sp	-10,40,42					8				255,0,0 texture:doc/moon_height_map_small.xpm
-sp	-10,0,42					20				255,0,0 texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm
+sp	-10,33,42					8				255,0,0 texture:doc/moon_height_map_small.xpm
+sp	-10,0,42					20				255,0,0 texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm checker:true
 cy	15,15,42		0,-1,0.1	15	30		123,123,200	texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm
-co	48,32,80		0,-1,0.1	15	40	0.6	123,123,200	texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm
+co	48,32,80		0,-1,0.1	1	40	0.6	123,123,200	texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm
 pl	0,-20,0			0,1,0				255,255,255		texture:doc/earth/continents.xpm bump:doc/earth/height_and_bathymetry.xpm

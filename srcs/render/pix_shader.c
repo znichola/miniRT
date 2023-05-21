@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 03:28:40 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:37:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,15 +133,15 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 /*
 	calculates the new normal rsulting from the bmp deformation
 */
-static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
-{
-	t_v3	u;
-	t_v3	v;
-	t_v3	p;
+// static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
+// {
+// 	t_v3	u;
+// 	t_v3	v;
+// 	t_v3	p;
 
-	p = get_adjacent_pixels(texture, map, &u, &v);
+// 	p = get_adjacent_pixels(texture, map, &u, &v);
 
-	return (v3_unitvec(v3_add(norm,
-			v3_multiply(v3_unitvec((t_v3){dx, dy, 255}), strength)
-			)));
-}
+// 	return (v3_unitvec(v3_add(norm,
+// 			v3_multiply(v3_unitvec((t_v3){dx, dy, 255}), strength)
+// 			)));
+// }

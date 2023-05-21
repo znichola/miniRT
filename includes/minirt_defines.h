@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 23:54:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:58:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define UP (t_v3){0, 1, 0}
 # define RIGHT (t_v3){1, 0, 0}
 # define IN (t_v3){0, 0, 1}
+
+# define CEHCKER_COLOR (t_v3){1.0f, 1.0f, 1.0f}
 
 // rendering settings
 # define MRT_THREAD_COUNT 6
