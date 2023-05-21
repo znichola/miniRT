@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/21 09:30:17 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/21 11:00:24 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ endif
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection
 RENDER_FILES	:=  put_pixel \
 					lerp_colour the_moon render_world \
-					pix_shader texture
+					pix_shader texture bump_map
 MATHS_FILES		:= vector poi_sphere poi_plane colour poi_cylinder poi_cone
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder cone

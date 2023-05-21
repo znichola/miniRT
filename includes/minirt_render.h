@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 12:16:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:02:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,11 @@ t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i);
 /* pix_shader.c */
 
 t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *i);
+
+/* bump_map.c */
+
+t_img_data	*get_obj_bmp(t_object *o);
+t_v3		get_bmp_adjusted_normal(t_object *o, t_intersection *i);
+
 
 #endif /* MINIRT_RENDER_H */

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:47:50 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 10:25:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:03:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ float	get_co_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 	return (poi_cone(&co, ray, source, i));
 }
 
-/* not implemented yet */
 t_v3	get_co_poi_norm(t_object *obj, t_intersection *i)
 {
 	t_cone co;
