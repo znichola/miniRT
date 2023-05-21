@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/21 02:43:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:32:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,33 @@ t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)
 	clr.x = (float)get_r(pix) / 255.0f;
 	clr.y = (float)get_g(pix) / 255.0f;
 	clr.z = (float)get_b(pix) / 255.0f;
+	return (clr);
+}
+
+/*
+	this puts the three colours we need in a t_v3
+	the point colour is in x
+	the point above  is in y
+	and to the right is in z
+*/
+t_v3	get_adjacent_pixels(t_img_data *texture, t_v2f point)
+{
+	unsigned int	pix;
+	t_v3			clr;
+	int				x;
+	int				y;
+
+	point.x += 0.4;
+	x = texture->width * point.x;
+	y = texture->height * point.y;
+	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
+		x *(texture->bits_per_pixel / 8)));
+	clr.x = pix;
+	pix = *(unsigned int *)(texture->addr + ((y + 1) * texture->line_length +
+		x *(texture->bits_per_pixel / 8)));
+	clr.y = pix;
+	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
+		(x + 1) *(texture->bits_per_pixel / 8)));
+	clr.z;
 	return (clr);
 }
