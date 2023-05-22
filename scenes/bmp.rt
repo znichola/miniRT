@@ -1,0 +1,6 @@
+A	0.01									255,255,255
+C	0,0,-100 		0,0,1		35
+L	-100,40,-30					0.8			255,255,255
+sp	-10,0,42					20				255,255,255 bump:doc/earth/height_and_bathymetry.xpm texture:doc/earth/continents.xpm
+
+sp	10,0,42					20				255,255,255

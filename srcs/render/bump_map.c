@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 10:34:33 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 22:02:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:56:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,16 @@ t_v3	get_bmp_adjusted_normal(t_object *o, t_intersection *i)
 	to_right = get_pixel_right(bmp, i->map).x;
 	below = get_pixel_below(bmp, i->map).x;
 	bmp_normal = v3_unitvec((t_v3){pix - to_right, pix - below, 1});
-	return (v3_unitvec(v3_add(i->poi_normal, v3_multiply(bmp_normal, 1))));
+
+	t_v3 new_right = v3_cross(i->poi_normal, RIGHT);
+	t_v3 new_into = v3_cross(new_right, IN);
+
+	t_v3 plus_x = v3_multiply(new_right, to_right);
+	t_v3 plus_z = v3_multiply(new_into, below);
+
+	return (v3_unitvec(v3_add(i->poi_normal, v3_add(plus_x, plus_z))));
+
+	//return (v3_unitvec(v3_add(i->poi_normal, v3_multiply(bmp_normal, 1))));
 }
 
 t_img_data	*get_obj_bmp(t_object *o)

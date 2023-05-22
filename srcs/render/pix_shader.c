@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pix_shader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 22:22:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:55:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	specular = (t_v3){0.0f, 0.0f, 0.0f};
 
 	in->poi_bmp_normal = get_poi_norm(me, in);
-
+	in->poi_normal = in->poi_bmp_normal;
 	int i = ft_lstsize(s->lights_list);
 	while (--i >= 0)
 	{
