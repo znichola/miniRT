@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pix_shader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/12 11:43:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:55:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
 	specular = (t_v3){0.0f, 0.0f, 0.0f};
 
+	in->poi_bmp_normal = get_poi_norm(me, in);
+	in->poi_normal = in->poi_bmp_normal;
 	int i = ft_lstsize(s->lights_list);
 	while (--i >= 0)
 	{
@@ -59,6 +61,8 @@ static t_v3	get_light_diffuse(t_scene *s, int l_num, t_intersection *i)
 	t_v3	light_dir;
 
 	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, i->poi));
+	// light_dir = v3_add(light_dir, i->poi_bmp_normal);
+	// light_dir = i->poi_normal;
 	return (v3_multiply(get_light_colour(s, l_num),
 				fmaxf(v3_dot(i->poi_normal, light_dir), 0.0)));
 }
@@ -96,7 +100,9 @@ static t_v3	get_light_specular(t_scene *s, int n, t_intersection *i)
 	t_v3			light_norm_dir;
 	t_v3			reflection_dir;
 
+	// view_norm_dir = v3_add(i->poi, i->poi_bmp_normal);
 	view_norm_dir = v3_unitvec(v3_subtract(s->camera.position, i->poi));
+	view_norm_dir = i->poi_normal;
 	light_norm_dir = v3_unitvec(v3_subtract(i->poi, get_light(s, n)->position));
 	reflection_dir = reflection(light_norm_dir, i->poi_normal);
 	spec = powf(fmaxf(v3_dot(view_norm_dir, reflection_dir), 0), exp);
@@ -133,19 +139,15 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 /*
 	calculates the new normal rsulting from the bmp deformation
 */
-/*
-static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
-{
-	float	tu;
-	float	tv;
+// static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength)
+// {
+// 	t_v3	u;
+// 	t_v3	v;
+// 	t_v3	p;
 
-	(void)s;
-	(void)me;
-	tu = (((atan2f(norm.x, norm.z)) / (2 * M_PI)) + 0.5);
-	tv = ((acosf(norm.y / 1)) / M_PI);
+// 	p = get_adjacent_pixels(texture, map, &u, &v);
 
-	return (v3_unitvec(v3_add(norm,
-			v3_multiply(finite_diff(getset_app(NULL), tu, tv), strength)
-			)));
-}
-*/
+// 	return (v3_unitvec(v3_add(norm,
+// 			v3_multiply(v3_unitvec((t_v3){dx, dy, 255}), strength)
+// 			)));
+// }

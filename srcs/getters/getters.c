@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:01:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 12:53:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:02:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,9 @@ static t_v3	get_poi_norm_passthrough(t_object *obj, t_intersection *i)
 	return ((t_v3){42,42,42});
 }
 
+/*
+	this includes the displacment from the bump map!
+*/
 t_v3	get_poi_norm(t_object* obj, t_intersection *i)
 {
 	t_v3	(*f[MRT_NUM_OBJ_TYPES])(t_object *, t_intersection *) = {
@@ -152,5 +155,8 @@ t_v3	get_poi_norm(t_object* obj, t_intersection *i)
 
 	if (obj->type < 0 || obj->type >= MRT_NUM_OBJ_TYPES)
 		return (get_poi_norm_passthrough(obj, i));
+
+	if (get_obj_bmp(obj)->img != NULL)
+		return (get_bmp_adjusted_normal(obj, i));
 	return (f[obj->type](obj, i));
 }

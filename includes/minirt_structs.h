@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 00:39:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:23:17 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ typedef struct	s_intersection
 	float	m;
 	int		is_cap;
 	int		is_marked;
+	t_v3	poi_bmp_normal;
+	t_v2f	map;
 }	t_intersection;
 
 /* objects */

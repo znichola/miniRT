@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:58:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/21 02:43:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:07:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,13 @@ t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point)
 	int				x;
 	int				y;
 
-	point.x += 0.4;
+	if (point.x > 1 || point.x < 0)
+		point.x = fabsf(fmodf(point.x, 1.0f));
+	if (point.y > 1 || point.y < 0)
+		point.y = fabsf(fmodf(point.x, 1.0f));
 	x = texture->width * point.x;
 	y = texture->height * point.y;
+	// printf("(%.2f, %.2f) -> (%d, %d)\n", point.x, point.y, x, y);
 	pix = *(unsigned int *)(texture->addr + (y * texture->line_length +
 		x *(texture->bits_per_pixel / 8)));
 	clr.x = (float)get_r(pix) / 255.0f;
