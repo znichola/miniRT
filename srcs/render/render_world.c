@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/21 01:55:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:07:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_ray	pixel_to_ray(t_app *a, int u, int v)
 	float	world_x;
 	float	world_y;
 
-	world_x = a->s.camera.half_width - ((u + 0.5) * a->s.camera.pixel_size);
-	world_y = a->s.camera.half_height - ((v + 0.5) * a->s.camera.pixel_size);
+	world_x = a->s.camera.half_height - ((u + 0.5) * a->s.camera.pixel_size);
+	world_y = a->s.camera.half_width - ((v + 0.5) * a->s.camera.pixel_size);
 
 	pixel = m4_x_v3(a->s.camera.inverse_transform,
 		(t_v3){world_x, world_y, -1});
