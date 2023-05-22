@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 01:35:27 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:24:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 {
 	t_terms	t;
 
+
 	t.x = v3_subtract(source, me->position);
 	t.dd = v3_dot(ray, ray);
 	t.dv = v3_dot(ray, me->orientation);
@@ -41,6 +42,40 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.c = t.xx - t.xv * t.xv - me->radius * me->radius;
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
 
+	/*
+		This condition checks when the orientation and ray are perfectly
+		alligned, then we just run the same code for the plane by making
+		a fake plane right there!
+	*/
+
+	if (fabsf(v3_dot(me->orientation, ray)) >= 0.99999f)
+	{
+		t_plane	p;
+		p.position = me->position;
+		p.orientation = me->orientation;
+		poi_plane(&p, ray, source, i);
+
+		if (v3_mag(v3_subtract(i->poi, me->position)) <= me->radius)
+			return (i->poi_disance);
+		else
+		{
+			i->poi_disance = FLT_MAX;
+			return (FLT_MAX);
+		}
+	}
+
+	// if (fabsf(v3_dot(me->orientation, ray)) == 1)
+	// {
+	// 	t.xv = v3_dot(t.x, v3_multiply(me->orientation, -1));
+	// 	t.dv = v3_dot(t.ray, v3_multiply(me->orientation, -1));
+
+	// 	i->is_marked = e_fuschia;
+	// /* point of intersection*/
+	// 	i->poi_disance = - t.xv / t.dv;
+	// 	if (i->poi_disance >= me->radius)
+	// 		return (FLT_MAX);
+	// }
+
 	t.ray = ray;
 	t.source = source;
 	if (t.discrimant < FLT_EPSILON)
@@ -50,6 +85,8 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	}
 
 	t.height = me->height;
+
+
 	i->poi_disance = calc_poi(&t, me, i);
 	return (i->poi_disance);
 }
@@ -121,7 +158,8 @@ static float	start_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 		i->poi_disance = FLT_MAX;
 		return (FLT_MAX);
 	}
-	i->poi = v3_multiply(t->ray, i->poi_disance);
+	// i->poi = v3_multiply(t->ray, i->poi_disance);
+	i->poi = v3_add(t->source, v3_multiply(t->ray, i->poi_disance));
 
 	/* normal at intersection */
 	i->poi_normal = v3_multiply(me->orientation, -1);
@@ -147,7 +185,8 @@ static float	end_cap(t_terms *t, t_cylinder *me, t_intersection *i)
 		i->poi_disance = FLT_MAX;
 		return (FLT_MAX);
 	}
-	i->poi = v3_multiply(t->ray, i->poi_disance);
+	// i->poi = v3_multiply(t->ray, i->poi_disance);
+	i->poi = v3_add(t->source, v3_multiply(t->ray, i->poi_disance));
 
 	/* normal at intersection */
 	i->poi_normal = me->orientation;

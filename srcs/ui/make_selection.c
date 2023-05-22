@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 19:29:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:47:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	screen_select(t_app *a)
 	t_object		*obj;
 	t_intersection	i;
 
+	i.is_marked = 0;
 	ray = pixel_to_ray(a, a->mouse_pos.x, a->mouse_pos.y);
 	obj = find_poi(&a->s, ray.direction, ray.origin, &i);
 	if (obj)

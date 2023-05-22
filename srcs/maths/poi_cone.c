@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/18 15:24:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/22 20:21:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static float	end_cap(t_terms *t, t_cone *me, t_intersection *i);
 static float	center(t_terms *t, t_cone *me, t_intersection *i);
 
 static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i);
-static void		wasteland(t_terms *t);
+static void	wasteland(t_terms *t, t_intersection *i);
+// static void		wasteland(t_terms *t);
 
 /*
 	calculate the point at which a cylinder is intersected
@@ -37,6 +38,27 @@ float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.dx = v3_dot(ray, t.x);
 	t.xv = v3_dot(t.x, me->orientation);
 	t.xx = v3_dot(t.x, t.x);
+
+	/*
+		WE did some cool things in identifying the weirdness with the caps
+		see the cyclinder code.
+	*/
+
+	if ((v3_dot(me->orientation, ray)) <= -0.8f)
+	{
+		t_plane	p;
+		p.position = v3_add(me->position, v3_multiply(me->orientation, me->height));
+		p.orientation = me->orientation;
+		poi_plane(&p, ray, source, i);
+
+		if (v3_mag(v3_subtract(i->poi, p.position)) <= t.k * me->height)
+			return (i->poi_disance);
+		else
+		{
+			i->poi_disance = FLT_MAX;
+			return (FLT_MAX);
+		}
+	}
 
 	t.a = t.dd - (1 + t.kk) * t.dv * t.dv;
 	t.b = (t.dx - (1 + t.kk) * t.dv * t.xv) * 2;
@@ -68,7 +90,7 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 	t->m1 = t->dv * t->d1 + t->xv;
 	t->m2 = t->dv * t->d2 + t->xv;
 
-	wasteland(t);
+	wasteland(t, i);
 	i->m = t->m2;
 	i->is_cap = 0;
 
@@ -99,6 +121,7 @@ static float	calc_poi(t_terms *t, t_cone *me, t_intersection *i)
 			return (end_cap(t, me, i));
 		}
 	}
+	// (void)end_cap;
 	if (t->m2 < t->height && t->m2 > me->height_start)
 	{
 		return (center(t, me, i));
@@ -124,7 +147,10 @@ static float	start_cap(t_terms *t, t_cone *me, t_intersection *i)
 		i->poi_disance = FLT_MAX;
 		return (FLT_MAX);
 	}
-	i->poi = v3_multiply(t->ray, i->poi_disance);
+
+	// i->is_marked = e_green;
+
+	i->poi = v3_add(t->source, v3_multiply(t->ray, i->poi_disance));
 
 	/* normal at intersection */
 	i->poi_normal = v3_multiply(me->orientation, -1);
@@ -151,7 +177,8 @@ static float	end_cap(t_terms *t, t_cone *me, t_intersection *i)
 		return (FLT_MAX);
 	}
 
-	i->poi = v3_multiply(t->ray, i->poi_disance);
+	// i->is_marked = e_fuschia;
+	i->poi = v3_add(t->source, v3_multiply(t->ray, i->poi_disance));
 
 	/* normal at intersection */
 	i->poi_normal = me->orientation;
@@ -179,11 +206,14 @@ static float	center(t_terms *t, t_cone *me, t_intersection *i)
 /*
 	sets the terms so the closest poi is d2 and m2
 */
-static void	wasteland(t_terms *t)
+static void	wasteland(t_terms *t, t_intersection *i)
 {
 	float	tmp;
 
-	if ((t->d2 - t->d1) > FLT_EPSILON)
+	// if (t->d2 > t->d1)
+	if (t->d2 > t->d1)
+
+	// if ((t->d2 - t->d1) > FLT_EPSILON)
 	{
 		tmp = t->d1;
 		t->d1 = t->d2;
@@ -192,5 +222,7 @@ static void	wasteland(t_terms *t)
 		t->m1 = t->m2;
 		t->m2 = tmp;
 		assert(t->d2 - t->d1 <= FLT_EPSILON);
+		// i->is_marked = e_fuschia;
+		(void)i;
 	}
 }

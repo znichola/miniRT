@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pix_shader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/22 17:50:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,9 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 	t_v3			light_dir;
 	t_intersection	tmp;
 	float			dist;
+	float			light_dist;
 
+	light_dist = v3_mag(v3_subtract(get_light(s, l_num)->position, point));
 	light_dir = v3_unitvec(v3_subtract(get_light(s, l_num)->position, point));
 	current = s->objects_list;
 	while (current)
@@ -128,7 +130,7 @@ static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 point, int l_num)
 		if (current->content != me)
 		{
 			dist = get_obj_poi(current->content, light_dir, point, &tmp);
-			if (dist < FLT_MAX)
+			if (dist <= light_dist)
 				return (current->content);
 		}
 		current = current->next;
