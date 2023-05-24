@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_selection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/22 18:47:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:27:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,17 @@ void	mofify_float(t_app *a, float *p, int key)
 	if (!p)
 		return ;
 	scale_property(a, p, "ky-", key, 0.05f);
+}
+
+void	mofify_float_angle(t_app *a, float *p, int key)
+{
+	if (!p)
+		return ;
+	scale_property(a, p, "ky-", key, 0.05f);
+	if (*p < 0.1f)
+		*p = 0.1f;
+	else if (*p > M_PI_2)
+		*p = M_PI_2;
 }
 
 static void	scroll_value(t_app *a, float *p, float inc)

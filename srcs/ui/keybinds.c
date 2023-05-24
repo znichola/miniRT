@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keybinds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:12:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 20:15:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:28:35 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	assign_keybinds(t_app *a)
 		modify_v3_colour(a, ref_obj_col(a->selected), e_key_y);
 		mofify_float(a, ref_obj_p1(a->selected), e_key_b);
 		mofify_float(a, ref_obj_p2(a->selected), e_key_h);
-		mofify_float(a, ref_obj_p3(a->selected), e_key_n);
-
+		mofify_float_angle(a, ref_obj_p3(a->selected), e_key_n);
 	}
-
 
 	a->mouse_pos_old = a->mouse_pos;
 	return (1);

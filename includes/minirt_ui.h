@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ui.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 22:25:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:28:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	render_selection_ui(t_app *a, t_v2int pos);
 int		screen_select(t_app *a);
 void	modify_v3(t_app *a, t_v3 *p, int key);
 void	mofify_float(t_app *a, float *p, int key);
+void	mofify_float_angle(t_app *a, float *p, int key);
 void	modify_v3_unitvec(t_app *a, t_v3 *p, int key);
 void	modify_v3_colour(t_app *a, t_v3 *p, int key);
 
