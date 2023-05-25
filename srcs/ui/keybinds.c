@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:12:26 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/24 17:28:35 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 11:21:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	assign_keybinds(t_app *a)
 		modify_v3(a, ref_obj_pos(a->selected), e_key_g);
 		modify_v3_unitvec(a, ref_obj_dir(a->selected), e_key_t);
 		modify_v3_colour(a, ref_obj_col(a->selected), e_key_y);
-		mofify_float(a, ref_obj_p1(a->selected), e_key_b);
-		mofify_float(a, ref_obj_p2(a->selected), e_key_h);
+		mofify_float(a, ref_obj_p1(a->selected), e_key_b, a->selected->type);
+		mofify_float(a, ref_obj_p2(a->selected), e_key_h, a->selected->type);
 		mofify_float_angle(a, ref_obj_p3(a->selected), e_key_n);
 	}
 
@@ -63,7 +63,7 @@ static void	camera_re_calc(t_app *a)
 	c = &a->s.camera;
 	modify_v3(a, &c->position, e_key_g);
 	modify_v3_unitvec(a, &c->orientation, e_key_t);
-	mofify_float(a, &c->fov, e_key_b);
+	mofify_float(a, &c->fov, e_key_b, e_camera);
 
 	if (a->s.camera.fov < 0.1f)
 		a->s.camera.fov = 0.1f;

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/24 17:59:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 11:08:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,7 @@ static float	center(t_terms *t, t_cone *me, t_intersection *i)
 		return (FLT_MAX);
 	}
 	i->poi = v3_add(t->source, v3_multiply(t->ray, t->d2));
-
 	i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position), v3_multiply(v3_multiply(me->orientation, t->m2), 1 + t->kk));
-
-	//i->poi_normal = v3_subtract(v3_subtract(i->poi, me->position), v3_multiply(me->orientation, t->m2));
 	i->poi_normal = v3_unitvec(i->poi_normal);
 	i->poi_disance = t->d2;
 	return (t->d2);

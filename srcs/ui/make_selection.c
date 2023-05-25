@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/24 17:27:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 11:26:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,21 @@ void	modify_v3_colour(t_app *a, t_v3 *p, int key)
 	// *p = v3_unitvec(*p);
 }
 
-void	mofify_float(t_app *a, float *p, int key)
+void	mofify_float(t_app *a, float *p, int key, int type)
 {
+	float	incr;
+
+	if (type == e_light)
+		incr = 0.005f;
+	else
+		incr = 0.05f;
 	if (!p)
 		return ;
-	scale_property(a, p, "ky-", key, 0.05f);
+	scale_property(a, p, "ky-", key, incr);
+	if (*p < FLT_EPSILON)
+		*p = 0.0f;
+	if (type == e_light && (*p - 1.0f) > FLT_EPSILON)
+		*p = 1.0f;
 }
 
 void	mofify_float_angle(t_app *a, float *p, int key)
