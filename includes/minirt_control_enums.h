@@ -6,12 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:41:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/19 12:01:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:57:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTROL_ENUMS_H
-# define CONTROL_ENUMS_H
+#ifndef MINIRT_CONTROL_ENUMS_H
+# define MINIRT_CONTROL_ENUMS_H
 
 /* ~~ these are for mac! ~~ */
 

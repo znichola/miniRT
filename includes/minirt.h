@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/21 03:30:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:42:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,5 @@
 # include "parsing.h"
 # include "minirt_threads.h"
 # include "minirt_matrix.h"
-
-void	load_texture(t_app	*app, t_img_data *texture);
-t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point);
-int		get_pix_from_checkerboard(t_v2f point);
-void	load_all_textures(t_app *a);
-t_v3	get_adjacent_pixels(t_img_data *texture, t_v2f point);
 
 #endif

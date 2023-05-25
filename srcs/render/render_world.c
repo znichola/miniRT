@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/22 17:07:21 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:38:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,15 @@ int	render_world(t_app *a)
 t_ray	pixel_to_ray(t_app *a, int u, int v)
 {
 	t_ray	ray;
-	t_v3	pixel;
+	t_v3	pix;
 	float	world_x;
 	float	world_y;
 
 	world_x = a->s.camera.half_height - ((u + 0.5) * a->s.camera.pixel_size);
 	world_y = a->s.camera.half_width - ((v + 0.5) * a->s.camera.pixel_size);
-
-	pixel = m4_x_v3(a->s.camera.inverse_transform,
-		(t_v3){world_x, world_y, -1});
+	pix = m4_x_v3(a->s.camera.inverse_transform, (t_v3){world_x, world_y, -1});
 	ray.origin = m4_x_v3(a->s.camera.inverse_transform, ORIGIN);
-	ray.direction = v3_unitvec(v3_subtract(pixel, ray.origin));
-
+	ray.direction = v3_unitvec(v3_subtract(pix, ray.origin));
 	return (ray);
 }
 
@@ -63,17 +60,17 @@ t_v3	draw_ray(t_app *a, t_ray ray)
 	i.is_marked = 0;
 	closest = find_poi(&a->s, ray.direction, ray.origin, &i);
 	if (i.is_marked == e_green)
-		col = (t_v3){0.2,1.0,0.0};
+		col = (t_v3){0.2, 1.0, 0.0};
 	else if (i.is_marked == e_cyan)
 		col = (t_v3){0, 0.9, 0.9};
 	else if (i.is_marked == e_fuschia)
-		col = (t_v3){1,0,0.2};
+		col = (t_v3){1, 0, 0.2};
 	else if (i.is_marked == e_indigo)
 		col = (t_v3){0.5, 0, 1};
 	else if (closest)
 		col = pix_shader(&a->s, closest, &i);
 	else
-		col = (t_v3){0.2,0.2,0.2};
+		col = (t_v3){0.2, 0.2, 0.2};
 	return (col);
 }
 
@@ -124,7 +121,7 @@ static void	single_thread_render(t_app *a)
 		{
 			ray = pixel_to_ray(a, u, v);
 			clr = draw_ray(a, ray);
-			wrapper_pixel_put(&a->img, u, v, v3_to_col(clr));
+			my_mlx_pixel_put(&a->img, u, v, v3_to_col(clr));
 			v++;
 		}
 		u++;

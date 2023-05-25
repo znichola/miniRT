@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 10:16:25 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:50:16 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ t_v3	get_sp_poi_norm(t_object *obj, t_intersection *i)
 /* map a 3d point on a sphere to a 2d point on a map */
 t_v2f	spherical_map(t_sphere *sp, t_intersection *i)
 {
+	t_v2f	map;
 	t_v3	vec;
+	float	raw_u;
 
 	vec = v3_subtract(i->poi, sp->position);
-	float	theta = atan2(vec.x, vec.z);
-	float	phi = acos(vec.y / sp->radius);
-	float	raw_u = theta / (2 * M_PI);
-	float	u = 1 - (raw_u + 0.5);
-	float	v = (phi / M_PI);
-	return ((t_v2f){u + 0.5, v});
+	raw_u = atan2(vec.x, vec.z) / (2 * M_PI);
+	map.x = 1 - (raw_u + 0.5) + 0.5;
+	map.y = (acos(vec.y / sp->radius) / M_PI);
+	return (map);
 }

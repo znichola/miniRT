@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/25 16:24:03 by skoulen          ###   ########.fr        #
+#    Updated: 2023/05/25 17:16:17 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,9 @@ endif
 endif
 endif
 
-UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection
-RENDER_FILES	:=  put_pixel \
-					lerp_colour the_moon render_world \
-					pix_shader texture bump_map
-MATHS_FILES		:= vector vector2 poi_sphere poi_plane colour colour2 poi_cylinder poi_cylinder2 poi_cone poi_cone2
+UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection ui_getters
+RENDER_FILES	:=  put_pixel pix_shader pix_shader2 texture bump_map render_world
+MATHS_FILES		:= vector vector2 poi_sphere poi_plane colour poi_cylinder poi_cylinder2 poi_cone poi_cone2
 UTILS_FILES		:= debug_prints singletons trgb
 PRIMITIVES_FILES	:= sphere plane cylinder cone
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ui.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 11:20:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:25:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ void	mofify_float_angle(t_app *a, float *p, int key);
 void	modify_v3_unitvec(t_app *a, t_v3 *p, int key);
 void	modify_v3_colour(t_app *a, t_v3 *p, int key);
 
+/* ui_getters.c */
+const char	*ret_p1_str(t_object *o);
+const char	*ret_p2_str(t_object *o);
+const char	*ret_p3_str(t_object *o);
 
 #endif /* MINIRT_UI_H */
