@@ -6,27 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 01:45:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 12:23:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:48:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// /*
-// 	loop until it's given back.
-// */
-// void	give_back(pthread_mutex_t *m, int *lock)
-// {
-// 	int	have_i_given_back_the_reasource;
-
-// 	have_i_given_back_the_reasource = 1;
-// 	while (have_i_given_back_the_reasource)
-// 	{
-// 		if (try_return_main(m, lock))
-// 			have_i_given_back_the_reasource = 0;
-// 		usleep(100);
-// 	}
-// }
 
 /*
 	return 1 if was able return the reasource/lock
@@ -82,7 +66,6 @@ int	try_reserve_main(pthread_mutex_t *m, int *lock, int *finished)
 		perror("mutex unlock reserve");
 	return (ret);
 }
-
 
 /*
 	return 1 if was able reserve the reasource/lock

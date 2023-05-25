@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:43:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 17:01:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:32:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,6 @@ int	imax(int a, int b)
 		return (a);
 	return (b);
 }
-
-void	print_image(t_app *a)
-{
-	for (int x = 0; x < a->img.width; x++)
-		for (int y = 0; y < a->img.height; y++)
-			my_mlx_pixel_put(&a->img, x, y, moon_texture(a, x, y));
-	mlx_put_image_to_window(a->mlx_instance, a->window, a->img.img, 0, 0);
-
-	usleep(100000);
-}
-
 
 static void	print_obj_list(t_list *l)
 {

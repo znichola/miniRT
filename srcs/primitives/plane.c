@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 10:12:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:48:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ float	get_pl_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i)
 
 t_v3	get_pl_poi_norm(t_object *obj, t_intersection *i)
 {
-	t_plane pl;
+	t_plane	pl;
 
 	pl = obj->object.pl;
 	return (i->poi_normal);

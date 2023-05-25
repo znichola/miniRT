@@ -6,12 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:02:16 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/13 20:46:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:56:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_COLOUR_H
-# define MINIRT_COLOUR_H
+#ifndef MINIRT_COLOUR_DEFS_H
+# define MINIRT_COLOUR_DEFS_H
 
 # define MRT_GREY		0x00303030
 # define MRT_PINK		0x00ff00bb

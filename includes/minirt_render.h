@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 22:02:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:42:54 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,23 @@
 
 #include "minirt_structs.h"
 
-int		render_frame(t_app *a);
-void	my_mlx_pixel_put(t_img_data *img, int x, int y, int color);
-void	wrapper_pixel_put(t_img_data *img, int x, int y, int colour);
+/* put_pixel.c */
 
-void	put_circle_fast(t_img_data *img, int r, t_v2int center, int colour);
-void	fill_screen(t_img_data *img, int colour);
+int			render_frame(t_app *a);
 
-void	render_sphere(t_app *a);
-void	resulting_colour(t_app *a, t_v2int pix, t_v3 intersection, t_v3 center);
+/* put_pixel.c */
 
-int		calculate_px_colour(t_app *a, float angle, int	l_colour, float l_brightness , int obj_colour);
+void		my_mlx_pixel_put(t_img_data *img, int x, int y, int color);
+void		fill_screen(t_img_data *img, int colour);
 
-void	put_line(t_img_data *img, t_v2int p1, t_v2int p2);
-t_v3	finite_diff(t_app *a, float tu, float tv);
+/* pix_shader.c */
 
-int		colour_lerp(float min, float max, float point);
-int		colour_pallet_lerp(float min, float max, float point, t_v2int pallet);
-int		colour_pallet_add(int x, int y);
-int		colour_pallet_multiply(int x, int y);
-int		colour_brightness_multi(int x, float b);
+t_v3		pix_shader(t_scene *s, t_object *me, t_intersection *i);
 
-int		moon_texture(t_app *app, int x, int y);
-int		earth_texture(t_app *app, int x, int y);
-int		earth_bmp_texture(t_app *app, int x, int y);
-int		earth_nightlight_texture(t_app *app, int x, int y);
+/* pix_shader2.c */
+
+t_v3		get_light_diffuse(t_scene *s, int l_num, t_intersection *i);
+t_v3		get_light_colour(t_scene *s, int l_num);
 
 /* render_world.c */
 
@@ -48,14 +40,16 @@ t_v3		draw_ray(t_app *a, t_ray ray);
 t_ray		pixel_to_ray(t_app *a, int u, int v);
 t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i);
 
-/* pix_shader.c */
-
-t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *i);
-
 /* bump_map.c */
 
 t_img_data	*get_obj_bmp(t_object *o);
 t_v3		get_bmp_adjusted_normal(t_object *o, t_intersection *i);
 
+/* texture.c */
+
+void	load_texture(t_app	*app, t_img_data *texture);
+t_v3	get_pix_from_texture(t_img_data *texture, t_v2f point);
+int		get_pix_from_checkerboard(t_v2f point);
+void	load_all_textures(t_app *a);
 
 #endif /* MINIRT_RENDER_H */

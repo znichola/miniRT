@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:15:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/22 17:42:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:29:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,12 @@ void	calculate_viewport(t_camera *c)
 		new_up = UP;
 	c->transform = view_transform(c->position, to, new_up);
 	c->inverse_transform = m4_inverse(c->transform);
+}
+
+/*
+	check if a matrix is invertable
+*/
+int	t4_is_invertable(t_t4 m)
+{
+	return (!!t4_determinant(m));
 }
