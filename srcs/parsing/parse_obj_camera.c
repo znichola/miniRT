@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_camera.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/20 23:44:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:37:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	parse_camera(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("CAMERA\n");
 	res = check_grammar_camera(*tokens);
 	if (res != 0)
 		return (res);
@@ -40,15 +39,14 @@ static int	check_grammar_camera(t_token *tokens)
 static void	consume_camera(t_token **tokens, t_object *obj)
 {
 	obj->type = e_camera;
-	*tokens = (*tokens)->next; //skip the identifier
+	*tokens = (*tokens)->next;
 	obj->object.c.position = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 	obj->object.c.orientation = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 	obj->object.c.fov = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
 /* check if values are valid */

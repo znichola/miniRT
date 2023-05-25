@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:46:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:35:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static int	check_grammar_cylinder(t_token *tokens);
 static void	consume_cylinder(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_cylinder(t_object *obj);
-static void consume_optional_cylinder(t_token **tokens, t_cylinder *cy);
+static void	consume_optional_cylinder(t_token **tokens, t_cylinder *cy);
 
 int	parse_cylinder(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("CYLINDER\n");
 	res = check_grammar_cylinder(*tokens);
 	if (res != 0)
 		return (res);
@@ -41,7 +40,7 @@ static int	check_grammar_cylinder(t_token *tokens)
 static void	consume_cylinder(t_token **tokens, t_object *obj)
 {
 	obj->type = e_cylinder;
-	*tokens = (*tokens)->next; //skip the identifier
+	*tokens = (*tokens)->next;
 	obj->object.cy.position = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 	obj->object.cy.orientation = (*tokens)->value.pos;
@@ -52,13 +51,11 @@ static void	consume_cylinder(t_token **tokens, t_object *obj)
 	*tokens = (*tokens)->next;
 	obj->object.cy.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-
 	consume_optional_cylinder(tokens, &obj->object.cy);
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
-static void consume_optional_cylinder(t_token **tokens, t_cylinder *cy)
+static void	consume_optional_cylinder(t_token **tokens, t_cylinder *cy)
 {
 	cy->texture.filepath = NULL;
 	cy->bump.filepath = NULL;

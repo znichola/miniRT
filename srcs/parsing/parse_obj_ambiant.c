@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/09 14:51:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:37:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	parse_ambiant(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("AMBIANT\n");
 	res = check_grammar_ambiant(*tokens);
 	if (res != 0)
 		return (res);
@@ -40,15 +39,12 @@ static int	check_grammar_ambiant(t_token *tokens)
 static void	consume_ambiant(t_token **tokens, t_object *obj)
 {
 	obj->type = e_ambiant;
-	*tokens = (*tokens)->next; //skip the identifier
-
+	*tokens = (*tokens)->next;
 	obj->object.a.ratio = (*tokens)->value.scalar;
 	*tokens = (*tokens)->next;
-
 	obj->object.a.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
 /* check if values are valid */

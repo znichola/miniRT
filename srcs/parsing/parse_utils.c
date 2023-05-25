@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:22:08 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:31:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:40:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	trim(const char **str)
 		(*str)++;
 }
 
-
 const char	*ret_obj_string(t_object *o)
 {
 	const char	*types[MRT_NUM_OBJ_TYPES] = {
@@ -71,11 +70,11 @@ const char	*ret_obj_string(t_object *o)
 		"plane",
 		"cylinder",
 		"cone"
-		};
+	};
+
 	if (o->type < 0 || o->type >= MRT_NUM_OBJ_TYPES)
 	{
 		printf("%d not a valid object type enum somehow !?\n", o->type);
-		// exit(42);
 		return ("bad_type");
 	}
 	return (types[o->type]);

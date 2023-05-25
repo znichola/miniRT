@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_cone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/18 11:49:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:37:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static int	check_grammar_cone(t_token *tokens);
 static void	consume_cone(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_cone(t_object *obj);
-static void consume_optional_cone(t_token **tokens, t_cone *co);
+static void	consume_optional_cone(t_token **tokens, t_cone *co);
 
 int	parse_cone(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("cone\n");
 	res = check_grammar_cone(*tokens);
 	if (res != 0)
 		return (res);
@@ -41,7 +40,7 @@ static int	check_grammar_cone(t_token *tokens)
 static void	consume_cone(t_token **tokens, t_object *obj)
 {
 	obj->type = e_cone;
-	*tokens = (*tokens)->next; //skip the identifier
+	*tokens = (*tokens)->next;
 	obj->object.co.position = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
 	obj->object.co.orientation = (*tokens)->value.pos;
@@ -54,13 +53,11 @@ static void	consume_cone(t_token **tokens, t_object *obj)
 	*tokens = (*tokens)->next;
 	obj->object.co.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-
 	consume_optional_cone(tokens, &obj->object.co);
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
-static void consume_optional_cone(t_token **tokens, t_cone *co)
+static void	consume_optional_cone(t_token **tokens, t_cone *co)
 {
 	co->texture.filepath = NULL;
 	co->bump.filepath = NULL;

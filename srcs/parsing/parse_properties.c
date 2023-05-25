@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:00:15 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:20:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:49:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,18 @@ int	parse_orientation(const char **line, t_v3 *vec)
 	return (0);
 }
 
-int	parse_ratio(const char **line, float *ratio)
-{
-	if (parse_float(line, ratio) != 0)
-		return (-1);
-	if (*ratio < 0 || *ratio > 1)
-		return (-1);
-	return (0);
-}
-
 int	parse_optional(const char **line, t_optional *opt)
 {
 	const char	*tokens[] = {"texture", "bump", "normal", "checker"};
+	int			i;
 
-	int i = 0;
+	i = 0;
 	while (i < 4)
 	{
 		if (ft_strncmp(tokens[i], *line, ft_strlen(tokens[i])) == 0)
 		{
 			*line += ft_strlen(tokens[i]);
-			break;
+			break ;
 		}
 		i++;
 	}

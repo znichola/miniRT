@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:46:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:36:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	parse_plane(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("PLANE\n");
 	res = check_grammar_plane(*tokens);
 	if (res != 0)
 		return (res);
@@ -41,22 +40,18 @@ static int	check_grammar_plane(t_token *tokens)
 static void	consume_plane(t_token **tokens, t_object *obj)
 {
 	obj->type = e_plane;
-	*tokens = (*tokens)->next; //skip the identifier
+	*tokens = (*tokens)->next;
 	obj->object.pl.position = (*tokens)->value.pos;
-
 	*tokens = (*tokens)->next;
 	obj->object.pl.orientation = (*tokens)->value.pos;
-
 	*tokens = (*tokens)->next;
 	obj->object.pl.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-
 	consume_optional_plane(tokens, &obj->object.pl);
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
-static void consume_optional_plane(t_token **tokens, t_plane *pl)
+static void	consume_optional_plane(t_token **tokens, t_plane *pl)
 {
 	pl->texture.filepath = NULL;
 	pl->bump.filepath = NULL;
@@ -84,7 +79,6 @@ static int	validate_and_reformat_plane(t_object *obj)
 	pl = &obj->object.pl;
 	if (validate_orientation(&pl->orientation) != 0)
 		return (-1);
-
 	if (validate_colour(&pl->colour) != 0)
 		return (-1);
 	return (0);

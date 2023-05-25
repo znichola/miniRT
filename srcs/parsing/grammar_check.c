@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:20:38 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:17:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:32:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static enum e_tok_type	*get_obj_grammar(int obj_id);
-static int	check_obj_grammar(t_token *tokens, enum e_tok_type *grammar);
-static int	get_error_enum(int token_enum);
+static int				check_obj_grammar(t_token *tokens,
+							enum e_tok_type *grammar);
+static int				get_error_enum(int token_enum);
 
 int	check_line_grammar(t_token *tokens)
 {
@@ -42,20 +43,22 @@ int	check_line_grammar(t_token *tokens)
 static enum e_tok_type	*get_obj_grammar(int obj_id)
 {
 	static enum e_tok_type	grammar[MRT_NUM_OBJ_TYPES][8] = {
-/* ambient */	{e_scalar, e_vector, e_end_of_line},
-/* camera  */	{e_vector, e_vector, e_scalar, e_end_of_line},
-/* light   */	{e_vector, e_scalar, e_vector, e_end_of_line},
-/* sphere  */	{e_vector, e_scalar, e_vector, e_optional, e_end_of_line},
-/* plane   */	{e_vector, e_vector, e_vector, e_optional, e_end_of_line},
-/* cylinder*/	{e_vector, e_vector, e_scalar, e_scalar, e_vector, e_optional, e_end_of_line},
-/* cone    */	{e_vector, e_vector, e_scalar, e_scalar, e_scalar, e_vector, e_optional, e_end_of_line}};
+	{e_scalar, e_vector, e_end_of_line},
+	{e_vector, e_vector, e_scalar, e_end_of_line},
+	{e_vector, e_scalar, e_vector, e_end_of_line},
+	{e_vector, e_scalar, e_vector, e_optional, e_end_of_line},
+	{e_vector, e_vector, e_vector, e_optional, e_end_of_line},
+	{e_vector, e_vector, e_scalar, e_scalar, e_vector, e_optional,
+		e_end_of_line},
+	{e_vector, e_vector, e_scalar, e_scalar, e_scalar, e_vector, e_optional,
+		e_end_of_line}};
 
 	if (obj_id < 0 || obj_id >= MRT_NUM_OBJ_TYPES)
 	{
 		printf("\"%d\" is an invalid obj_id, stupid programmer", obj_id);
 		exit(42);
 	}
-	return (grammar[obj_id]); /* this ugly ass +1 is to ignore the e_object that's usefull for the initial writing of the grammar */
+	return (grammar[obj_id]);
 }
 
 /*
@@ -68,12 +71,12 @@ static int	check_obj_grammar(t_token *tokens, enum e_tok_type *grammar)
 		if (*grammar == e_optional && tokens->type != e_optional)
 		{
 			grammar++;
-			continue;
+			continue ;
 		}
 		if (*grammar == e_optional && tokens->type == e_optional)
 		{
 			tokens = tokens->next;
-			continue;
+			continue ;
 		}
 		if (*grammar != tokens->type)
 		{
@@ -92,7 +95,8 @@ static int	check_obj_grammar(t_token *tokens, enum e_tok_type *grammar)
 static int	get_error_enum(int token_enum)
 {
 	const int	token[4] = {e_vector, e_scalar, e_string, e_end_of_line};
-	const int	error[4] = {e_missing_vector, e_missing_scalar, e_missing_id, e_eof};
+	const int	error[4] = {e_missing_vector, e_missing_scalar, e_missing_id,
+		e_eof};
 	int			i;
 
 	i = 4;

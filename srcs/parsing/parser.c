@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 13:04:14 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:30:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:46:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ static int	parser2(t_token *tokens, t_scene *scene)
 	t_object	obj;
 	int			state;
 	int			res;
+	int			i;
 
 	res = 0;
 	state = 0;
-	int i = 0;
+	i = 0;
 	while (res == 0 && tokens)
 	{
 		res = parse_object(&tokens, &obj);
@@ -63,6 +64,15 @@ static int	parse_object(t_token **tokens, t_object *obj)
 {
 	const char	*obj_ids[6] = {"A", "C", "L", "sp", "pl", "cy"};
 	int			i;
+	static int	(*f[7])(t_token **, t_object *) = {
+		parse_ambiant,
+		parse_camera,
+		parse_light,
+		parse_sphere,
+		parse_plane,
+		parse_cylinder,
+		parse_cone
+	};
 
 	if (!*tokens)
 		return (e_eof);
@@ -72,22 +82,7 @@ static int	parse_object(t_token **tokens, t_object *obj)
 	while (++i < 6)
 	{
 		if (ft_strcmp((*tokens)->value.str, obj_ids[i]) == 0)
-			break ;
+			return (f[i](tokens, obj));
 	}
-	if (i == e_ambiant)
-		return (parse_ambiant(tokens, obj));
-	else if (i == e_camera)
-		return (parse_camera(tokens, obj));
-	else if (i == e_light)
-		return (parse_light(tokens, obj));
-	else if (i == e_sphere)
-		return (parse_sphere(tokens, obj));
-	else if (i == e_plane)
-		return (parse_plane(tokens, obj));
-	else if (i == e_cylinder)
-		return (parse_cylinder(tokens, obj));
-	else if (i == e_cone)
-		return (parse_cone(tokens, obj));
-	else
-		return (e_invalid_id);
+	return (e_invalid_id);
 }

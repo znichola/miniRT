@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/17 15:46:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:38:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static int	check_grammar_sphere(t_token *tokens);
 static void	consume_sphere(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_sphere(t_object *obj);
-static void consume_optional_sphere(t_token **tokens, t_sphere *sp);
+static void	consume_optional_sphere(t_token **tokens, t_sphere *sp);
 
 int	parse_sphere(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	printf("SPHERE\n");
 	res = check_grammar_sphere(*tokens);
 	if (res != 0)
 		return (res);
@@ -41,22 +40,18 @@ static int	check_grammar_sphere(t_token *tokens)
 static void	consume_sphere(t_token **tokens, t_object *obj)
 {
 	obj->type = e_sphere;
-	*tokens = (*tokens)->next; //skip the identifier
+	*tokens = (*tokens)->next;
 	obj->object.sp.position = (*tokens)->value.pos;
-
 	*tokens = (*tokens)->next;
 	obj->object.sp.radius = (*tokens)->value.scalar;
-
 	*tokens = (*tokens)->next;
 	obj->object.sp.colour = (*tokens)->value.pos;
 	*tokens = (*tokens)->next;
-
 	consume_optional_sphere(tokens, &obj->object.sp);
-
-	*tokens = (*tokens)->next; //skip the end-of-line token
+	*tokens = (*tokens)->next;
 }
 
-static void consume_optional_sphere(t_token **tokens, t_sphere *sp)
+static void	consume_optional_sphere(t_token **tokens, t_sphere *sp)
 {
 	sp->texture.filepath = NULL;
 	sp->bump.filepath = NULL;
@@ -82,11 +77,9 @@ static int	validate_and_reformat_sphere(t_object *obj)
 	t_sphere	*sp;
 
 	sp = &obj->object.sp;
-
 	if (sp->radius < 0)
 		return (-1);
 	sp->radius /= 2;
-
 	if (validate_colour(&sp->colour) != 0)
 		return (-1);
 	return (0);

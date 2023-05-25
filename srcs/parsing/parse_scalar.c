@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:47:24 by skoulen           #+#    #+#             */
-/*   Updated: 2023/03/16 14:13:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:49:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,14 @@ static int	parse_float_after(const char **str, float *res)
 		i *= 10;
 		(*str)++;
 	}
+	return (0);
+}
+
+int	parse_ratio(const char **line, float *ratio)
+{
+	if (parse_float(line, ratio) != 0)
+		return (-1);
+	if (*ratio < 0 || *ratio > 1)
+		return (-1);
 	return (0);
 }
