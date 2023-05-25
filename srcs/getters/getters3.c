@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 00:37:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:04:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,5 @@ float	*ref_obj_p2(t_object *o)
 		return (&o->object.cy.height);
 	else if (o->type == e_cone)
 		return (&o->object.co.height);
-	return (NULL);
-}
-
-float	*ref_obj_p3(t_object *o)
-{
-	if (o->type == e_cone)
-		return (&o->object.co.angle);
 	return (NULL);
 }

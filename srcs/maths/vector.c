@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:49:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/03/20 16:40:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:26:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,50 +29,14 @@ t_v3	v3_unitvec(t_v3 v)
 	return (v3_divide(v, v3_mag(v)));
 }
 
-t_v3 v3_perp(t_v3 v)
-{
-	printf("perpedicular not implemented!\n");
-	return (v);
-}
-
-// a scalar quantity
-float v3_dot(t_v3 a, t_v3 b)
+float	v3_dot(t_v3 a, t_v3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-// a vector quantity
-/*
-	this shit is hard look at this linky
-	https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/cross-products-mvc
-*/
-t_v3 v3_cross(t_v3 a, t_v3 b)
+t_v3	v3_cross(t_v3 a, t_v3 b)
 {
 	return ((t_v3){a.y * b.z - a.z * b.y,
-				 a.z * b.x - a.x * b.z,
-				 a.x * b.y - a.y * b.x});
-}
-
-t_v3 v3_add(t_v3 a, t_v3 b)
-{
-	return ((t_v3){a.x + b.x, a.y + b.y, a.z + b.z});
-}
-
-// can be used to find the vector between two points
-// p1 - p1 = v1
-t_v3 v3_subtract(t_v3 a, t_v3 b)
-{
-	return ((t_v3){a.x - b.x, a.y - b.y, a.z - b.z});
-}
-
-t_v3 v3_multiply(t_v3 v, float s)
-{
-	return ((t_v3){v.x * s, v.y * s, v.z * s});
-}
-
-t_v3 v3_divide(t_v3 v, float s)
-{
-	if (s == 0)
-		return (v);
-	return ((t_v3){v.x / s, v.y / s, v.z / s});
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x});
 }

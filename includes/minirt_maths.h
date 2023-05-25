@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_maths.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:23 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/19 21:09:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:25:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,15 @@ float		poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_intersection *i);
 float		poi_plane(t_plane *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 /* poi_cylinder.c */
-float		poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i);
+float	try_start_cap_sp(t_terms *t, t_cylinder *me, t_intersection *i);
+float	try_end_cap_sp(t_terms *t, t_cylinder *me, t_intersection *i);
+float			poi_cylinder(t_cylinder *me,
+		t_v3 ray, t_v3 source, t_intersection *i);
 
 /* poi_cone.c */
 
+/* helper function for poi_cone */
+float		calc_poi_cone(t_terms *t, t_cone *me, t_intersection *i);
 float		poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i);
 
 #endif /* MINIRT_VECTOR_H */

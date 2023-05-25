@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:16:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 11:30:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:17:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ float	poi_sphere(t_sphere *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.b = v3_dot(ray, t.x) * 2;
 	t.c = v3_dot(t.x, t.x) - me->radius * me->radius;
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
-
 	if (t.discrimant < FLT_EPSILON)
 		i->poi_disance = FLT_MAX;
 	else

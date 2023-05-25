@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:44:32 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 00:39:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:03:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_v3	get_obj_col(t_object *o)
 		return (o->object.l.colour);
 	else if (o->type == e_cone)
 		return (o->object.co.colour);
-	return ((t_v3){0,0,42});
+	return ((t_v3){0, 0, 42});
 }
 
 t_v3	get_obj_dir(t_object *o)
@@ -39,7 +39,7 @@ t_v3	get_obj_dir(t_object *o)
 		return (o->object.co.orientation);
 	else if (o->type == e_camera)
 		return (o->object.c.orientation);
-	return ((t_v3){0,0,42});
+	return ((t_v3){0, 0, 42});
 }
 
 float	get_obj_p1(t_object *o)
