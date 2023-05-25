@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singletons.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/11 18:34:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:08:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_v2int	get_mouse_diff(t_app *a, int key)
 	{
 		diff.x = a->mouse_pos_old.x - a->mouse_pos.x;
 		diff.y = a->mouse_pos_old.y - a->mouse_pos.y;
-		// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
 		return (diff);
 	}
 	return ((t_v2int){0, 0});
@@ -52,7 +51,6 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 		;
 	else if (a->keyboard_held[key])
 	{
-		// printf("there %d\n", key);
 		diff.x = a->mouse_pos.x - a->mouse_pos_old.x;
 		diff.y = a->mouse_pos.y - a->mouse_pos_old.y;
 		return (diff);
@@ -66,7 +64,7 @@ t_v2int	get_keyboard_diff(t_app *a, int key)
 	use ctrl to control the key you wish to bind, keyboard or mouse
 	and the change in which mouse axis you want to map to.
 */
-int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
+int	scale_property(float *property, char *ctrl, int key, float factor)
 {
 	t_v2int	diff;
 	float	dir;
@@ -76,19 +74,15 @@ int	scale_property(t_app *a, float *property, char *ctrl, int key, float factor)
 	else
 		dir = 1.0;
 	if (ctrl[0] == 'm')
-		diff = get_mouse_diff(a, key);
+		diff = get_mouse_diff(getset_app(NULL), key);
 	else if (ctrl[0] == 'k')
-		diff = get_keyboard_diff(a, key);
+		diff = get_keyboard_diff(getset_app(NULL), key);
 	if (ctrl[1] == 'x')
 		*property = *property + (dir * (float)diff.x) * factor;
 	else if (ctrl[1] == 'y')
 		*property = *property + (dir * (float)diff.y) * factor;
 	else
 		return (0);
-	// printf("old(%d, %d) current(%d, %d) diff(%d, %d)\n", a->mouse_pos_old.x, a->mouse_pos_old.y, a->mouse_pos.x, a->mouse_pos.y, a->mouse_pos_old.x - a->mouse_pos.x, a->mouse_pos_old.y - a->mouse_pos.y);
-	// printf("getting diff %s %d, %d\n", ctrl, diff.x, diff.y);
-	// printf("(%.1f)\n", *property * (180 / M_PI ));
-	// printf("(%.1f)\n", *property);
 	return (1);
 }
 

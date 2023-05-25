@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/20 16:30:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:08:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int		getset_settings(int settings_mask);
 t_v2int	get_mouse_diff(t_app *a, int key);
-int		scale_property(t_app *app, float *property, char *ctrl, int key, float factor);
+int		scale_property(float *property, char *ctrl, int key, float factor);
 float	get_ratio(t_app *a, char action, int px);
 int		get_world_to_pix_ratio(t_app *a, char action, float wrld);
 t_app	*getset_app(t_app *a);
