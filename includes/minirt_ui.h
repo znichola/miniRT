@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ui.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:36:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 13:25:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:49:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	render_selection_ui(t_app *a, t_v2int pos);
 /* make_selection.c */
 
 int		screen_select(t_app *a);
-void	modify_v3(t_app *a, t_v3 *p, int key);
-void	mofify_float(t_app *a, float *p, int key, int type);
-void	mofify_float_angle(t_app *a, float *p, int key);
-void	modify_v3_unitvec(t_app *a, t_v3 *p, int key);
-void	modify_v3_colour(t_app *a, t_v3 *p, int key);
+void	modify_v3(t_v3 *p, int key);
+void	mofify_float(float *p, int key, int type);
+void	mofify_float_angle(float *p, int key);
+void	modify_v3_unitvec(t_v3 *p, int key);
+void	modify_v3_colour(t_v3 *p, int key);
 
 /* ui_getters.c */
 const char	*ret_p1_str(t_object *o);

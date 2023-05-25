@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_selection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:13:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 13:17:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:51:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,35 @@ int	screen_select(t_app *a)
 	return (0);
 }
 
-void	modify_v3(t_app *a, t_v3 *p, int key)
+void	modify_v3(t_v3 *p, int key)
 {
 	if (!p)
 		return ;
-	scale_property(a, &p->x, "kx", key, 0.05f);
-	scale_property(a, &p->y, "ky-", key, 0.05f);
-	if (a->keyboard_held[key])
-		scroll_value(a, &p->z, 5.0f);
+	scale_property(&p->x, "kx", key, 0.05f);
+	scale_property(&p->y, "ky-", key, 0.05f);
+	if (getset_app(NULL)->keyboard_held[key])
+		scroll_value(getset_app(NULL), &p->z, 5.0f);
 }
 
-void	modify_v3_unitvec(t_app *a, t_v3 *p, int key)
+void	modify_v3_unitvec(t_v3 *p, int key)
 {
 	if (!p)
 		return ;
-	scale_property(a, &p->x, "kx", key, 0.001f);
-	scale_property(a, &p->y, "ky-", key, 0.001f);
-	if (a->keyboard_held[key])
-		scroll_value(a, &p->z, .1f);
+	scale_property(&p->x, "kx", key, 0.001f);
+	scale_property(&p->y, "ky-", key, 0.001f);
+	if (getset_app(NULL)->keyboard_held[key])
+		scroll_value(getset_app(NULL), &p->z, .1f);
 	*p = v3_unitvec(*p);
 }
 
-void	modify_v3_colour(t_app *a, t_v3 *p, int key)
+void	modify_v3_colour(t_v3 *p, int key)
 {
 	if (!p)
 		return ;
-	scale_property(a, &p->x, "kx", key, 0.01f);
-	scale_property(a, &p->y, "ky-", key, 0.01f);
-	if (a->keyboard_held[key])
-		scroll_value(a, &p->z, .1f);
+	scale_property(&p->x, "kx", key, 0.01f);
+	scale_property(&p->y, "ky-", key, 0.01f);
+	if (getset_app(NULL)->keyboard_held[key])
+		scroll_value(getset_app(NULL), &p->z, .1f);
 	p->x = fabsf(p->x);
 	p->y = fabsf(p->y);
 	p->z = fabsf(p->z);
