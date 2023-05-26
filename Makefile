@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:03:11 by znichola          #+#    #+#              #
-#    Updated: 2023/05/25 17:16:17 by znichola         ###   ########.fr        #
+#    Updated: 2023/05/26 11:12:33 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ endif
 UI_FILES		:= destroy_window mouse_hooks keyboard_hooks keybinds render_ui selection make_selection ui_getters
 RENDER_FILES	:=  put_pixel pix_shader pix_shader2 texture bump_map render_world
 MATHS_FILES		:= vector vector2 poi_sphere poi_plane colour poi_cylinder poi_cylinder2 poi_cone poi_cone2
-UTILS_FILES		:= debug_prints singletons trgb
+UTILS_FILES		:= debug_prints singletons singletons2 trgb
 PRIMITIVES_FILES	:= sphere plane cylinder cone
 
 PARSING_FILES	:= parser parse_utils parse_scalar parse_properties scene scene_add_object parse_obj_ambiant parse_obj_camera parse_obj_cylinder parse_obj_light parse_obj_plane parse_obj_sphere tokenize validate grammar_check parse_obj_cone

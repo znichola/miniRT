@@ -6,27 +6,11 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 08:28:31 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 17:08:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:12:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-/*
-	mask used to store setting to setup the app.
-*/
-int	getset_settings(int settings_mask)
-{
-	static int	set = 1;
-	static int	mask = 0U;
-
-	if (set)
-	{
-		mask = settings_mask;
-		set = 0;
-	}
-	return (settings_mask & mask);
-}
 
 t_v2int	get_mouse_diff(t_app *a, int key)
 {
@@ -140,13 +124,4 @@ int	get_world_to_pix_ratio(t_app *a, char action, float wrld)
 	if (action == 'h')
 		return ((wrld + offset.y) / cam_ratio.y * (float)extents.y);
 	return (0);
-}
-
-t_app	*getset_app(t_app *a)
-{
-	static t_app	*app;
-
-	if (a)
-		app = a;
-	return (app);
 }
