@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pix_shader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:24:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:37:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static t_v3		reflection(t_v3 incident, t_v3 surface_normal);
 static t_v3		get_light_specular(t_scene *s, int n, t_intersection *i);
 static t_object	*is_in_shadow(t_scene *s, t_object *me, t_v3 poo, int l_num);
-
-//static t_v3	bmp_offset(t_scene *s, t_object *me, t_v3 norm, float strength);
 
 /*
 	We are following the workflow outlined for openGL in this article
