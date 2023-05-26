@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 13:31:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 10:42:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t_terms	t;
 
 	t.k = tanf(me->angle / 2);
+	t.kk = t.k * t.k;
 	t.x = v3_subtract(source, me->position);
 	t.dd = v3_dot(ray, ray);
 	t.dv = v3_dot(ray, me->orientation);
@@ -37,11 +38,6 @@ float	poi_cone(t_cone *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.b = (t.dx - (1 + t.kk) * t.dv * t.xv) * 2;
 	t.c = t.xx - (1 + t.kk) * t.xv * t.xv;
 	t.discrimant = t.b * t.b - 4 * t.a * t.c;
-	if (t.discrimant < FLT_EPSILON)
-	{
-		i->poi_disance = FLT_MAX;
-		return (FLT_MAX);
-	}
 	t.height = me->height;
 	i->poi_disance = calc_poi_cone(&t, me, i);
 	return (i->poi_disance);

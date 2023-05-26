@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:26:07 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:26:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 10:42:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static float	center(t_terms *t, t_cone *me, t_intersection *i);
 
 float	calc_poi_cone(t_terms *t, t_cone *me, t_intersection *i)
 {
+	if (t->discrimant < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
 	t->discrimant = sqrtf(t->discrimant);
 	t->a = t->a * 2;
 	t->d1 = (-t->b + t->discrimant) / t->a;
