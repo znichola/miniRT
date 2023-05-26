@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:48:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:50:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	parse_cone(t_token **tokens, t_object *obj)
 	if (res != 0)
 		return (res);
 	consume_cone(tokens, obj);
-	if (validate_and_reformat_cone(obj) != 0)
-		return (e_validation);
-	return (0);
+	res = validate_and_reformat_cone(obj);
+	return (res);
 }
 
 /* fill the object with the values from the tokens */
@@ -77,13 +76,13 @@ static int	validate_and_reformat_cone(t_object *obj)
 
 	co = &obj->object.co;
 	if (validate_orientation(&co->orientation) != 0)
-		return (-1);
+		return (e_invalid_orientation);
 	if (co->height_start < 0)
-		return (-1);
+		return (e_invalid_length);
 	co->height_start /= 2;
 	if (co->height < 0)
-		return (-1);
+		return (e_invalid_length);
 	if (validate_colour(&co->colour) != 0)
-		return (-1);
+		return (e_invalid_colour);
 	return (0);
 }

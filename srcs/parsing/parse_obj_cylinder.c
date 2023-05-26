@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:48:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:50:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	parse_cylinder(t_token **tokens, t_object *obj)
 	if (res != 0)
 		return (res);
 	consume_cylinder(tokens, obj);
-	if (validate_and_reformat_cylinder(obj) != 0)
-		return (e_validation);
-	return (0);
+	res = validate_and_reformat_cylinder(obj);
+	return (res);
 }
 
 /* fill the object with the values from the tokens */
@@ -75,13 +74,13 @@ static int	validate_and_reformat_cylinder(t_object *obj)
 
 	cy = &obj->object.cy;
 	if (validate_orientation(&cy->orientation) != 0)
-		return (-1);
+		return (e_invalid_orientation);
 	if (cy->radius < 0)
-		return (-1);
+		return (e_invalid_length);
 	cy->radius /= 2;
 	if (cy->height < 0)
-		return (-1);
+		return (e_invalid_length);
 	if (validate_colour(&cy->colour) != 0)
-		return (-1);
+		return (e_invalid_colour);
 	return (0);
 }

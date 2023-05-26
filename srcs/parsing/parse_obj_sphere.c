@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:48:18 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:51:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	parse_sphere(t_token **tokens, t_object *obj)
 	if (res != 0)
 		return (res);
 	consume_sphere(tokens, obj);
-	if (validate_and_reformat_sphere(obj) != 0)
-		return (e_validation);
-	return (0);
+	res = validate_and_reformat_sphere(obj);
+	return (res);
 }
 
 /* fill the object with the values from the tokens */
@@ -71,9 +70,9 @@ static int	validate_and_reformat_sphere(t_object *obj)
 
 	sp = &obj->object.sp;
 	if (sp->radius < 0)
-		return (-1);
+		return (e_invalid_length);
 	sp->radius /= 2;
 	if (validate_colour(&sp->colour) != 0)
-		return (-1);
+		return (e_invalid_colour);
 	return (0);
 }

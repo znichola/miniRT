@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:59:41 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:47:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:03:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,30 @@ typedef struct s_token
 enum e_parse_error
 {
 	e_success = 0,
-	e_empty,
-	e_validation,
 	e_missing_eol,
 	e_missing_id,
 	e_missing_vector,
 	e_missing_scalar,
 	e_invalid_id,
-	e_eof
+	e_eof,
+	e_invalid_orientation,
+	e_invalid_fov,
+	e_invalid_colour,
+	e_invalid_ratio,
+	e_invalid_length,
+	e_multi_ambiant,
+	e_multi_camera,
+	e_no_ambiant,
+	e_no_camera
 } ;
 
 typedef struct s_error
 {
-	int			line;
-	const char*	msg;
+	int					line;
+	enum e_parse_error	error;
 }	t_error;
+
+void	print_error(t_error e);
 
 /* primary parsing function */
 

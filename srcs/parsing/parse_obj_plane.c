@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:48:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:51:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	parse_plane(t_token **tokens, t_object *obj)
 	if (res != 0)
 		return (res);
 	consume_plane(tokens, obj);
-	if (validate_and_reformat_plane(obj) != 0)
-		return (e_validation);
-	return (0);
+	res = validate_and_reformat_plane(obj);
+	return (res);
 }
 
 /* fill the object with the values from the tokens */
@@ -71,8 +70,8 @@ static int	validate_and_reformat_plane(t_object *obj)
 
 	pl = &obj->object.pl;
 	if (validate_orientation(&pl->orientation) != 0)
-		return (-1);
+		return (e_invalid_orientation);
 	if (validate_colour(&pl->colour) != 0)
-		return (-1);
+		return (e_invalid_colour);
 	return (0);
 }

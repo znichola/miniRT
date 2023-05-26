@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 12:47:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 14:41:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ int	parse_camera(t_token **tokens, t_object *obj)
 	if (res != 0)
 		return (res);
 	consume_camera(tokens, obj);
-	if (validate_and_reformat_camera(obj) != 0)
-		return (e_validation);
-	return (0);
+	res = validate_and_reformat_camera(obj);
+	return (res);
 }
 
 /* fill the object with the values from the tokens */
@@ -49,9 +48,9 @@ static int	validate_and_reformat_camera(t_object *obj)
 
 	c = &obj->object.c;
 	if (validate_orientation(&c->orientation) != 0)
-		return (-1);
+		return (e_invalid_orientation);
 	if (c->fov <= 0 || c->fov > 180)
-		return (-1);
+		return (e_invalid_fov);
 	c->fov = c->fov * M_PI / 180.0f;
 	calculate_viewport(c);
 	return (0);
