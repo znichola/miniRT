@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:20:38 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:32:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:50:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,9 @@ static int				check_obj_grammar(t_token *tokens,
 							enum e_tok_type *grammar);
 static int				get_error_enum(int token_enum);
 
-int	check_line_grammar(t_token *tokens)
+int	check_line_grammar(t_token *tokens, t_obj_type t)
 {
-	const char	*obj_ids[6] = {"A", "C", "L", "sp", "pl", "cy"};
-	int			i;
-
-	if (!tokens)
-		return (e_eof);
-	if (tokens->type != e_string)
-		return (e_missing_id);
-	i = -1;
-	while (++i < 6)
-	{
-		if (ft_strcmp(tokens->value.str, obj_ids[i]) == 0)
-			break ;
-	}
-	return (check_obj_grammar(tokens->next, get_obj_grammar(i)));
+	return (check_obj_grammar(tokens->next, get_obj_grammar(t)));
 }
 
 /*
@@ -53,11 +40,6 @@ static enum e_tok_type	*get_obj_grammar(int obj_id)
 	{e_vector, e_vector, e_scalar, e_scalar, e_scalar, e_vector, e_optional,
 		e_end_of_line}};
 
-	if (obj_id < 0 || obj_id >= MRT_NUM_OBJ_TYPES)
-	{
-		printf("\"%d\" is an invalid obj_id, stupid programmer", obj_id);
-		exit(42);
-	}
 	return (grammar[obj_id]);
 }
 

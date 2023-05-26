@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:43:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 17:47:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 13:02:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,24 @@ void	print_scene(t_app *a)
 	print_obj_list(a->s.objects_list);
 	printf("\nlights\n");
 	print_lights_list(a->s.lights_list);
+}
+
+void	print_tokens(t_token *list)
+{
+	while (list)
+	{
+		if (list->type == e_string)
+			printf("<string>:{%s}\n", list->value.str);
+		else if (list->type == e_vector)
+			printf("<vector>:{%f, %f, %f}\n", list->value.pos.x,
+				list->value.pos.y, list->value.pos.z);
+		else if (list->type == e_scalar)
+			printf("<scalar>:{%f}\n", list->value.scalar);
+		else if (list->type == e_optional)
+			printf("<optional>:{%d:%s}\n", list->value.opt.type,
+				list->value.opt.filepath);
+		else if (list->type == e_end_of_line)
+			printf("<end of line>\n");
+		list = list->next;
+	}
 }

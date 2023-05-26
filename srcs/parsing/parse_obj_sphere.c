@@ -6,13 +6,12 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:59:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:38:02 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:48:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	check_grammar_sphere(t_token *tokens);
 static void	consume_sphere(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_sphere(t_object *obj);
 static void	consume_optional_sphere(t_token **tokens, t_sphere *sp);
@@ -21,19 +20,13 @@ int	parse_sphere(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	res = check_grammar_sphere(*tokens);
+	res = check_line_grammar(*tokens, e_sphere);
 	if (res != 0)
 		return (res);
 	consume_sphere(tokens, obj);
 	if (validate_and_reformat_sphere(obj) != 0)
 		return (e_validation);
 	return (0);
-}
-
-/* check if grammar for sphere is valid */
-static int	check_grammar_sphere(t_token *tokens)
-{
-	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */

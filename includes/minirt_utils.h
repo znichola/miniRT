@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 00:46:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 17:08:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:55:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_UTILS_H
 
 #include "minirt_structs.h"
+#include "parsing.h"
 
 /* singletons.c */
 
@@ -33,6 +34,7 @@ int		imax(int a, int b);
 void	print_image(t_app *a);
 void	print_scene(t_app *a);
 void	print_m4(t_m4 m);
+void	print_tokens(t_token *list);
 
 
 /* trgb.c */

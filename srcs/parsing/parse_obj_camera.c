@@ -6,13 +6,12 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:37:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:47:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	check_grammar_camera(t_token *tokens);
 static void	consume_camera(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_camera(t_object *obj);
 
@@ -20,19 +19,13 @@ int	parse_camera(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	res = check_grammar_camera(*tokens);
+	res = check_line_grammar(*tokens, e_camera);
 	if (res != 0)
 		return (res);
 	consume_camera(tokens, obj);
 	if (validate_and_reformat_camera(obj) != 0)
 		return (e_validation);
 	return (0);
-}
-
-/* check if grammar for camera is valid */
-static int	check_grammar_camera(t_token *tokens)
-{
-	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */

@@ -6,13 +6,12 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:38:37 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:37:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:48:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	check_grammar_cone(t_token *tokens);
 static void	consume_cone(t_token **tokens, t_object *obj);
 static int	validate_and_reformat_cone(t_object *obj);
 static void	consume_optional_cone(t_token **tokens, t_cone *co);
@@ -21,19 +20,13 @@ int	parse_cone(t_token **tokens, t_object *obj)
 {
 	int	res;
 
-	res = check_grammar_cone(*tokens);
+	res = check_line_grammar(*tokens, e_cone);
 	if (res != 0)
 		return (res);
 	consume_cone(tokens, obj);
 	if (validate_and_reformat_cone(obj) != 0)
 		return (e_validation);
 	return (0);
-}
-
-/* check if grammar for cone is valid */
-static int	check_grammar_cone(t_token *tokens)
-{
-	return (check_line_grammar(tokens));
 }
 
 /* fill the object with the values from the tokens */

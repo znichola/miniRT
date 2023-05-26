@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:43:46 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 17:49:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:48:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,15 @@ static int	scene_add_ambiant(t_scene *scene, t_object obj, int *state)
 		return (-1);
 	ft_memcpy(&scene->ambiant, &obj.object.a, sizeof(t_ambiant));
 	*state |= MASK_AMBIANT;
-	printf("state: %d\n", *state);
 	return (0);
 }
 
 static int	scene_add_camera(t_scene *scene, t_object obj, int *state)
 {
-	printf("ADD CAMERA\n");
 	if (*state & MASK_CAMERA)
 		return (-1);
 	ft_memcpy(&scene->camera, &obj.object.c, sizeof(t_camera));
 	*state |= MASK_CAMERA;
-	printf("state: %d\n", *state);
 	return (0);
 }
 
