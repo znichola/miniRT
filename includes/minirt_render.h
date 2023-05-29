@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:48:56 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/29 11:43:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:52:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			render_world(t_app *a);
 t_v3		draw_ray(t_app *a, t_ray ray);
 t_ray		pixel_to_ray(t_app *a, int u, int v);
 t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i);
+void		single_thread_render(t_app *a);
 
 /* bump_map.c */
 

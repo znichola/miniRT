@@ -6,13 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/29 12:16:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:51:55 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void	single_thread_render(t_app *a);
 
 /*
 	For each pixel in our image, compute it's color by computing
@@ -106,7 +104,7 @@ t_object	*find_poi(t_scene *s, t_v3 ray, t_v3 origin, t_intersection *i)
 	return (closest);
 }
 
-static void	single_thread_render(t_app *a)
+void	single_thread_render(t_app *a)
 {
 	int		u;
 	int		v;

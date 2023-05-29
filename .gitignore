@@ -2,6 +2,7 @@
 objs
 *.o
 miniRT
+miniRT_extra
 libminirt.a
 mlx/libmlx.a
 .vscode

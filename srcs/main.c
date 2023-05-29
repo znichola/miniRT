@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:17:17 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 11:06:46 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:50:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static void	init_app(t_app *a, int argc, char **argv)
 	a->cam_passthrough.object.c = a->s.camera;
 	a->selected = &a->cam_passthrough;
 	print_scene(a);
-	if (MRT_THREAD_COUNT > 1)
-		start_threads(a);
+	start_threads(a);
 }
 
 static void	init_hooks(t_app *a)

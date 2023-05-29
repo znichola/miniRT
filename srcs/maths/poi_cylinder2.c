@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:48:59 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/29 13:06:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:44:40 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ float	try_start_cap_sp(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	t_plane	p;
 
-	if ((v3_dot(me->orientation, t->ray)) > FLT_EPSILON)
+	if ((v3_dot(me->orientation, t->ray)) >= FLT_EPSILON)
 	{
 		p.position = me->position;
 		p.orientation = v3_multiply(me->orientation, -1);
@@ -41,7 +41,7 @@ float	try_end_cap_sp(t_terms *t, t_cylinder *me, t_intersection *i)
 {
 	t_plane	p;
 
-	if ((v3_dot(me->orientation, t->ray)) < -FLT_EPSILON)
+	if ((v3_dot(me->orientation, t->ray)) <= -FLT_EPSILON)
 	{
 		p.position = v3_add(me->position,
 				v3_multiply(me->orientation, me->height));
