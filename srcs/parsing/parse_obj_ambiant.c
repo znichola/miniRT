@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_ambiant.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 14:50:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 12:07:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ static int	validate_and_reformat_ambiant(t_object *obj)
 		return (e_invalid_ratio);
 	if (validate_colour(&a->colour) != 0)
 		return (e_invalid_colour);
+	a->ambient = v3_multiply(a->colour, a->ratio);
 	return (0);
 }

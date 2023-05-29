@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:45:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:48:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:21:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_v3	get_cy_emmision(t_object *me, t_intersection *i)
 	if (cy.checker)
 	{
 		if (get_pix_from_checkerboard(i->map) == 0)
-			return (CEHCKER_COLOR);
+			return (checker_colour());
 	}
 	if (cy.texture.img != NULL)
 	{
@@ -67,7 +67,7 @@ t_v2f	cylindrical_map(t_cylinder *cy, t_intersection *in)
 
 	if (in->is_cap)
 		return ((t_v2f){0.0f, 0.0f});
-	new_x = v3_cross(cy->orientation, UP);
+	new_x = v3_cross(cy->orientation, up());
 	new_z = v3_cross(new_x, cy->orientation);
 	new = (t_v3)
 	{

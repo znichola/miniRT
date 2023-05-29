@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:20 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:42:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:53:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include "minirt_structs.h"
 # include "minirt_render.h"
 # include "minirt_ui.h"
-# include "minirt_colour_defs.h"
 # include "minirt_maths.h"
 # include "minirt_utils.h"
 # include "minirt_primitives.h"

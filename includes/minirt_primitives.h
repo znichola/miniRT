@@ -6,14 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:41:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/21 10:15:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:43:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_PRIMITIVES_H
 # define MINIRT_PRIMITIVES_H
 
-#include "minirt_structs.h"
+# include "minirt_structs.h"
 
 /* sphere.c */
 
@@ -46,6 +46,5 @@ t_v3	get_co_position(t_object *me);
 float	get_co_poi(t_object *me, t_v3 ray, t_v3 source, t_intersection *i);
 t_v3	get_co_poi_norm(t_object *obj, t_intersection *i);
 t_v2f	cone_map(t_cone *co, t_intersection *in);
-
 
 #endif /* MINIRT_PRIMITIVES_H */

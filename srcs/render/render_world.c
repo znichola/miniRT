@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:24:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/25 16:38:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:16:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_ray	pixel_to_ray(t_app *a, int u, int v)
 	world_x = a->s.camera.half_height - ((u + 0.5) * a->s.camera.pixel_size);
 	world_y = a->s.camera.half_width - ((v + 0.5) * a->s.camera.pixel_size);
 	pix = m4_x_v3(a->s.camera.inverse_transform, (t_v3){world_x, world_y, -1});
-	ray.origin = m4_x_v3(a->s.camera.inverse_transform, ORIGIN);
+	ray.origin = m4_x_v3(a->s.camera.inverse_transform, origin());
 	ray.direction = v3_unitvec(v3_subtract(pix, ray.origin));
 	return (ray);
 }
@@ -70,7 +70,7 @@ t_v3	draw_ray(t_app *a, t_ray ray)
 	else if (closest)
 		col = pix_shader(&a->s, closest, &i);
 	else
-		col = (t_v3){0.2, 0.2, 0.2};
+		col = a->s.ambiant.ambient;
 	return (col);
 }
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 10:34:33 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 15:50:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:19:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static t_v3	orient_vec(float below, float to_right, t_v3 poi_normal)
 	t_v3	plus_x;
 	t_v3	plus_z;
 
-	new_right = v3_cross(poi_normal, RIGHT);
-	new_into = v3_cross(new_right, IN);
+	new_right = v3_cross(poi_normal, right());
+	new_into = v3_cross(new_right, in());
 	plus_x = v3_multiply(new_right, to_right);
 	plus_z = v3_multiply(new_into, below);
 	return (v3_add(plus_x, plus_z));

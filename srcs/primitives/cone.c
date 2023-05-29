@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:47:50 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:46:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:21:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_v3	get_co_emmision(t_object *me, t_intersection *i)
 	if (co.checker)
 	{
 		if (get_pix_from_checkerboard(i->map) == 0)
-			return (CEHCKER_COLOR);
+			return (checker_colour());
 	}
 	if (co.texture.img != NULL)
 	{
@@ -67,7 +67,7 @@ t_v2f	cone_map(t_cone *co, t_intersection *in)
 
 	if (in->is_cap)
 		return ((t_v2f){0.0f, 0.0f});
-	new_x = v3_cross(co->orientation, UP);
+	new_x = v3_cross(co->orientation, up());
 	new_z = v3_cross(new_x, co->orientation);
 	new = (t_v3)
 	{

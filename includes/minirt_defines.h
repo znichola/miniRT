@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 17:00:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:25:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,22 @@
 // window settings
 # define WIDTH 1200
 # define HEIGHT 900
-// uncomment to go back after testing
 
-// # define WIDTH  201
-// # define HEIGHT 101
-// remove after testing is finished!
-
-# define ORIGIN (t_v3){0, 0, 0}
-# define UP (t_v3){0, 1, 0}
-# define RIGHT (t_v3){1, 0, 0}
-# define IN (t_v3){0, 0, 1}
-
-# define CEHCKER_COLOR (t_v3){1.0f, 1.0f, 1.0f}
+// replaced with very dumb functions for the norminette
+// # define ORIGIN (t_v3){0, 0, 0}
+// # define UP (t_v3){0, 1, 0}
+// # define RIGHT (t_v3){1, 0, 0}
+// # define IN (t_v3){0, 0, 1}
 
 // rendering settings
 # define MRT_THREAD_COUNT 6
 // # define MRT_CHUNK_HEIGHT (HEIGHT / MRT_THREAD_COUNT)
-# define MRT_CHUNK_HEIGHT 150
 
-// math constants // TODO: should be useing the ones form math.h
-# define PI 		3.1415926
-# define PI_HALF	1.5707963
+// colour used occasionaly
+# define MRT_TRANS	0xff000000
+# define MRT_WHITE	0x00ffffff
+# define MRT_BLACK	0x00000000
+# define MRT_PINK	0x00ff00bb
 
 // settings to configure the app
 # define MRT_LOADING_PRINT 1U

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 09:02:22 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:26:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:37:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	*thread_routine(void *info_struct)
 	fo = (t_ptinfo *)info_struct;
 	a = (t_app *)fo->app;
 	me = fo->id;
-	v_start = (MRT_CHUNK_HEIGHT) * me;
+	v_start = (HEIGHT / MRT_THREAD_COUNT) * me;
 	if (me == MRT_THREAD_COUNT - 1)
 		v_stop = HEIGHT;
 	else
-		v_stop = v_start + (MRT_CHUNK_HEIGHT);
+		v_stop = v_start + (HEIGHT / MRT_THREAD_COUNT);
 	while (1)
 	{
 		while (!try_reserve_thread(&a->render_lock[me], &fo->lock, &fo->status))
