@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:06:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/26 10:42:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 16:37:56 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static float	try_start_cap(t_terms *t, t_cone *me, t_intersection *i)
 		p.position = v3_add(me->position,
 				v3_multiply(me->orientation, me->height_start));
 		p.orientation = v3_multiply(me->orientation, -1);
-		poi_plane(&p, t->ray, t->source, i);
+		if (poi_plane(&p, t->ray, t->source, i) == FLT_MAX)
+			return (FLT_MAX);
 		if (v3_mag(v3_subtract(i->poi, p.position)) <= t->k * me->height_start)
 		{
 			i->is_cap = 1;
@@ -71,7 +72,8 @@ static float	try_end_cap(t_terms *t, t_cone *me, t_intersection *i)
 		p.position = v3_add(me->position,
 				v3_multiply(me->orientation, me->height));
 		p.orientation = me->orientation;
-		poi_plane(&p, t->ray, t->source, i);
+		if (poi_plane(&p, t->ray, t->source, i) == FLT_MAX)
+			return (FLT_MAX);
 		if (v3_mag(v3_subtract(i->poi, p.position)) <= t->k * me->height)
 		{
 			i->is_cap = 1;
