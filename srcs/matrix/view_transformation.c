@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:15:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 15:29:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:58:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	calculate_viewport(t_camera *c)
 		c->half_height = half_view;
 	}
 	c->pixel_size = (c->half_width * 2) / HEIGHT;
-	if (fabsf(v3_dot(c->orientation, UP)) > 0.99)
-		new_up = RIGHT;
+	if (fabsf(v3_dot(c->orientation, up())) > 0.99)
+		new_up = right();
 	else
-		new_up = UP;
+		new_up = up();
 	c->transform = view_transform(c->position, to, new_up);
 	c->inverse_transform = m4_inverse(c->transform);
 }

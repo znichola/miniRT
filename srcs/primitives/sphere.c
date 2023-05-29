@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:39:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:50:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:20:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_v3	get_sp_emmision(t_object *me, t_intersection *i)
 	if (sp.checker)
 	{
 		if (get_pix_from_checkerboard(i->map) == 0)
-			return (CEHCKER_COLOR);
+			return (checker_colour());
 	}
 	if (sp.texture.img != NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:21:27 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 15:40:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 12:06:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	used to reprisent a pixel on the screen
 	and any other tasks a 2 int stuct might be used for.
 */
-typedef struct	s_v2int
+typedef struct s_v2int
 {
 	int	x;
 	int	y;
@@ -58,7 +58,6 @@ typedef struct s_mat4x4
 	float	m[4][4];
 }	t_mat4x4;
 
-
 /*
 	new, easier matrix definition
 
@@ -68,44 +67,44 @@ typedef struct s_mat4x4
 	30 31 32 33
 
 */
-typedef struct	s_m4
+typedef struct s_m4
 {
-	float t00;
-	float t01;
-	float t02;
-	float t03;
+	float	t00;
+	float	t01;
+	float	t02;
+	float	t03;
 
-	float t10;
-	float t11;
-	float t12;
-	float t13;
+	float	t10;
+	float	t11;
+	float	t12;
+	float	t13;
 
-	float t20;
-	float t21;
-	float t22;
-	float t23;
+	float	t20;
+	float	t21;
+	float	t22;
+	float	t23;
 
-	float t30;
-	float t31;
-	float t32;
-	float t33;
+	float	t30;
+	float	t31;
+	float	t32;
+	float	t33;
 }	t_m4;
 
 /*
 	this mess is needed for the inverse matrix
 */
 
-typedef struct	s_t4
+typedef struct s_t4
 {
 	float	m[4][4];
 }	t_t4;
 
-typedef struct	s_t3
+typedef struct s_t3
 {
 	float	m[3][3];
 }	t_t3;
 
-typedef struct	s_t2
+typedef struct s_t2
 {
 	float	m[2][2];
 }	t_t2;
@@ -113,7 +112,7 @@ typedef struct	s_t2
 /*
 	data structure for holding image data
 */
-typedef struct	s_img_data
+typedef struct s_img_data
 {
 	void	*img;
 	char	*addr;
@@ -128,7 +127,7 @@ typedef struct	s_img_data
 /*
 	use to pass information between maths functions.
 */
-typedef struct	s_terms
+typedef struct s_terms
 {
 	float	a;
 	float	b;
@@ -155,7 +154,7 @@ typedef struct	s_terms
 }	t_terms;
 
 /* used in the return to help transfer this data to avoid duplication*/
-typedef struct	s_intersection
+typedef struct s_intersection
 {
 	t_v3	poi;
 	t_v3	poi_normal;
@@ -169,13 +168,14 @@ typedef struct	s_intersection
 
 /* objects */
 
-typedef struct	s_ambiant
+typedef struct s_ambiant
 {
 	float	ratio;
 	t_v3	colour;
+	t_v3	ambient;
 }	t_ambiant;
 
-typedef struct	s_camera
+typedef struct s_camera
 {
 	t_v3	position;
 	t_v3	orientation;
@@ -187,63 +187,63 @@ typedef struct	s_camera
 	t_m4	inverse_transform;
 }	t_camera;
 
-typedef struct	s_light
+typedef struct s_light
 {
 	t_v3	position;
 	float	ratio;
 	t_v3	colour;
 }	t_light;
 
-typedef struct	s_sphere
+typedef struct s_sphere
 {
-	t_v3	position;
-	float	radius;
-	t_v3	colour;
+	t_v3		position;
+	float		radius;
+	t_v3		colour;
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
 	int			checker;
 }	t_sphere;
 
-typedef struct	s_plane
+typedef struct s_plane
 {
-	t_v3	position;
-	t_v3	orientation;
-	t_v3	colour;
+	t_v3		position;
+	t_v3		orientation;
+	t_v3		colour;
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
 	int			checker;
 }	t_plane;
 
-typedef struct	s_cylinder
+typedef struct s_cylinder
 {
-	t_v3	position;
-	t_v3	orientation;
-	float	radius;
-	float	height;
-	t_v3	colour;
+	t_v3		position;
+	t_v3		orientation;
+	float		radius;
+	float		height;
+	t_v3		colour;
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
 	int			checker;
 }	t_cylinder;
 
-typedef struct	s_cone
+typedef struct s_cone
 {
-	t_v3	position;
-	t_v3	orientation;
-	float	height_start;
-	float	height;
-	float	angle;
-	t_v3	colour;
+	t_v3		position;
+	t_v3		orientation;
+	float		height_start;
+	float		height;
+	float		angle;
+	t_v3		colour;
 	t_img_data	texture;
 	t_img_data	bump;
 	t_img_data	normal;
 	int			checker;
 }	t_cone;
 
-union	u_object
+union u_object
 {
 	t_ambiant	a;
 	t_camera	c;
@@ -260,7 +260,7 @@ typedef struct s_object
 	union u_object	object;
 }	t_object;
 
-typedef struct	s_scene
+typedef struct s_scene
 {
 	t_ambiant	ambiant;
 	t_camera	camera;
@@ -272,7 +272,7 @@ typedef struct	s_scene
 	used to pass process number to
 	launch threads for rendering
 */
-typedef struct	s_ptinfo
+typedef struct s_ptinfo
 {
 	int		id;
 	void	*app;
@@ -284,11 +284,11 @@ typedef struct	s_ptinfo
 	structure to hold all application information
 	all in one big ugly struct.
 */
-typedef	struct s_app
+typedef struct s_app
 {
-	t_img_data	img;
-	void		*mlx_instance;
-	void		*window;
+	t_img_data		img;
+	void			*mlx_instance;
+	void			*window;
 
 	t_img_data		thread_img[MRT_THREAD_COUNT];
 	pthread_mutex_t	render_lock[MRT_THREAD_COUNT];
@@ -296,60 +296,20 @@ typedef	struct s_app
 	pthread_t		thread_instance[MRT_THREAD_COUNT];
 	t_ptinfo		thread_info[MRT_THREAD_COUNT];
 
-	t_v2int		mouse_pos;
-	t_v2int		mouse_pos_old;
-	int			mouse_key_click[MOUSE_KEY_COUNT];
-	int			mouse_key_held[MOUSE_KEY_COUNT];
-	int			mouse_key_release[MOUSE_KEY_COUNT];
+	t_v2int			mouse_pos;
+	t_v2int			mouse_pos_old;
+	int				mouse_key_click[MOUSE_KEY_COUNT];
+	int				mouse_key_held[MOUSE_KEY_COUNT];
+	int				mouse_key_release[MOUSE_KEY_COUNT];
 
-	int			keyboard_press[KEYBOARD_KEY_COUNT];
-	int			keyboard_held[KEYBOARD_KEY_COUNT];
-	int			keyboard_release[KEYBOARD_KEY_COUNT];
+	int				keyboard_press[KEYBOARD_KEY_COUNT];
+	int				keyboard_held[KEYBOARD_KEY_COUNT];
+	int				keyboard_release[KEYBOARD_KEY_COUNT];
 
-	t_object	cam_passthrough;
-	t_object	*selected;
+	t_object		cam_passthrough;
+	t_object		*selected;
 
-	// world
-	t_scene		s;
-
-	// ambient light
-	float		a_ratio;
-	int			a_colour;
-		// calculated from input
-	int			global_ambient;
-
-	// camera
-	t_v3		c_origin;
-	t_v3		c_normal;
-	float		c_viewport_offset;
-	float		c_fov;
-	float		c_aspect_ratio;
-	t_mat4x4	c_mat;
-
-	// objects in scene
-
-	// light
-	t_v3		l_origin;
-	float		l_brightness;
-	int			l_colour;
-
-	// sphere
-	t_v3		sp_origin;
-	float		sp_radius;
-	int			sp_colour;
-
-	// plane
-	t_v3		pl_origin;
-	t_v3		pl_normal;
-	int			pl_colour;
-
-	// cylinder
-	t_v3		cy_origin;
-	t_v3		cy_normal;
-	float		cy_diameter;
-	float		cy_height;
-	int			cy_colour;
-
+	t_scene			s;
 }	t_app;
 
 #endif

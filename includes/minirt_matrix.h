@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:50:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 15:30:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:42:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ t_t4	t4_inverse(t_t4 t);
 float	t2_determinant(t_t2 t);
 t_t4	m4_to_t(t_m4 *m);
 t_m4	t4_to_m(t_t4 t);
-
 
 #endif /* MINIRT_MATRIX_H */

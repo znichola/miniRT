@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 22:47:01 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:48:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:20:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_v3	get_pl_emmision(t_object *me, t_intersection *i)
 	if (pl.checker)
 	{
 		if (get_pix_from_checkerboard(i->map) == 0)
-			return (CEHCKER_COLOR);
+			return (checker_colour());
 	}
 	if (pl.texture.img != NULL)
 	{
@@ -65,7 +65,7 @@ t_v2f	planar_map(t_plane *pl, t_intersection *i)
 	t_v3	local;
 
 	vec = v3_subtract(i->poi, pl->position);
-	new_z = v3_cross(pl->orientation, RIGHT);
+	new_z = v3_cross(pl->orientation, right());
 	new_x = v3_cross(pl->orientation, new_z);
 	local = (t_v3){
 		v3_dot(new_x, vec),

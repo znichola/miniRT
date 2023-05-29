@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 13:27:27 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/12 13:04:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:41:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_light	*get_light(t_scene *s, int num);
 t_v3	get_obj_emmision(t_object *obj, t_intersection *i);
 t_v3	get_obj_pos(t_object *obj);
 float	get_obj_poi(t_object *obj, t_v3 ray, t_v3 source, t_intersection *i);
-t_v3	get_poi_norm(t_object* obj, t_intersection *i);
+t_v3	get_poi_norm(t_object *obj, t_intersection *i);
 
 t_v3	get_obj_col(t_object *o);
 t_v3	get_obj_dir(t_object *o);

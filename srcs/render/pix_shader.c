@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pix_shader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 11:36:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/26 15:37:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 12:19:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_v3	pix_shader(t_scene *s, t_object *me, t_intersection *in)
 	int		i;
 
 	obj_col = get_obj_emmision(me, in);
-	ambiant = v3_multiply(s->ambiant.colour, s->ambiant.ratio);
+	ambiant = s->ambiant.ambient;
 	diffuse = (t_v3){0.0f, 0.0f, 0.0f};
 	specular = (t_v3){0.0f, 0.0f, 0.0f};
 	in->poi_bmp_normal = get_poi_norm(me, in);
