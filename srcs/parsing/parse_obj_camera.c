@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_camera.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:58:49 by skoulen           #+#    #+#             */
-/*   Updated: 2023/05/26 14:41:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:01:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	validate_and_reformat_camera(t_object *obj)
 		return (e_invalid_orientation);
 	if (c->fov <= 0 || c->fov > 180)
 		return (e_invalid_fov);
-	c->fov = c->fov * M_PI / 180.0f;
+	c->fov = c->fov * M_PI_2 / 180.0f;
 	calculate_viewport(c);
 	return (0);
 }
