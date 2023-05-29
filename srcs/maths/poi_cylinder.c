@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   poi_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:46:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/25 16:25:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/05/29 16:54:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 	t.radius = me->radius;
 	t.ray = ray;
 	t.source = source;
-	if (t.discrimant < FLT_EPSILON)
-	{
-		i->poi_disance = FLT_MAX;
-		return (FLT_MAX);
-	}
 	t.height = me->height;
 	i->poi_disance = calc_poi(&t, me, i);
 	return (i->poi_disance);
@@ -45,6 +40,14 @@ float	poi_cylinder(t_cylinder *me, t_v3 ray, t_v3 source, t_intersection *i)
 
 static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 {
+	if (try_start_cap_sp(t, me, i) < FLT_MAX
+		|| try_end_cap_sp(t, me, i) < FLT_MAX)
+		return (i->poi_disance);
+	if (t->discrimant < FLT_EPSILON)
+	{
+		i->poi_disance = FLT_MAX;
+		return (FLT_MAX);
+	}
 	t->discrimant = sqrtf(t->discrimant);
 	t->a = t->a * 2;
 	t->d1 = (-t->b + t->discrimant) / t->a;
@@ -54,9 +57,6 @@ static float	calc_poi(t_terms *t, t_cylinder *me, t_intersection *i)
 	wasteland(t);
 	i->m = t->m2;
 	i->is_cap = 0;
-	if (try_start_cap_sp(t, me, i) < FLT_MAX
-		|| try_end_cap_sp(t, me, i) < FLT_MAX)
-		return (i->poi_disance);
 	if (t->m2 < t->height && t->m2 > FLT_EPSILON)
 		return (center(t, me, i));
 	return (FLT_MAX);
