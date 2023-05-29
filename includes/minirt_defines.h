@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:32:21 by znichola          #+#    #+#             */
-/*   Updated: 2023/05/29 11:58:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:25:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 // rendering settings
 # define MRT_THREAD_COUNT 6
 // # define MRT_CHUNK_HEIGHT (HEIGHT / MRT_THREAD_COUNT)
-
-// math constants // TODO: should be useing the ones form math.h
-# define PI 		3.1415926
-# define PI_HALF	1.5707963
 
 // colour used occasionaly
 # define MRT_TRANS	0xff000000
